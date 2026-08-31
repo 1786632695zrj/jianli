@@ -1,0 +1,13 @@
+# WorkBuddy 工具元数据（记忆 / 配置 / 运行态），非项目源文件
+.workbuddy/
+
+# Python
+__pycache__/
+*.pyc
+
+# 系统 / 临时
+.DS_Store
+Thumbs.db
+tmp*/
+*.tmp
+node_modules/
