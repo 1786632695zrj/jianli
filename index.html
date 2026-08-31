@@ -40,8 +40,98 @@
   </script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
-    html, body { overflow-x: hidden; }
-    body { font-family: 'Inter', 'PingFang SC', 'Microsoft YaHei', sans-serif; }
+    /* ===== 首页（Hero 区）标准高度锁定 =====
+       Hero / 首屏 / Landing 一律 100vh = 一个完整视口屏幕高度（业界标准）。
+       后续无论改字体、改图片、改按钮，首页高度都改这里这一个变量。 */
+    :root { --hero-h: 100vh; }
+    html { scroll-snap-type: y mandatory; scroll-padding-top: 5rem; }
+    body { overflow-x: hidden; font-family: 'Inter', 'PingFang SC', 'Microsoft YaHei', sans-serif; }
+    /* 每屏一页：整屏高度吸附对齐 */
+    section { scroll-snap-align: start; }
+    /* 首页强制锁定，不允许子内容把它撑高 */
+    section#about { height: var(--hero-h); min-height: var(--hero-h); max-height: var(--hero-h); overflow: hidden; }
+    /* 点击人物弹出的手绘气泡：歪歪扭扭的有机轮廓 + 尖锐小尾巴 + 周围小动作线 */
+    .hero-bubble {
+      position: absolute;
+      top: 8%;
+      right: -2%;
+      width: 270px;
+      height: 200px;
+      opacity: 0;
+      transform: translateY(6px) scale(0.55) rotate(-6deg);
+      transform-origin: 25% 90%;
+      transition: opacity .25s ease, transform .4s cubic-bezier(.34,1.7,.64,1);
+      pointer-events: none;
+      z-index: 30;
+      filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.15));
+    }
+    .hero-bubble.show {
+      opacity: 1;
+      transform: translateY(0) scale(1) rotate(-6deg);
+    }
+    .hero-bubble svg { width: 100%; height: 100%; overflow: visible; display: block; }
+    .hero-bubble-text {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 19px;
+      font-weight: 700;
+      color: #1a1a1a;
+      letter-spacing: 0.5px;
+      font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+      text-align: center;
+      line-height: 1.25;
+      padding: 0 8px;
+      box-sizing: border-box;
+    }
+    /* 首页等比缩放容器：内部固定 1280px 宽（永远两栏，不堆叠），窗口变窄时整体 scale 缩小，绝不重排 */
+    .hero-scaler { flex: 1 1 auto; min-height: 0; display: flex; align-items: center; justify-content: center; }
+    .hero-scaler > div {
+      transform-origin: center center;
+      transform: scale(calc(100vw / 1280));
+    }
+    @media (min-width: 1280px) {
+      .hero-scaler > div { transform: none; }
+    }
+    /* 白板贴纸风：微微倾斜的便签 + 顶部圆形图钉，错落排布 */
+    .pin-board { position: relative; }
+    .pin-note {
+      position: relative;
+      background: #ffffff;
+      padding: 7px 7px 9px;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(17, 17, 26, 0.14);
+      transition: transform .25s ease, box-shadow .25s ease;
+    }
+    .pin-note:hover {
+      transform: rotate(0deg) scale(1.04) !important;
+      box-shadow: 0 14px 30px rgba(17, 17, 26, 0.22);
+      z-index: 6;
+    }
+    /* 圆形图钉（钉头） */
+    .pin-note::before {
+      content: "";
+      position: absolute;
+      top: -11px; left: 50%;
+      width: 17px; height: 17px;
+      margin-left: -8.5px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 34% 30%, #ff9a9a 0%, #e8443f 55%, #a31f1f 100%);
+      box-shadow: 0 3px 5px rgba(0, 0, 0, 0.32);
+      z-index: 4;
+    }
+    /* 图钉高光点 */
+    .pin-note::after {
+      content: "";
+      position: absolute;
+      top: -8px; left: calc(50% - 3px);
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.85);
+      z-index: 5;
+    }
     .typewriter::after {
       content: '|';
       animation: blink 1s step-end infinite;
@@ -98,20 +188,24 @@
 
   <!-- Navigation -->
   <nav class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-100">
-    <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-      <a href="#about" class="flex items-center gap-2 group">
-        <img src="assets/Extremely_minimalist_monoline__2026-08-30T17-06-24.png" alt="Ruijuan" class="h-8 w-8 object-contain opacity-90 group-hover:opacity-100 transition" />
+    <div class="flex items-center h-16">
+      <!-- 头像 logo：固定在最左边，稍微放大 -->
+      <a href="#about" class="flex items-center gap-2 group pl-3 md:pl-5 pr-3">
+        <img src="assets/Extremely_minimalist_monoline__2026-08-30T17-06-24.png" alt="Ruijuan" class="h-10 w-10 object-contain opacity-90 group-hover:opacity-100 transition" />
       </a>
-      <div class="hidden md:flex items-center gap-1 bg-gray-100/80 rounded-full p-1">
-        <a href="#about" class="nav-pill nav-link px-4 py-1.5 text-sm rounded-full text-gray-700 hover:text-black" data-target="about">关于我</a>
-        <a href="#education" class="nav-pill nav-link px-4 py-1.5 text-sm rounded-full text-gray-700 hover:text-black" data-target="education">教育背景</a>
-        <a href="#experience" class="nav-pill nav-link px-4 py-1.5 text-sm rounded-full text-gray-700 hover:text-black" data-target="experience">工作经历</a>
-        <a href="#projects" class="nav-pill nav-link px-4 py-1.5 text-sm rounded-full text-gray-700 hover:text-black" data-target="projects">项目作品</a>
-        <a href="#skills" class="nav-pill nav-link px-4 py-1.5 text-sm rounded-full text-gray-700 hover:text-black" data-target="skills">技能特长</a>
-        <a href="#explore" class="nav-pill nav-link px-4 py-1.5 text-sm rounded-full text-gray-700 hover:text-black" data-target="explore">学习与探索</a>
-        <a href="#undergraduate-portfolio" class="nav-pill nav-link px-4 py-1.5 text-sm rounded-full text-gray-700 hover:text-black" data-target="undergraduate-portfolio">本科作品集</a>
+      <!-- 中部导航：贴在右边 -->
+      <div class="flex-1 flex items-center justify-end pr-6">
+        <div class="hidden md:flex items-center gap-1 bg-gray-100/80 rounded-full p-1">
+          <a href="#about" class="nav-pill nav-link px-4 py-1.5 text-sm rounded-full text-gray-700 hover:text-black" data-target="about">关于我</a>
+          <a href="#education" class="nav-pill nav-link px-4 py-1.5 text-sm rounded-full text-gray-700 hover:text-black" data-target="education">教育背景</a>
+          <a href="#experience" class="nav-pill nav-link px-4 py-1.5 text-sm rounded-full text-gray-700 hover:text-black" data-target="experience">工作经历</a>
+          <a href="#projects" class="nav-pill nav-link px-4 py-1.5 text-sm rounded-full text-gray-700 hover:text-black" data-target="projects">项目作品</a>
+          <a href="#skills" class="nav-pill nav-link px-4 py-1.5 text-sm rounded-full text-gray-700 hover:text-black" data-target="skills">技能特长</a>
+          <a href="#explore" class="nav-pill nav-link px-4 py-1.5 text-sm rounded-full text-gray-700 hover:text-black" data-target="explore">AI学习与探索</a>
+          <a href="#undergraduate-portfolio" class="nav-pill nav-link px-4 py-1.5 text-sm rounded-full text-gray-700 hover:text-black" data-target="undergraduate-portfolio">本科作品集</a>
+        </div>
       </div>
-      <button id="mobileMenuBtn" class="md:hidden p-2">
+      <button id="mobileMenuBtn" class="md:hidden p-2 mr-1">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
       </button>
     </div>
@@ -122,108 +216,97 @@
       <a href="#experience" class="block py-2 text-gray-700">工作经历</a>
       <a href="#projects" class="block py-2 text-gray-700">项目作品</a>
       <a href="#skills" class="block py-2 text-gray-700">技能特长</a>
-      <a href="#explore" class="block py-2 text-gray-700">学习与探索</a>
+      <a href="#explore" class="block py-2 text-gray-700">AI学习与探索</a>
       <a href="#undergraduate-portfolio" class="block py-2 text-gray-700">本科作品集</a>
     </div>
   </nav>
 
-  <!-- Hero -->
-  <section id="about" class="pt-20 pb-8 md:pt-24 md:pb-0 px-6 min-h-screen">
-    <div class="max-w-[90rem] mx-auto grid md:grid-cols-[minmax(340px,420px)_1fr] lg:grid-cols-[420px_1fr] gap-6 md:gap-10 min-h-[95vh]">
-      <div class="order-2 md:order-1 flex flex-col z-10 reveal active">
-        <div class="mt-4 md:mt-8">
-          <p class="text-5xl md:text-6xl font-bold tracking-tight mb-3">Hi，我是张瑞娟</p>
+  <!-- Hero
+       高度 = var(--hero-h)（100vh） - 见 <style> 顶部。
+       不要在此区块再加 min-h / h，否则会撑高首页。-->
+  <section id="about" class="pt-16 flex flex-col">
+    <div class="hero-scaler">
+      <div class="w-[1280px] h-full grid md:grid-cols-2 gap-6 md:gap-10 px-6">
+      <div class="order-2 md:order-1 flex flex-col h-full justify-center z-10 reveal active overflow-y-auto">
+        <p class="text-4xl md:text-5xl font-bold tracking-tight mb-3">Hi，我是张瑞娟</p>
         <div class="h-8 md:h-10 mb-6">
           <span id="typewriter" class="typewriter text-xl md:text-2xl font-medium text-violet"></span>
         </div>
         <p class="text-sm md:text-base text-gray-600 leading-relaxed mb-8 max-w-lg">
           相信「数据能讲清楚业务」。在联想京东官旗做数据支撑，搭 BI 看板、跑 A/B 素材赛马、做人群分析，也尝试用 AI 把重复工作变成可复用的插件。
         </p>
-        <div class="flex flex-wrap gap-4 mb-10">
-          <a href="C:/Users/DELL/Desktop/我的资料/长安大学-张瑞娟-硕士-27届.pdf" target="_blank" class="inline-flex items-center gap-2 px-6 py-3 bg-black text-white rounded-full font-medium hover:bg-gray-800 transition">
+        <div class="flex flex-wrap gap-3 mb-8">
+          <a href="C:/Users/DELL/Desktop/我的资料/长安大学-张瑞娟-硕士-27届.pdf" target="__blank" class="inline-flex items-center gap-2 px-6 py-3 text-sm bg-black text-white rounded-full font-medium hover:bg-gray-800 transition">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
             下载简历
           </a>
-          <a href="mailto:zrj150386@163.com" class="inline-flex items-center gap-2 px-6 py-3 bg-mint text-ink rounded-full font-medium hover:bg-mintDark hover:text-white transition">
+          <a href="mailto:zrj150386@163.com" class="inline-flex items-center gap-2 px-6 py-3 text-sm bg-mint text-ink rounded-full font-medium hover:bg-mintDark hover:text-white transition">
             联系我
           </a>
         </div>
-        </div>
 
         <!-- AI Job Matcher -->
-        <div class="mt-auto bg-gray-50 rounded-2xl p-5 border border-gray-100">
+        <div class="bg-gray-50 rounded-2xl p-5 border border-gray-100">
           <div class="flex items-center gap-2 mb-3">
             <span class="w-2 h-2 rounded-full bg-violet"></span>
             <span class="text-sm font-semibold text-gray-700">AI 岗位匹配器</span>
           </div>
-          <div class="flex gap-3">
-            <input type="text" id="jobInput" placeholder="粘贴一段 JD，看看匹配度…" class="flex-1 px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-violet focus:ring-2 focus:ring-violet/20" />
-            <button onclick="matchJob()" class="px-5 py-2.5 bg-black text-white rounded-xl text-sm font-medium hover:bg-gray-800 transition">开始匹配</button>
-          </div>
-          <div id="matchResult" class="hidden mt-5">
-            <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
-              <div class="flex items-center justify-between mb-4">
-                <span class="text-sm font-semibold text-gray-700">综合等级</span>
-                <button onclick="document.getElementById('matchResult').classList.add('hidden')" class="text-xs text-gray-400 hover:text-gray-600">关闭</button>
-              </div>
-              <div class="flex flex-col md:flex-row gap-6">
-                <!-- score circle -->
-                <div class="flex md:flex-col items-center gap-3 md:gap-2 md:w-28 shrink-0">
-                  <div class="w-20 h-20 rounded-full bg-mint/20 flex items-center justify-center border-4 border-mint">
-                    <div class="text-center leading-none">
-                      <span id="matchScore" class="block text-2xl font-bold text-ink">0</span>
-                      <span class="text-xs text-gray-400">/100</span>
-                    </div>
-                  </div>
-                  <p class="text-xs text-gray-500">综合分</p>
-                </div>
-                <!-- matrix -->
-                <div class="flex-1 space-y-3">
-                  <p class="text-sm font-semibold text-gray-700">匹配矩阵</p>
-                  <div>
-                    <div class="flex justify-between text-xs mb-1"><span class="text-gray-600">学历</span><span id="eduScore" class="font-semibold text-gray-800">0</span></div>
-                    <div class="h-2 bg-gray-100 rounded-full overflow-hidden"><div id="eduBar" class="h-full bg-violet rounded-full transition-all duration-700" style="width:0%"></div></div>
-                  </div>
-                  <div>
-                    <div class="flex justify-between text-xs mb-1"><span class="text-gray-600">工作经验</span><span id="expScore" class="font-semibold text-gray-800">0</span></div>
-                    <div class="h-2 bg-gray-100 rounded-full overflow-hidden"><div id="expBar" class="h-full bg-violet rounded-full transition-all duration-700" style="width:0%"></div></div>
-                  </div>
-                  <div>
-                    <div class="flex justify-between text-xs mb-1"><span class="text-gray-600">技能特长</span><span id="skillScore" class="font-semibold text-gray-800">0</span></div>
-                    <div class="h-2 bg-gray-100 rounded-full overflow-hidden"><div id="skillBar" class="h-full bg-violet rounded-full transition-all duration-700" style="width:0%"></div></div>
-                  </div>
-                  <div>
-                    <div class="flex justify-between text-xs mb-1"><span class="text-gray-600">软技能</span><span id="softScore" class="font-semibold text-gray-800">0</span></div>
-                    <div class="h-2 bg-gray-100 rounded-full overflow-hidden"><div id="softBar" class="h-full bg-violet rounded-full transition-all duration-700" style="width:0%"></div></div>
-                  </div>
-                </div>
-              </div>
-              <!-- highlights + summary -->
-              <div class="grid md:grid-cols-2 gap-4 mt-5">
-                <div class="bg-gray-50 rounded-xl p-4">
-                  <p class="text-sm font-semibold text-violet mb-2">匹配亮点</p>
-                  <ul id="matchHighlights" class="text-sm text-gray-600 space-y-2"></ul>
-                </div>
-                <div class="bg-gray-50 rounded-xl p-4">
-                  <p class="text-sm font-semibold text-violet mb-2">总结</p>
-                  <p id="matchSummary" class="text-sm text-gray-600 leading-relaxed"></p>
-                </div>
-              </div>
-            </div>
-          </div>
+          <textarea id="jobInput" rows="3" placeholder="粘贴一段 JD，看看匹配度…（可多行）" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-violet focus:ring-2 focus:ring-violet/20 resize-none mb-3"></textarea>
+          <button onclick="matchJob()" class="w-full px-5 py-2.5 bg-black text-white rounded-xl text-sm font-medium hover:bg-gray-800 transition">开始匹配</button>
         </div>
       </div>
 
-      <div class="order-1 md:order-2 flex justify-center md:justify-end items-end reveal active" style="transition-delay: 0.15s;">
-        <div class="relative h-full flex items-end">
-          <img src="assets/hero_cutout.png" alt="张瑞娟" class="relative h-[82vh] sm:h-[93vh] md:h-[105vh] lg:h-[111vh] w-auto max-w-none object-contain rounded-[3rem] animate-float" />
+      <div class="order-1 md:order-2 relative flex justify-center items-end h-full overflow-hidden md:pr-8">
+        <img id="heroImg" src="assets/hero_cutout.png" alt="张瑞娟" onclick="showHeroBubble()" class="h-[60vh] md:h-[68vh] w-auto object-contain animate-float cursor-pointer" />
+        <div id="heroBubble" class="hero-bubble">
+          <svg viewBox="0 0 280 210" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <defs>
+              <filter id="bubbleWobble" x="-6%" y="-6%" width="112%" height="112%">
+                <feTurbulence type="fractalNoise" baseFrequency="0.028" numOctaves="2" seed="4" />
+                <feDisplacementMap in="SourceGraphic" scale="2.6" />
+              </filter>
+            </defs>
+            <!-- 周围小动作线：左侧辐射线 + 右上小短线 -->
+            <g stroke="#1a1a1a" stroke-width="3.2" stroke-linecap="round" fill="none" opacity="0.9">
+              <path d="M 8,46 L -6,34" />
+              <path d="M 4,66 L -12,66" />
+              <path d="M 12,84 L -2,92" />
+              <path d="M 266,16 L 280,6" />
+              <path d="M 270,32 L 284,30" />
+              <path d="M 260,46 L 274,52" />
+            </g>
+            <!-- 主气泡：有机歪斜轮廓 + 左下尖锐小尾巴 -->
+            <g filter="url(#bubbleWobble)">
+              <path d="M 38,90
+                       C 32,52 66,22 108,20
+                       C 150,16 198,14 232,26
+                       C 262,36 274,64 268,96
+                       C 262,124 244,142 214,150
+                       C 188,155 160,154 138,154
+                       L 96,154
+                       L 62,196
+                       L 80,152
+                       C 60,150 44,140 36,118
+                       C 30,108 36,102 38,90 Z"
+                    fill="#ffffff"
+                    stroke="#1a1a1a"
+                    stroke-width="3.4"
+                    stroke-linejoin="round"
+                    stroke-linecap="round" />
+            </g>
+            <!-- 气泡里的文字 -->
+            <foreignObject x="32" y="42" width="222" height="100">
+              <div xmlns="http://www.w3.org/1999/xhtml" class="hero-bubble-text">您好呀，欢迎了解我~</div>
+            </foreignObject>
+          </svg>
         </div>
+      </div>
       </div>
     </div>
   </section>
 
   <!-- Education -->
-  <section id="education" class="py-20 bg-paper">
+  <section id="education" class="min-h-screen flex flex-col justify-center py-20 bg-paper">
     <div class="max-w-6xl mx-auto px-6">
       <div class="mb-12 reveal">
         <p class="text-sm font-semibold text-violet mb-2 tracking-wider">EDUCATION</p>
@@ -272,7 +355,7 @@
   </section>
 
   <!-- Experience -->
-  <section id="experience" class="py-20 px-6">
+  <section id="experience" class="min-h-screen flex flex-col justify-center py-20 px-6">
     <div class="max-w-6xl mx-auto">
       <div class="mb-12 reveal">
         <p class="text-sm font-semibold text-violet mb-2 tracking-wider">EXPERIENCE</p>
@@ -470,7 +553,7 @@
   </section>
 
   <!-- Projects -->
-  <section id="projects" class="py-20 bg-paper px-6">
+  <section id="projects" class="min-h-screen flex flex-col justify-center py-20 bg-paper px-6">
     <div class="max-w-6xl mx-auto">
       <div class="mb-12 reveal">
         <p class="text-sm font-semibold text-violet mb-2 tracking-wider">PROJECTS</p>
@@ -576,7 +659,7 @@
   </section>
 
   <!-- Skills -->
-  <section id="skills" class="py-20 px-6">
+  <section id="skills" class="min-h-screen flex flex-col justify-center py-20 px-6">
     <div class="max-w-6xl mx-auto">
       <div class="mb-12 reveal">
         <p class="text-sm font-semibold text-violet mb-2 tracking-wider">SKILLS</p>
@@ -664,14 +747,14 @@
   </section>
 
   <!-- Explore -->
-  <section id="explore" class="py-20 bg-white px-6">
+  <section id="explore" class="min-h-screen flex flex-col justify-center py-20 bg-white px-6">
     <div class="max-w-6xl mx-auto">
       <div class="mb-12 reveal">
         <p class="text-sm font-semibold text-violet mb-2 tracking-wider">EXPLORE</p>
-        <h2 class="text-3xl md:text-4xl font-bold">学习与探索</h2>
+        <h2 class="text-3xl md:text-4xl font-bold">AI学习与探索</h2>
       </div>
 
-      <div class="grid lg:grid-cols-2 gap-8 mb-16">
+      <div class="grid lg:grid-cols-[5fr_11fr] gap-8 mb-16">
         <!-- AI Tools -->
         <div class="bg-white rounded-3xl p-8 border border-gray-100 reveal">
           <h3 class="text-xl font-bold mb-6">日常在用的 AI 工具</h3>
@@ -708,13 +791,27 @@
         </div>
 
         <!-- Daily AI Exploration -->
-        <div class="bg-white rounded-3xl p-8 border border-gray-100 reveal" style="transition-delay: 0.1s;">
+        <div class="reveal" style="transition-delay: 0.1s;">
           <h3 class="text-xl font-bold mb-6">日常中的 AI 探索</h3>
-          <div class="grid grid-cols-2 gap-3">
-            <img src="assets/ai_daily_kb.png" class="rounded-2xl w-full h-32 object-cover" alt="AI 知识库工作台" />
-            <img src="assets/ai_daily_report_crowd.png" class="rounded-2xl w-full h-32 object-cover" alt="AI 人群对比报告" />
-            <img src="assets/ai_daily_report_taoke.png" class="rounded-2xl w-full h-32 object-cover" alt="AI 淘客报告" />
-            <img src="assets/ai_daily_weekly.jpeg" class="rounded-2xl w-full h-32 object-cover" alt="AI 生成周报" />
+          <div class="pin-board flex flex-wrap justify-center gap-x-6 gap-y-14 mt-3">
+            <div class="pin-note" style="transform: rotate(-5deg);">
+              <img src="assets/ai_daily_kb.png" class="rounded-xl w-48 h-40 object-cover" alt="AI 知识库工作台" />
+            </div>
+            <div class="pin-note" style="transform: rotate(4deg); margin-top: 18px;">
+              <img src="assets/ai_daily_report_crowd.png" class="rounded-xl w-48 h-40 object-cover" alt="AI 人群对比报告" />
+            </div>
+            <div class="pin-note" style="transform: rotate(3deg); margin-top: -10px;">
+              <img src="assets/ai_daily_report_taoke.png" class="rounded-xl w-48 h-40 object-cover" alt="AI 淘客报告" />
+            </div>
+            <div class="pin-note" style="transform: rotate(-3deg); margin-top: 22px;">
+              <img src="assets/ai_daily_weekly.jpeg" class="rounded-xl w-48 h-40 object-cover" alt="AI 生成周报" />
+            </div>
+            <div class="pin-note" style="transform: rotate(5deg); margin-top: 4px;">
+              <img src="assets/ai_plugin.png" class="rounded-xl w-48 h-40 object-cover" alt="AI 自研插件" />
+            </div>
+            <div class="pin-note" style="transform: rotate(-4deg); margin-top: 14px;">
+              <img src="assets/ai_databank.jpeg" class="rounded-xl w-48 h-40 object-cover" alt="AI 数据银行" />
+            </div>
           </div>
           <p class="text-sm text-gray-500 mt-4">把 AI 当成日常工作流的一部分：用 AI 整理知识库、跑数据报告、生成周报，把重复工作交给工具，把精力留给判断和决策。</p>
         </div>
@@ -724,7 +821,7 @@
   </section>
 
   <!-- Undergraduate Portfolio -->
-  <section id="undergraduate-portfolio" class="py-20 bg-paper px-6">
+  <section id="undergraduate-portfolio" class="min-h-screen flex flex-col justify-center py-20 bg-paper px-6">
     <div class="max-w-6xl mx-auto">
       <div class="mb-12 reveal">
         <p class="text-sm font-semibold text-violet mb-2 tracking-wider">APPENDIX</p>
@@ -824,6 +921,65 @@
     </div>
   </div>
 
+  <!-- AI Job Matcher Result Modal (centered popup) -->
+  <div id="jobMatchModal" class="fixed inset-0 z-[60] hidden" onclick="closeModal(event)">
+    <div class="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
+    <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[92%] max-w-xl max-h-[88vh] bg-white rounded-3xl shadow-2xl overflow-y-auto p-6 md:p-8" onclick="event.stopPropagation()">
+      <div class="flex items-center justify-between mb-5">
+        <div class="flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-violet"></span>
+          <span class="text-base font-semibold text-gray-700">AI 岗位匹配结果</span>
+        </div>
+        <button onclick="closeModalById('jobMatchModal')" class="p-2 hover:bg-gray-100 rounded-full transition">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div class="flex flex-col sm:flex-row gap-6">
+        <!-- score circle -->
+        <div class="flex sm:flex-col items-center gap-3 sm:gap-2 sm:w-28 shrink-0">
+          <div class="w-20 h-20 rounded-full bg-mint/20 flex items-center justify-center border-4 border-mint">
+            <div class="text-center leading-none">
+              <span id="matchScore" class="block text-2xl font-bold text-ink">0</span>
+              <span class="text-xs text-gray-400">/100</span>
+            </div>
+          </div>
+          <p class="text-xs text-gray-500">综合分</p>
+        </div>
+        <!-- matrix -->
+        <div class="flex-1 space-y-3">
+          <p class="text-sm font-semibold text-gray-700">匹配矩阵</p>
+          <div>
+            <div class="flex justify-between text-xs mb-1"><span class="text-gray-600">学历</span><span id="eduScore" class="font-semibold text-gray-800">0</span></div>
+            <div class="h-2 bg-gray-100 rounded-full overflow-hidden"><div id="eduBar" class="h-full bg-violet rounded-full transition-all duration-700" style="width:0%"></div></div>
+          </div>
+          <div>
+            <div class="flex justify-between text-xs mb-1"><span class="text-gray-600">工作经验</span><span id="expScore" class="font-semibold text-gray-800">0</span></div>
+            <div class="h-2 bg-gray-100 rounded-full overflow-hidden"><div id="expBar" class="h-full bg-violet rounded-full transition-all duration-700" style="width:0%"></div></div>
+          </div>
+          <div>
+            <div class="flex justify-between text-xs mb-1"><span class="text-gray-600">技能特长</span><span id="skillScore" class="font-semibold text-gray-800">0</span></div>
+            <div class="h-2 bg-gray-100 rounded-full overflow-hidden"><div id="skillBar" class="h-full bg-violet rounded-full transition-all duration-700" style="width:0%"></div></div>
+          </div>
+          <div>
+            <div class="flex justify-between text-xs mb-1"><span class="text-gray-600">软技能</span><span id="softScore" class="font-semibold text-gray-800">0</span></div>
+            <div class="h-2 bg-gray-100 rounded-full overflow-hidden"><div id="softBar" class="h-full bg-violet rounded-full transition-all duration-700" style="width:0%"></div></div>
+          </div>
+        </div>
+      </div>
+      <!-- highlights + summary -->
+      <div class="grid sm:grid-cols-2 gap-4 mt-5">
+        <div class="bg-gray-50 rounded-xl p-4">
+          <p class="text-sm font-semibold text-violet mb-2">匹配亮点</p>
+          <ul id="matchHighlights" class="text-sm text-gray-600 space-y-2"></ul>
+        </div>
+        <div class="bg-gray-50 rounded-xl p-4">
+          <p class="text-sm font-semibold text-violet mb-2">总结</p>
+          <p id="matchSummary" class="text-sm text-gray-600 leading-relaxed"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Undergraduate Portfolio Modal -->
   <div id="portfolioModal" class="fixed inset-0 z-[70] hidden" onclick="closePortfolioModal(event)">
     <div class="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
@@ -843,11 +999,33 @@
         <div id="modalPortfolioDots" class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5"></div>
       </div>
       <!-- Text area -->
-      <div class="w-full md:w-[400px] bg-white p-6 md:p-8 overflow-y-auto border-l border-gray-100">
+      <div class="w-full md:w-[420px] bg-white p-6 md:p-8 overflow-y-auto border-l border-gray-100">
         <p id="modalPortfolioPeriod" class="text-xs text-gray-400 mb-2">2019 – 2024</p>
-        <h3 id="modalPortfolioTitle" class="text-2xl font-bold mb-3">标题</h3>
-        <div id="modalPortfolioTags" class="flex flex-wrap gap-2 mb-4"></div>
-        <div id="modalPortfolioHighlights" class="flex flex-wrap gap-2 mb-5"></div>
+        <div class="flex items-center gap-2 mb-4">
+          <span class="w-1.5 h-7 bg-violet rounded-full shrink-0"></span>
+          <h3 id="modalPortfolioTitle" class="text-2xl font-bold leading-tight">标题</h3>
+        </div>
+        <div id="modalPortfolioTags" class="flex flex-wrap gap-2 mb-6"></div>
+
+        <p class="text-xs font-semibold text-gray-400 tracking-wide mb-2">核心亮点</p>
+        <div id="modalPortfolioHighlights" class="flex flex-wrap gap-2 mb-6"></div>
+
+        <!-- 所获奖项 -->
+        <div id="modalPortfolioAward" class="hidden mb-4 rounded-xl bg-amber-50 border border-amber-200 px-4 py-3 flex items-start gap-2">
+          <span class="text-amber-500 text-base leading-5 mt-0.5">🏆</span>
+          <div>
+            <p class="text-xs font-semibold text-amber-700 mb-0.5">所获奖项</p>
+            <p id="modalPortfolioAwardText" class="text-sm font-medium text-amber-800 leading-snug"></p>
+          </div>
+        </div>
+
+        <!-- 个人角色与贡献 -->
+        <div id="modalPortfolioRole" class="hidden mb-6 rounded-xl border-l-4 border-violet bg-violet/5 px-4 py-3">
+          <p class="text-xs font-semibold text-violet mb-1">我的角色与贡献</p>
+          <p id="modalPortfolioRoleText" class="text-sm text-gray-700 leading-relaxed"></p>
+        </div>
+
+        <p class="text-xs font-semibold text-gray-400 tracking-wide mb-2">项目详情</p>
         <div id="modalPortfolioDesc" class="text-sm text-gray-600 leading-relaxed space-y-3"></div>
       </div>
     </div>
@@ -947,13 +1125,13 @@
         id: 'p2',
         num: '03',
         period: '2019 – 2024',
-        title: '归园居',
+        title: '归园田居',
         shortDesc: '后疫情时代下住区可食用景观的探索',
         tags: ['城市调研报告', '可食用景观', '城市韧性'],
         highlights: ['问卷+深度访谈', 'WUPENiCity 二等奖'],
         thumbnail: 'assets/portfolio/p2_01.png',
         images: ['assets/portfolio/p2_01.png', 'assets/portfolio/p2_02.png', 'assets/portfolio/p2_03.png', 'assets/portfolio/p2_04.png', 'assets/portfolio/p2_05.png', 'assets/portfolio/p2_06.png'],
-        description: `<p><strong>归园居 — 后疫情时代下住区可食用景观的探索</strong></p>
+        description: `<p><strong>归园田居 — 后疫情时代下住区可食用景观的探索</strong></p>
           <p><strong>【设计说明】</strong>2020 年新冠疫情爆发后，住区封控管理导致食品供应紧张与居民焦虑。项目以绵阳为例，选取老旧、中期、新建三类住区，分析道路、绿地现状及居民行为心理，探究后疫情时代住区可食用景观的建设路径。通过明确居民对可食用景观的认可度与需求，制定适配不同住区特点的设计策略，打造安全、生态、健康的住区空间，增强城市食物韧性。</p>
           <p><strong>【关键词】</strong>可食用景观；后疫情；住区；城市韧性食物链</p>
           <p><strong>【所获奖项】</strong>2022 WUPENiCity 城市可持续调研报告国际竞赛二等奖</p>
@@ -963,13 +1141,13 @@
         id: 'p3',
         num: '04',
         period: '2019 – 2024',
-        title: '归园新野·水上纸都',
+        title: '归园新野·水上纸捻',
         shortDesc: '基于捻纸文化的传统村落振兴设计',
         tags: ['乡村振兴规划', '文化传承', '捻纸非遗'],
         highlights: ['文化体系提炼', '园冶杯三等奖'],
         thumbnail: 'assets/portfolio/p3_01.png',
         images: ['assets/portfolio/p3_01.png', 'assets/portfolio/p3_02.png', 'assets/portfolio/p3_03.png', 'assets/portfolio/p3_04.png'],
-        description: `<p><strong>归园新野·水上纸都 — 基于捻纸文化的传统村落振兴设计</strong></p>
+        description: `<p><strong>归园新野·水上纸捻 — 基于捻纸文化的传统村落振兴设计</strong></p>
           <p><strong>【设计说明】</strong>杨桥古村历史悠久，民俗与非遗文化丰富。方案提炼并汇总这些要素，在修缮、展示与保护中形成杨桥独有的文化体系，在传承文脉的同时营造适宜游憩与人居的环境。以既有资源为导向，依托捻纸技艺与环水格局，搭建智慧平台，实现文化、经济与产业共荣，达成振兴乡村的愿景。</p>
           <p><strong>【关键词】</strong>乡村振兴；村落振兴；文脉传承</p>
           <p><strong>【所获奖项】</strong>第十三届园冶杯大学生国际竞赛三等奖</p>
@@ -988,7 +1166,7 @@
         description: `<p><strong>时空慢溯·烟火弥新 — 绵阳市游仙区越王楼片区修建性详细规划</strong></p>
           <p><strong>【设计说明】</strong>以越王楼唐朝文化为主、三线建设文化为辅，以城市针灸理论为规划依据，将片区定位为绵阳市文化新地标。通过展示中国式生活方式，激活人们心中的文化记忆，搭建生活街区新模式，彰显绵阳人民的文化自信，最终打造绵阳历史地标、文化旅游胜地与烟火生态住区。</p>
           <p><strong>【关键词】</strong>城市更新；修建性详细规划；针灸理论</p>
-          <p><strong>个人任务：</strong>制定全队时间计划并把握作业进度；方案生成；平面、鸟瞰、建筑质量分析、策略等部分制图；个人成果部分；文本及说明书撰写。</p>`
+          <p><strong>个人任务：</strong>制定全队时间计划并把握作业进度；方案生成；平面、鸟瞰、建筑质量分析、策略等部分制图；个人成果部分的制图；文本及说明书撰写。</p>`
       },
       {
         id: 'p5',
@@ -1024,7 +1202,7 @@
           <h3 class="text-lg font-bold mb-2">${item.title}</h3>
           <p class="text-sm text-gray-500 line-clamp-2 mb-3">${item.shortDesc}</p>
           <div class="flex flex-wrap gap-2">
-            ${item.tags.map(t => `<span class="px-2 py-0.5 bg-mint/20 text-mintDark text-xs rounded-full">${t}</span>`).join('')}
+            ${item.tags.map(t => `<span class="px-2 py-0.5 bg-violet/20 text-violet text-xs rounded-full">${t}</span>`).join('')}
           </div>
         </div>
       `;
@@ -1043,8 +1221,28 @@
       document.getElementById('modalPortfolioTitle').textContent = item.title;
       document.getElementById('modalPortfolioPeriod').textContent = item.period;
       document.getElementById('modalPortfolioDesc').innerHTML = item.description;
-      document.getElementById('modalPortfolioTags').innerHTML = item.tags.map(t => `<span class="px-2.5 py-1 bg-gray-100 text-gray-600 text-xs rounded-full">${t}</span>`).join('');
-      document.getElementById('modalPortfolioHighlights').innerHTML = (item.highlights || []).map(t => `<span class="px-2.5 py-1 bg-violet/10 text-violet text-xs rounded-full font-medium">${t}</span>`).join('');
+      document.getElementById('modalPortfolioTags').innerHTML = item.tags.map(t => `<span class="px-2.5 py-1 bg-violet/10 text-violet text-xs rounded-full font-medium">${t}</span>`).join('');
+      document.getElementById('modalPortfolioHighlights').innerHTML = (item.highlights || []).map(t => `<span class="px-3 py-1.5 bg-violet/10 text-violet text-sm rounded-full font-medium">✦ ${t}</span>`).join('');
+
+      // 提取所获奖项
+      const awardMatch = item.description.match(/【所获奖项】<\/strong>\s*([\s\S]*?)<\/p>/);
+      const awardEl = document.getElementById('modalPortfolioAward');
+      if (awardMatch) {
+        document.getElementById('modalPortfolioAwardText').textContent = awardMatch[1].replace(/<[^>]+>/g, '').trim();
+        awardEl.classList.remove('hidden');
+      } else {
+        awardEl.classList.add('hidden');
+      }
+
+      // 提取个人任务 / 角色贡献
+      const roleMatch = item.description.match(/个人任务[：:]?<\/strong>\s*([\s\S]*?)<\/p>/);
+      const roleEl = document.getElementById('modalPortfolioRole');
+      if (roleMatch) {
+        document.getElementById('modalPortfolioRoleText').textContent = roleMatch[1].replace(/<[^>]+>/g, '').trim();
+        roleEl.classList.remove('hidden');
+      } else {
+        roleEl.classList.add('hidden');
+      }
       updatePortfolioModalImage();
     }
 
@@ -1126,7 +1324,7 @@
     }
 
     // Active nav link
-    const sections = ['about','education','experience','projects','skills','undergraduate-portfolio','explore'];
+    const sections = ['about','education','experience','projects','skills','explore','undergraduate-portfolio'];
     window.addEventListener('scroll', () => {
       let current = '';
       sections.forEach(id => {
@@ -1146,6 +1344,27 @@
       });
     });
 
+    // 点击导航立即高亮（强制翻页下锚点跳转的滚动边界可能不触发 scroll 判定）
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', () => {
+        document.querySelectorAll('.nav-link').forEach(l => {
+          l.classList.remove('bg-black', 'text-white');
+          l.classList.add('text-gray-700');
+        });
+        link.classList.add('bg-black', 'text-white');
+        link.classList.remove('text-gray-700');
+      });
+    });
+
+    // 点击首页人物：右上角弹出可爱气泡，5 秒后自动消失
+    function showHeroBubble() {
+      const b = document.getElementById('heroBubble');
+      if (!b) return;
+      b.classList.add('show');
+      clearTimeout(window.__heroBubbleTimer);
+      window.__heroBubbleTimer = setTimeout(() => b.classList.remove('show'), 3000);
+    }
+
     // AI Job Matcher
     // 计分逻辑（透明可解释）：
     // 1. 将 JD 转为小写并去掉符号，便于中文/英文关键词匹配。
@@ -1155,7 +1374,7 @@
     function matchJob() {
       const rawInput = document.getElementById('jobInput').value;
       const input = rawInput.toLowerCase().replace(/[^\u4e00-\u9fa5a-z0-9\s]/g, ' ');
-      const result = document.getElementById('matchResult');
+      // 匹配结果通过屏幕居中的 #jobMatchModal 显示
 
       if (!input.trim()) {
         alert('请先粘贴一段 JD 描述');
@@ -1208,7 +1427,7 @@
         summary = `综合匹配度较低（${total}/100）。这段 JD 几乎没有命中我的核心技能方向，不建议作为重点投递方向。`;
       }
 
-      result.classList.remove('hidden');
+      openModal('jobMatchModal');
       setTimeout(() => {
         document.getElementById('matchScore').textContent = total;
         document.getElementById('eduScore').textContent = eduScore;
