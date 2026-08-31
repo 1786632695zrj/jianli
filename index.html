@@ -44,12 +44,76 @@
        Hero / 首屏 / Landing 一律 100vh = 一个完整视口屏幕高度（业界标准）。
        后续无论改字体、改图片、改按钮，首页高度都改这里这一个变量。 */
     :root { --hero-h: 100vh; }
-    html { scroll-snap-type: y mandatory; scroll-padding-top: 5rem; }
+    html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
     body { overflow-x: hidden; font-family: 'Inter', 'PingFang SC', 'Microsoft YaHei', sans-serif; }
-    /* 每屏一页：整屏高度吸附对齐 */
-    section { scroll-snap-align: start; }
-    /* 首页强制锁定，不允许子内容把它撑高 */
-    section#about { height: var(--hero-h); min-height: var(--hero-h); max-height: var(--hero-h); overflow: hidden; }
+    /* 所有内容页统一为标准一屏高度（与教育背景同尺寸） */
+    section#about { height: var(--hero-h); }
+    section:not(#about) {
+      position: relative;        /* 标题绝对定位的参照系 */
+      height: 100vh;
+      height: 100dvh;            /* 移动端动态视口，避免地址栏遮挡 */
+      overflow: hidden;          /* 锁定整页高度，绝不撑破 */
+      padding: 0;                /* 内边距交内层统一控制，避免与 py-20 叠加 */
+      box-sizing: border-box;
+    }
+    /* 内层容器：水平居中、充满整屏，作为标题/内容的定位上下文 */
+    section:not(#about) > div {
+      position: relative;
+      height: 100%;
+      max-width: 72rem;          /* max-w-6xl，与现有容器一致 */
+      margin: 0 auto;
+      padding: 0 1.5rem;         /* 左右内边距统一 */
+      box-sizing: border-box;
+    }
+    /* 大标题：绝对定位钉在左上角，六个页面位置、字号完全一致（且不参与缩放） */
+    section:not(#about) > div > :nth-child(1) {
+      position: absolute;
+      top: 2.5rem;
+      left: 0;
+      right: 0;
+      margin: 0;
+      z-index: 5;
+    }
+    /* 内容：至少填满整屏，在标题下方区域垂直居中 = 页面正中。
+       用 min-height:100% 而非 height:100%——否则网格容器被锁死成 100vh 高度后，
+       align-content:center 会把两行卡片强行压成"恰好填满可用高度"的等分行(272px 272px)，
+       卡片实际内容约 324px 溢出到下一行造成上下遮挡。auto+min-height 让行高回归内容真实高度。 */
+    section:not(#about) > div > :nth-child(2) {
+      height: auto;
+      min-height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-top: 10.5rem;      /* 给标题留位：最高的标题（项目作品含副标题，高约 104px）
+                                    从 top:2.5rem 起算底部到 144px，padding 必须大于它，
+                                    否则标题会压住第一行卡片顶部（矮屏更明显） */
+      padding-bottom: 2rem;
+      box-sizing: border-box;
+      transform-origin: center center;
+      opacity: 0;                /* 缩放算完再淡入：否则会先按原始尺寸显示、再跳成缩小后的尺寸 */
+      transition: opacity .28s ease;
+    }
+    section:not(#about) > div > :nth-child(2).fit-ready { opacity: 1; }
+    /* 本身是网格的容器（本科作品集 3×2、AI 探索左右两栏）必须保持 grid：
+       否则会被上面的 display:flex 覆盖成"一行横排"，作品集就变成一行 6 个而不是两行 3 个 */
+    section:not(#about) > div > :nth-child(2).grid {
+      display: grid;
+      align-content: center;
+      justify-content: center;
+    }
+    /* 内容较密的页面（本科作品集 / 项目作品 / AI 探索）单独加宽至接近满屏，
+       其余页仍保持统一的 1152px。加宽后卡片更宽、文字换行更少、左右留白减少，不再挤在中间。
+       注意：必须写成 section#xxx 而非 #xxx——否则 specificity 只有 (1,0,1)，
+       会败给上面的 section:not(#about) > div (1,0,2)，加宽静默失效 */
+    section#undergraduate-portfolio > div,
+    section#projects > div,
+    section#explore > div {
+      max-width: min(1600px, 94vw);
+    }
+    /* AI 探索：整体内容靠左（AI 工具帖左）。放大通过放大内部元素实现，避免被 fitSections 的 transform 覆盖 */
+    section#explore > div > :nth-child(2) {
+      justify-content: flex-start;
+    }
     /* 点击人物弹出的手绘气泡：歪歪扭扭的有机轮廓 + 尖锐小尾巴 + 周围小动作线 */
     .hero-bubble {
       position: absolute;
@@ -159,13 +223,9 @@
     }
     .reveal {
       opacity: 0;
-      transform: translateY(30px);
-      transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .reveal.active {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    .reveal.active { opacity: 1; }
     .line-clamp-2 {
       display: -webkit-box;
       -webkit-line-clamp: 2;
@@ -306,9 +366,9 @@
   </section>
 
   <!-- Education -->
-  <section id="education" class="min-h-screen flex flex-col justify-center py-20 bg-paper">
+  <section id="education" class="py-20 bg-paper">
     <div class="max-w-6xl mx-auto px-6">
-      <div class="mb-12 reveal">
+      <div class="mb-8 reveal">
         <p class="text-sm font-semibold text-violet mb-2 tracking-wider">EDUCATION</p>
         <h2 class="text-3xl md:text-4xl font-bold">教育背景</h2>
       </div>
@@ -355,9 +415,9 @@
   </section>
 
   <!-- Experience -->
-  <section id="experience" class="min-h-screen flex flex-col justify-center py-20 px-6">
+  <section id="experience" class="py-20 px-6">
     <div class="max-w-6xl mx-auto">
-      <div class="mb-12 reveal">
+      <div class="mb-8 reveal">
         <p class="text-sm font-semibold text-violet mb-2 tracking-wider">EXPERIENCE</p>
         <h2 class="text-3xl md:text-4xl font-bold">工作经历</h2>
       </div>
@@ -365,7 +425,7 @@
       <div class="space-y-6">
         <!-- Lenovo -->
         <div class="group bg-white rounded-3xl border border-gray-100 overflow-hidden card-hover reveal">
-          <div class="p-8 cursor-pointer" onclick="toggleDetail('lenovo-detail')">
+          <div class="p-8 cursor-pointer" onclick="openExperience('lenovo-detail')">
             <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
               <div>
                 <h3 class="text-2xl font-bold mb-1">联想（北京）有限公司</h3>
@@ -429,7 +489,7 @@
 
         <!-- eClick -->
         <div class="group bg-white rounded-3xl border border-gray-100 overflow-hidden card-hover reveal" style="transition-delay: 0.1s;">
-          <div class="p-8 cursor-pointer" onclick="toggleDetail('eclick-detail')">
+          <div class="p-8 cursor-pointer" onclick="openExperience('eclick-detail')">
             <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
               <div>
                 <h3 class="text-2xl font-bold mb-1">易点天下网络科技股份有限公司</h3>
@@ -492,7 +552,7 @@
 
         <!-- Daxiang -->
         <div class="group bg-white rounded-3xl border border-gray-100 overflow-hidden card-hover reveal" style="transition-delay: 0.2s;">
-          <div class="p-8 cursor-pointer" onclick="toggleDetail('daxiang-detail')">
+          <div class="p-8 cursor-pointer" onclick="openExperience('daxiang-detail')">
             <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
               <div>
                 <h3 class="text-2xl font-bold mb-1">大相科技西安有限公司</h3>
@@ -553,18 +613,18 @@
   </section>
 
   <!-- Projects -->
-  <section id="projects" class="min-h-screen flex flex-col justify-center py-20 bg-paper px-6">
+  <section id="projects" class="py-20 bg-paper px-6">
     <div class="max-w-6xl mx-auto">
-      <div class="mb-12 reveal">
+      <div class="mb-8 reveal">
         <p class="text-sm font-semibold text-violet mb-2 tracking-wider">PROJECTS</p>
         <h2 class="text-3xl md:text-4xl font-bold">项目作品</h2>
         <p class="text-gray-500 mt-3">以研究生阶段的电商/数据/AI 项目为主，本科规划作品集作为补充。</p>
       </div>
 
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
         <!-- Project 1 -->
         <div class="bg-white rounded-3xl overflow-hidden border border-gray-100 card-hover reveal">
-          <div class="h-48 overflow-hidden bg-gray-100">
+          <div class="h-36 overflow-hidden bg-gray-100">
             <img src="assets/db_store.png" alt="全店驾驶舱看板" class="w-full h-full object-cover hover:scale-105 transition duration-500" />
           </div>
           <div class="p-6">
@@ -573,14 +633,14 @@
               <span class="text-xs text-gray-400">联想 · 2026</span>
             </div>
             <h3 class="text-lg font-bold mb-2">天猫/京东全店数据驾驶舱</h3>
-            <p class="text-sm text-gray-600 mb-4">从 0 到 1 搭建 6+ 套自动化看板，覆盖全店、大曝光、淘客、直播、万相台等核心模块，统一数据口径，支撑大促盯盘与周报复盘。</p>
+            <p class="text-sm text-gray-600 line-clamp-2 mb-3">从 0 到 1 搭建 6+ 套自动化看板，覆盖全店、大曝光、淘客、直播、万相台等核心模块，统一数据口径，支撑大促盯盘与周报复盘。</p>
             <button onclick="openModal('modal-dashboard')" class="text-sm font-semibold text-violet hover:underline">查看详情 →</button>
           </div>
         </div>
 
         <!-- Project 2 -->
         <div class="bg-white rounded-3xl overflow-hidden border border-gray-100 card-hover reveal" style="transition-delay: 0.1s;">
-          <div class="h-48 overflow-hidden bg-gray-100">
+          <div class="h-36 overflow-hidden bg-gray-100">
             <img src="assets/db_dabao.png" alt="618 大曝光看板" class="w-full h-full object-cover hover:scale-105 transition duration-500" />
           </div>
           <div class="p-6">
@@ -589,14 +649,14 @@
               <span class="text-xs text-gray-400">联想 · 2026.05-06</span>
             </div>
             <h3 class="text-lg font-bold mb-2">618 大曝光素材 A/B 赛马</h3>
-            <p class="text-sm text-gray-600 mb-4">围绕 180w 预算开展两轮素材赛马，覆盖背景色、文案、场景、赠品等 5 个维度，整体 CTR 提升至 5.76%，同比提升 50%+。</p>
+            <p class="text-sm text-gray-600 line-clamp-2 mb-3">围绕 180w 预算开展两轮素材赛马，覆盖背景色、文案、场景、赠品等 5 个维度，整体 CTR 提升至 5.76%，同比提升 50%+。</p>
             <button onclick="openModal('modal-618')" class="text-sm font-semibold text-violet hover:underline">查看详情 →</button>
           </div>
         </div>
 
         <!-- Project 3 -->
         <div class="bg-white rounded-3xl overflow-hidden border border-gray-100 card-hover reveal" style="transition-delay: 0.2s;">
-          <div class="h-48 overflow-hidden bg-gray-100">
+          <div class="h-36 overflow-hidden bg-gray-100">
             <img src="assets/ai_plugin.png" alt="AI 人群画像插件" class="w-full h-full object-cover hover:scale-105 transition duration-500" />
           </div>
           <div class="p-6">
@@ -605,14 +665,14 @@
               <span class="text-xs text-gray-400">联想 · 2026</span>
             </div>
             <h3 class="text-lg font-bold mb-2">人群画像数据提取助手</h3>
-            <p class="text-sm text-gray-600 mb-4">自研浏览器插件，一键抓取品牌数据银行人群画像、自动命名并生成 HTML 分析报告，人群分析耗时从 1h 压缩至 2min。</p>
+            <p class="text-sm text-gray-600 line-clamp-2 mb-3">自研浏览器插件，一键抓取品牌数据银行人群画像、自动命名并生成 HTML 分析报告，人群分析耗时从 1h 压缩至 2min。</p>
             <button onclick="openModal('modal-ai')" class="text-sm font-semibold text-violet hover:underline">查看详情 →</button>
           </div>
         </div>
 
         <!-- Project 4 -->
         <div class="bg-white rounded-3xl overflow-hidden border border-gray-100 card-hover reveal">
-          <div class="h-48 overflow-hidden bg-gray-100">
+          <div class="h-36 overflow-hidden bg-gray-100">
             <img src="assets/db_guobu.png" alt="国补订单分析" class="w-full h-full object-cover hover:scale-105 transition duration-500" />
           </div>
           <div class="p-6">
@@ -621,13 +681,13 @@
               <span class="text-xs text-gray-400">联想 · 2026</span>
             </div>
             <h3 class="text-lg font-bold mb-2">国补订单与流量渠道分析</h3>
-            <p class="text-sm text-gray-600 mb-4">梳理国补政策下的订单分布、流量来源与转化路径，用地图与交叉表帮助业务快速定位高潜省份与低效渠道。</p>
+            <p class="text-sm text-gray-600 line-clamp-2 mb-3">梳理国补政策下的订单分布、流量来源与转化路径，用地图与交叉表帮助业务快速定位高潜省份与低效渠道。</p>
           </div>
         </div>
 
         <!-- Project 5 -->
         <div class="bg-white rounded-3xl overflow-hidden border border-gray-100 card-hover reveal" style="transition-delay: 0.1s;">
-          <div class="h-48 overflow-hidden bg-gray-100">
+          <div class="h-36 overflow-hidden bg-gray-100">
             <img src="assets/ai_report_yoga.png" alt="YOGA 人群调研" class="w-full h-full object-cover hover:scale-105 transition duration-500" />
           </div>
           <div class="p-6">
@@ -636,13 +696,13 @@
               <span class="text-xs text-gray-400">联想 · 2026</span>
             </div>
             <h3 class="text-lg font-bold mb-2">YOGA Air14 Ultra 人群调研</h3>
-            <p class="text-sm text-gray-600 mb-4">基于 30 位已购用户深访，输出学生党、职场悦己党、专业派三大人群画像，识别「接口不足」为共识痛点，支撑产品沟通策略。</p>
+            <p class="text-sm text-gray-600 line-clamp-2 mb-3">基于 30 位已购用户深访，输出学生党、职场悦己党、专业派三大人群画像，识别「接口不足」为共识痛点，支撑产品沟通策略。</p>
           </div>
         </div>
 
         <!-- Project 6 -->
         <div class="bg-white rounded-3xl overflow-hidden border border-gray-100 card-hover reveal" style="transition-delay: 0.2s;">
-          <div class="h-48 overflow-hidden bg-gray-100">
+          <div class="h-36 overflow-hidden bg-gray-100">
             <img src="assets/ai_knowledge_base.png" alt="AI 智投知识库" class="w-full h-full object-cover hover:scale-105 transition duration-500" />
           </div>
           <div class="p-6">
@@ -651,7 +711,7 @@
               <span class="text-xs text-gray-400">联想 · 2026</span>
             </div>
             <h3 class="text-lg font-bold mb-2">AI 智投看板知识库</h3>
-            <p class="text-sm text-gray-600 mb-4">梳理电商核心公式、指标口径与优化要点，搭建可检索的知识库，降低新人理解成本，提升团队协同效率。</p>
+            <p class="text-sm text-gray-600 line-clamp-2 mb-3">梳理电商核心公式、指标口径与优化要点，搭建可检索的知识库，降低新人理解成本，提升团队协同效率。</p>
           </div>
         </div>
       </div>
@@ -659,9 +719,9 @@
   </section>
 
   <!-- Skills -->
-  <section id="skills" class="min-h-screen flex flex-col justify-center py-20 px-6">
+  <section id="skills" class="py-20 px-6">
     <div class="max-w-6xl mx-auto">
-      <div class="mb-12 reveal">
+      <div class="mb-8 reveal">
         <p class="text-sm font-semibold text-violet mb-2 tracking-wider">SKILLS</p>
         <h2 class="text-3xl md:text-4xl font-bold">技能特长</h2>
       </div>
@@ -747,17 +807,17 @@
   </section>
 
   <!-- Explore -->
-  <section id="explore" class="min-h-screen flex flex-col justify-center py-20 bg-white px-6">
+  <section id="explore" class="py-20 bg-white px-6">
     <div class="max-w-6xl mx-auto">
-      <div class="mb-12 reveal">
+      <div class="mb-8 reveal">
         <p class="text-sm font-semibold text-violet mb-2 tracking-wider">EXPLORE</p>
         <h2 class="text-3xl md:text-4xl font-bold">AI学习与探索</h2>
       </div>
 
-      <div class="grid lg:grid-cols-[5fr_11fr] gap-8 mb-16">
+      <div class="grid lg:grid-cols-[5fr_11fr] gap-8">
         <!-- AI Tools -->
         <div class="bg-white rounded-3xl p-8 border border-gray-100 reveal">
-          <h3 class="text-xl font-bold mb-6">日常在用的 AI 工具</h3>
+          <h3 class="text-2xl font-bold mb-6">日常在用的 AI 工具</h3>
           <div class="space-y-4">
             <div class="flex items-start gap-4 p-4 rounded-2xl bg-gray-50">
               <div class="w-10 h-10 rounded-xl bg-black text-white flex items-center justify-center font-bold text-sm">WB</div>
@@ -792,25 +852,25 @@
 
         <!-- Daily AI Exploration -->
         <div class="reveal" style="transition-delay: 0.1s;">
-          <h3 class="text-xl font-bold mb-6">日常中的 AI 探索</h3>
-          <div class="pin-board flex flex-wrap justify-center gap-x-6 gap-y-14 mt-3">
-            <div class="pin-note" style="transform: rotate(-5deg);">
-              <img src="assets/ai_daily_kb.png" class="rounded-xl w-48 h-40 object-cover" alt="AI 知识库工作台" />
+          <h3 class="text-2xl font-bold mb-6">日常中的 AI 探索</h3>
+          <div class="pin-board grid grid-cols-3 gap-x-6 gap-y-6 mt-1">
+            <div class="pin-note" style="transform: rotate(-3deg);">
+              <img src="assets/ai_daily_kb.png" class="rounded-xl w-full h-52 object-cover" alt="AI 知识库工作台" />
             </div>
-            <div class="pin-note" style="transform: rotate(4deg); margin-top: 18px;">
-              <img src="assets/ai_daily_report_crowd.png" class="rounded-xl w-48 h-40 object-cover" alt="AI 人群对比报告" />
+            <div class="pin-note" style="transform: rotate(2deg);">
+              <img src="assets/ai_daily_report_crowd.png" class="rounded-xl w-full h-52 object-cover" alt="AI 人群对比报告" />
             </div>
-            <div class="pin-note" style="transform: rotate(3deg); margin-top: -10px;">
-              <img src="assets/ai_daily_report_taoke.png" class="rounded-xl w-48 h-40 object-cover" alt="AI 淘客报告" />
+            <div class="pin-note" style="transform: rotate(-2deg);">
+              <img src="assets/ai_daily_report_taoke.png" class="rounded-xl w-full h-52 object-cover" alt="AI 淘客报告" />
             </div>
-            <div class="pin-note" style="transform: rotate(-3deg); margin-top: 22px;">
-              <img src="assets/ai_daily_weekly.jpeg" class="rounded-xl w-48 h-40 object-cover" alt="AI 生成周报" />
+            <div class="pin-note" style="transform: rotate(3deg);">
+              <img src="assets/ai_daily_weekly.jpeg" class="rounded-xl w-full h-52 object-cover" alt="AI 生成周报" />
             </div>
-            <div class="pin-note" style="transform: rotate(5deg); margin-top: 4px;">
-              <img src="assets/ai_plugin.png" class="rounded-xl w-48 h-40 object-cover" alt="AI 自研插件" />
+            <div class="pin-note" style="transform: rotate(-2deg);">
+              <img src="assets/ai_plugin.png" class="rounded-xl w-full h-52 object-cover" alt="AI 自研插件" />
             </div>
-            <div class="pin-note" style="transform: rotate(-4deg); margin-top: 14px;">
-              <img src="assets/ai_databank.jpeg" class="rounded-xl w-48 h-40 object-cover" alt="AI 数据银行" />
+            <div class="pin-note" style="transform: rotate(3deg);">
+              <img src="assets/ai_databank.jpeg" class="rounded-xl w-full h-52 object-cover" alt="AI 数据银行" />
             </div>
           </div>
           <p class="text-sm text-gray-500 mt-4">把 AI 当成日常工作流的一部分：用 AI 整理知识库、跑数据报告、生成周报，把重复工作交给工具，把精力留给判断和决策。</p>
@@ -821,16 +881,16 @@
   </section>
 
   <!-- Undergraduate Portfolio -->
-  <section id="undergraduate-portfolio" class="min-h-screen flex flex-col justify-center py-20 bg-paper px-6">
+  <section id="undergraduate-portfolio" class="py-20 bg-paper px-6">
     <div class="max-w-6xl mx-auto">
-      <div class="mb-12 reveal">
+      <div class="mb-8 reveal">
         <p class="text-sm font-semibold text-violet mb-2 tracking-wider">APPENDIX</p>
         <div class="flex items-end justify-between">
           <h2 class="text-3xl md:text-4xl font-bold">本科时期作品集</h2>
           <p class="text-sm text-gray-500 hidden md:block">封面 + 5 辑 · 点击查看完整作品</p>
         </div>
       </div>
-      <div class="grid md:grid-cols-3 gap-6" id="portfolioGrid"></div>
+      <div class="grid grid-cols-3 gap-x-8 gap-y-6" id="portfolioGrid"></div>
     </div>
   </section>
 
@@ -848,6 +908,17 @@
       <p class="text-xs text-gray-500">© 2026 Ruijuan Zhang. All rights reserved.</p>
     </div>
   </footer>
+
+  <!-- Work Experience Detail Modal (centered popup) -->
+  <div id="experienceModal" class="fixed inset-0 z-[60] hidden" onclick="closeExperienceModal(event)">
+    <div class="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
+    <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[92%] max-w-3xl max-h-[82vh] bg-white rounded-3xl shadow-2xl flex flex-col overflow-hidden" onclick="event.stopPropagation()">
+      <div id="expModalBody" class="p-8 md:p-10 overflow-y-auto flex-1"></div>
+      <div class="px-6 py-4 border-t border-gray-100 flex justify-end shrink-0 bg-white">
+        <button onclick="closeExperienceModalDirect()" class="px-6 py-2.5 bg-black text-white text-sm rounded-full font-medium hover:bg-gray-800 transition">返回</button>
+      </div>
+    </div>
+  </div>
 
   <!-- Modals -->
   <div id="modal-dashboard" class="fixed inset-0 z-[60] hidden" onclick="closeModal(event)">
@@ -1074,6 +1145,27 @@
       }
     }
 
+    // Work experience detail — centered popup modal
+    function openExperience(id) {
+      const src = document.getElementById(id);
+      if (!src) return;
+      const body = document.getElementById('expModalBody');
+      body.innerHTML = src.innerHTML;
+      document.getElementById('experienceModal').classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+      animateStats(body);
+    }
+    function closeExperienceModal(e) {
+      if (e.target === e.currentTarget || e.target.classList.contains('bg-black/60')) {
+        document.getElementById('experienceModal').classList.add('hidden');
+        document.body.style.overflow = '';
+      }
+    }
+    function closeExperienceModalDirect() {
+      document.getElementById('experienceModal').classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+
     // Modals
     function openModal(id) {
       document.getElementById(id).classList.remove('hidden');
@@ -1191,17 +1283,17 @@
       card.className = 'bg-white rounded-2xl border border-gray-100 overflow-hidden card-hover cursor-pointer group reveal';
       card.style.transitionDelay = `${(index % 3) * 0.1}s`;
       card.innerHTML = `
-        <div class="relative overflow-hidden h-52 md:h-56">
+        <div class="relative overflow-hidden h-40 md:h-44">
           <img src="${item.thumbnail}" alt="${item.title}" class="w-full h-full object-cover transition duration-500 group-hover:scale-105" />
         </div>
-        <div class="p-5">
-          <div class="flex items-baseline gap-2 mb-2">
+        <div class="p-4">
+          <div class="flex items-baseline gap-2 mb-1">
             <span class="text-3xl font-bold text-violet leading-none">${item.num}</span>
             <p class="text-xs text-gray-400">${item.period}</p>
           </div>
-          <h3 class="text-lg font-bold mb-2">${item.title}</h3>
-          <p class="text-sm text-gray-500 line-clamp-2 mb-3">${item.shortDesc}</p>
-          <div class="flex flex-wrap gap-2">
+          <h3 class="text-lg font-bold mb-1 truncate">${item.title}</h3>
+          <p class="text-sm text-gray-500 line-clamp-2 mb-2">${item.shortDesc}</p>
+          <div class="flex flex-wrap gap-1.5">
             ${item.tags.map(t => `<span class="px-2 py-0.5 bg-violet/20 text-violet text-xs rounded-full">${t}</span>`).join('')}
           </div>
         </div>
@@ -1454,6 +1546,59 @@
         tag.classList.add('bg-gray-100');
       });
     });
+
+    // 整屏等比缩放：所有内容页锁定为与教育背景相同的一屏高度，
+    // 内容超高时整体 transform: scale() 缩小（字号/间距/图片比例完全不变，仅整体变小）。
+    function fitSections() {
+      document.querySelectorAll('section:not(#about)').forEach(sec => {
+        const inner = sec.querySelector(':scope > div');
+        if (!inner) return;
+        const content = inner.querySelector(':scope > :nth-child(2)');
+        if (!content) return;
+        // 临时解除高度/缩放约束，量出内容真实高度（只量内容，不碰标题）
+        const prevH = content.style.height, prevFlex = content.style.flex, prevT = content.style.transform;
+        content.style.height = 'auto';
+        content.style.flex = 'none';
+        content.style.transform = 'none';
+        const cs = getComputedStyle(content);
+        const padT = parseFloat(cs.paddingTop), padB = parseFloat(cs.paddingBottom);
+        const avail = sec.clientHeight - padT - padB;
+        // 关键：getBoundingClientRect().height 含上下 padding，而 avail 已排除 padding，
+        // 不减掉就会把内边距算两遍，导致明明放得下也被误判为超高而白白缩小
+        const natural = content.getBoundingClientRect().height - padT - padB;
+        // 还原到最终布局（min-height:100%），再量一次内容中心，用于缩放后纵向居中校正
+        content.style.height = prevH;
+        content.style.flex = prevFlex;
+        content.style.transform = 'none';
+        const secRect = sec.getBoundingClientRect();
+        const secCenter = secRect.top + sec.clientHeight / 2;
+        const cRect = content.getBoundingClientRect();
+        const cCenter = cRect.top + cRect.height / 2;
+        // 内容上下内边距不对称（标题占位 > 底部留白），纯 scale 围绕中心缩放会让底部溢出被裁切；
+        // 因此缩放后再平移，把内容中心对齐到整屏中心，彻底消除底部裁切
+        const dy = secCenter - cCenter;
+        if (natural > avail) {
+          const scale = (avail / natural) * 0.99; // 留 1% 余量防边缘裁切
+          content.style.transformOrigin = 'center center';
+          content.style.transform = 'translateY(' + dy + 'px) scale(' + scale + ')';
+        } else {
+          // 不超高也要保证居中（抵消内边距不对称带来的偏移）
+          content.style.transform = 'translateY(' + dy + 'px)';
+        }
+      });
+    }
+    // 等缩放算定后再淡入，避免"先按原始尺寸显示、图片加载完又跳成缩小尺寸"的闪烁
+    function revealSections() {
+      document.querySelectorAll('section:not(#about) > div > :nth-child(2)')
+        .forEach(el => el.classList.add('fit-ready'));
+    }
+    function fitAndReveal() { fitSections(); revealSections(); }
+
+    // 首屏：图片未加载时先算一次但不显示；加载完再算一次并淡入（此时尺寸才最终确定）
+    window.addEventListener('DOMContentLoaded', () => requestAnimationFrame(fitSections));
+    window.addEventListener('load', () => { fitSections(); setTimeout(fitAndReveal, 300); });
+    setTimeout(fitAndReveal, 1500);        // 兜底：无论图片是否加载完都要显示
+    window.addEventListener('resize', fitAndReveal);
   </script>
 </body>
 </html>
