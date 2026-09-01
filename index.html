@@ -44,10 +44,10 @@
        Hero / 首屏 / Landing 一律 100vh = 一个完整视口屏幕高度（业界标准）。
        后续无论改字体、改图片、改按钮，首页高度都改这里这一个变量。 */
     :root { --hero-h: 100vh; }
-    html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
+    html { scroll-behavior: smooth; scroll-padding-top: 0; scroll-snap-type: y proximity; }
     body { overflow-x: hidden; font-family: 'Inter', 'PingFang SC', 'Microsoft YaHei', sans-serif; }
     /* 所有内容页统一为标准一屏高度（与教育背景同尺寸） */
-    section#about { height: var(--hero-h); }
+    section#about { height: var(--hero-h); scroll-snap-align: start; }
     section:not(#about) {
       position: relative;        /* 标题绝对定位的参照系 */
       height: 100vh;
@@ -55,6 +55,7 @@
       overflow: hidden;          /* 锁定整页高度，绝不撑破 */
       padding: 0;                /* 内边距交内层统一控制，避免与 py-20 叠加 */
       box-sizing: border-box;
+      scroll-snap-align: start;
     }
     /* 内层容器：水平居中、充满整屏，作为标题/内容的定位上下文 */
     section:not(#about) > div {
@@ -68,7 +69,7 @@
     /* 大标题：绝对定位钉在左上角，六个页面位置、字号完全一致（且不参与缩放） */
     section:not(#about) > div > :nth-child(1) {
       position: absolute;
-      top: 2.5rem;
+      top: 5rem;
       left: 0;
       right: 0;
       margin: 0;
@@ -84,8 +85,8 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding-top: 10.5rem;      /* 给标题留位：最高的标题（项目作品含副标题，高约 104px）
-                                    从 top:2.5rem 起算底部到 144px，padding 必须大于它，
+      padding-top: 13rem;        /* 给标题留位：标题已下移到 top:5rem(80px)，最高的标题
+                                    （项目作品含副标题，高约 104px）底部到 184px，padding 必须大于它，
                                     否则标题会压住第一行卡片顶部（矮屏更明显） */
       padding-bottom: 2rem;
       box-sizing: border-box;
@@ -260,8 +261,8 @@
           <a href="#education" class="nav-pill nav-link px-4 py-1.5 text-sm rounded-full text-gray-700 hover:text-black" data-target="education">教育背景</a>
           <a href="#experience" class="nav-pill nav-link px-4 py-1.5 text-sm rounded-full text-gray-700 hover:text-black" data-target="experience">工作经历</a>
           <a href="#projects" class="nav-pill nav-link px-4 py-1.5 text-sm rounded-full text-gray-700 hover:text-black" data-target="projects">项目作品</a>
-          <a href="#skills" class="nav-pill nav-link px-4 py-1.5 text-sm rounded-full text-gray-700 hover:text-black" data-target="skills">技能特长</a>
-          <a href="#explore" class="nav-pill nav-link px-4 py-1.5 text-sm rounded-full text-gray-700 hover:text-black" data-target="explore">AI学习与探索</a>
+        <a href="#explore" class="nav-pill nav-link px-4 py-1.5 text-sm rounded-full text-gray-700 hover:text-black" data-target="explore">AI学习与探索</a>
+        <a href="#skills" class="nav-pill nav-link px-4 py-1.5 text-sm rounded-full text-gray-700 hover:text-black" data-target="skills">技能特长</a>
           <a href="#undergraduate-portfolio" class="nav-pill nav-link px-4 py-1.5 text-sm rounded-full text-gray-700 hover:text-black" data-target="undergraduate-portfolio">本科作品集</a>
         </div>
       </div>
@@ -379,7 +380,7 @@
               <img src="assets/chd_logo.jpeg" alt="长安大学" class="w-16 h-16 object-contain" />
               <div>
                 <h3 class="text-xl font-bold">长安大学</h3>
-                <p class="text-sm text-gray-500">211 · <span class="text-black font-semibold">保研</span></p>
+                <p class="text-sm text-gray-500"><span class="text-black font-bold">211</span> · <span class="text-black font-semibold">保研</span></p>
               </div>
             </div>
             <span class="text-sm text-gray-400">2024.09–2027.06</span>
@@ -422,11 +423,11 @@
         <h2 class="text-3xl md:text-4xl font-bold">工作经历</h2>
       </div>
 
-      <div class="space-y-6">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         <!-- Lenovo -->
         <div class="group bg-white rounded-3xl border border-gray-100 overflow-hidden card-hover reveal">
-          <div class="p-8 cursor-pointer" onclick="openExperience('lenovo-detail')">
-            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div class="p-6 cursor-pointer" onclick="openExperience('lenovo-detail')">
+            <div class="flex flex-col gap-3">
               <div>
                 <h3 class="text-2xl font-bold mb-1">联想（北京）有限公司</h3>
                 <p class="text-violet font-medium">电商运营实习生 · 销售营销部</p>
@@ -446,7 +447,7 @@
               <span class="px-3 py-1 bg-gray-100 text-xs rounded-full">阿里妈妈</span>
             </div>
           </div>
-          <div id="lenovo-detail" class="hidden border-t border-gray-100 bg-gray-50/50 px-8 py-8">
+          <div id="lenovo-detail" class="hidden border-t border-gray-100 bg-gray-50/50 px-5 py-5">
             <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
               <div class="bg-white p-5 rounded-2xl border border-gray-100">
                 <p class="text-3xl font-bold text-violet stat-number" data-target="7">0</p>
@@ -489,8 +490,8 @@
 
         <!-- eClick -->
         <div class="group bg-white rounded-3xl border border-gray-100 overflow-hidden card-hover reveal" style="transition-delay: 0.1s;">
-          <div class="p-8 cursor-pointer" onclick="openExperience('eclick-detail')">
-            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div class="p-6 cursor-pointer" onclick="openExperience('eclick-detail')">
+            <div class="flex flex-col gap-3">
               <div>
                 <h3 class="text-2xl font-bold mb-1">易点天下网络科技股份有限公司</h3>
                 <p class="text-violet font-medium">广告 AM 运营 · 程序化广告 BU</p>
@@ -510,7 +511,7 @@
               <span class="px-3 py-1 bg-gray-100 text-xs rounded-full">SOP</span>
             </div>
           </div>
-          <div id="eclick-detail" class="hidden border-t border-gray-100 bg-gray-50/50 px-8 py-8">
+          <div id="eclick-detail" class="hidden border-t border-gray-100 bg-gray-50/50 px-5 py-5">
             <div class="grid md:grid-cols-3 gap-6 mb-8">
               <div class="bg-white p-5 rounded-2xl border border-gray-100">
                 <p class="text-3xl font-bold text-violet">$2,039</p>
@@ -552,8 +553,8 @@
 
         <!-- Daxiang -->
         <div class="group bg-white rounded-3xl border border-gray-100 overflow-hidden card-hover reveal" style="transition-delay: 0.2s;">
-          <div class="p-8 cursor-pointer" onclick="openExperience('daxiang-detail')">
-            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div class="p-6 cursor-pointer" onclick="openExperience('daxiang-detail')">
+            <div class="flex flex-col gap-3">
               <div>
                 <h3 class="text-2xl font-bold mb-1">大相科技西安有限公司</h3>
                 <p class="text-violet font-medium">电商运营</p>
@@ -572,7 +573,7 @@
               <span class="px-3 py-1 bg-gray-100 text-xs rounded-full">内容营销</span>
             </div>
           </div>
-          <div id="daxiang-detail" class="hidden border-t border-gray-100 bg-gray-50/50 px-8 py-8">
+          <div id="daxiang-detail" class="hidden border-t border-gray-100 bg-gray-50/50 px-5 py-5">
             <div class="grid md:grid-cols-3 gap-6 mb-8">
               <div class="bg-white p-5 rounded-2xl border border-gray-100">
                 <p class="text-3xl font-bold text-violet">25.07%</p>
@@ -719,7 +720,92 @@
   </section>
 
   <!-- Skills -->
-  <section id="skills" class="py-20 px-6">
+  
+
+  <!-- Explore -->
+  <section id="explore" class="py-20 bg-white px-6">
+    <div class="max-w-6xl mx-auto">
+      <div class="mb-8 reveal">
+        <p class="text-sm font-semibold text-violet mb-2 tracking-wider">EXPLORE</p>
+        <h2 class="text-3xl md:text-4xl font-bold">AI学习与探索</h2>
+      </div>
+
+      <div class="grid lg:grid-cols-[5fr_11fr] gap-8">
+        <!-- AI Tools -->
+        <div class="bg-white rounded-3xl p-8 border border-gray-100 reveal">
+          <h3 class="text-2xl font-bold mb-6">日常在用的 AI 工具</h3>
+          <div class="space-y-4">
+            <div class="flex items-start gap-4 p-4 rounded-2xl bg-gray-50">
+              <div class="w-10 h-10 rounded-xl bg-black text-white flex items-center justify-center font-bold text-sm">WB</div>
+              <div>
+                <p class="font-semibold">WorkBuddy / CodeBuddy</p>
+                <p class="text-sm text-gray-500">辅助看板搭建、数据解读、业务报告生成与素材资产库搭建，1h 工作压缩至 20min 内。</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4 p-4 rounded-2xl bg-gray-50">
+              <div class="w-10 h-10 rounded-xl bg-violet text-white flex items-center justify-center font-bold text-sm">CD</div>
+              <div>
+                <p class="font-semibold">Codex</p>
+                <p class="text-sm text-gray-500">辅助浏览器插件开发、SQL 与自动化脚本编写。</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4 p-4 rounded-2xl bg-gray-50">
+              <div class="w-10 h-10 rounded-xl bg-mintDark text-white flex items-center justify-center font-bold text-sm">DS</div>
+              <div>
+                <p class="font-semibold">DeepSeek</p>
+                <p class="text-sm text-gray-500">复杂业务问题拆解、报告框架与人群画像结论生成。</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4 p-4 rounded-2xl bg-gray-50">
+              <div class="w-10 h-10 rounded-xl bg-orange-500 text-white flex items-center justify-center font-bold text-sm">SY</div>
+              <div>
+                <p class="font-semibold">生意管家</p>
+                <p class="text-sm text-gray-500">日报/周报自动生成、GMV/CPC/花费/ROAS 等核心指标播报，缩短信息汇总时间。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Daily AI Exploration -->
+        <div class="reveal" style="transition-delay: 0.1s;">
+          <h3 class="text-2xl font-bold mb-6">日常中的 AI 探索</h3>
+          <div class="pin-board grid grid-cols-3 gap-x-6 gap-y-6 mt-1">
+            <div class="pin-note" style="transform: rotate(-3deg);">
+              <img src="assets/ai_daily_kb.png" class="rounded-xl w-full h-52 object-cover" alt="AI 知识库工作台" />
+            </div>
+            <div class="pin-note" style="transform: rotate(2deg);">
+              <img src="assets/ai_daily_report_crowd.png" class="rounded-xl w-full h-52 object-cover" alt="AI 人群对比报告" />
+            </div>
+            <div class="pin-note" style="transform: rotate(-2deg);">
+              <img src="assets/ai_daily_report_taoke.png" class="rounded-xl w-full h-52 object-cover" alt="AI 淘客报告" />
+            </div>
+            <div class="pin-note cursor-pointer group" style="transform: rotate(-2deg);" onclick="openSuixinModal()">
+              <div class="rounded-xl w-full h-52 bg-gradient-to-br from-[#6d5efc] to-[#2f9e9e] flex flex-col items-center justify-center text-white relative overflow-hidden">
+                <div class="w-12 h-12 rounded-full bg-white/25 flex items-center justify-center mb-3">
+                  <svg class="w-6 h-6 ml-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                </div>
+                <p class="font-bold text-lg leading-tight">「随心所记」</p>
+                <p class="text-xs text-white/85 mt-1 px-3 text-center">我自研的 AI 生产力小工具 · 点开看演示</p>
+              </div>
+            </div>
+            <div class="pin-note" style="transform: rotate(3deg);">
+              <img src="assets/ai_daily_weekly.jpeg" class="rounded-xl w-full h-52 object-cover" alt="AI 生成周报" />
+            </div>
+            <div class="pin-note" style="transform: rotate(-2deg);">
+              <img src="assets/ai_plugin.png" class="rounded-xl w-full h-52 object-cover" alt="AI 自研插件" />
+            </div>
+            <div class="pin-note" style="transform: rotate(3deg);">
+              <img src="assets/ai_databank.jpeg" class="rounded-xl w-full h-52 object-cover" alt="AI 数据银行" />
+            </div>
+          </div>
+          <p class="text-sm text-gray-500 mt-4">把 AI 当成日常工作流的一部分：用 AI 整理知识库、跑数据报告、生成周报，把重复工作交给工具，把精力留给判断和决策。</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+<section id="skills" class="py-20 px-6">
     <div class="max-w-6xl mx-auto">
       <div class="mb-8 reveal">
         <p class="text-sm font-semibold text-violet mb-2 tracking-wider">SKILLS</p>
@@ -806,79 +892,12 @@
     </div>
   </section>
 
-  <!-- Explore -->
-  <section id="explore" class="py-20 bg-white px-6">
-    <div class="max-w-6xl mx-auto">
-      <div class="mb-8 reveal">
-        <p class="text-sm font-semibold text-violet mb-2 tracking-wider">EXPLORE</p>
-        <h2 class="text-3xl md:text-4xl font-bold">AI学习与探索</h2>
-      </div>
 
-      <div class="grid lg:grid-cols-[5fr_11fr] gap-8">
-        <!-- AI Tools -->
-        <div class="bg-white rounded-3xl p-8 border border-gray-100 reveal">
-          <h3 class="text-2xl font-bold mb-6">日常在用的 AI 工具</h3>
-          <div class="space-y-4">
-            <div class="flex items-start gap-4 p-4 rounded-2xl bg-gray-50">
-              <div class="w-10 h-10 rounded-xl bg-black text-white flex items-center justify-center font-bold text-sm">WB</div>
-              <div>
-                <p class="font-semibold">WorkBuddy / CodeBuddy</p>
-                <p class="text-sm text-gray-500">辅助看板搭建、数据解读、业务报告生成与素材资产库搭建，1h 工作压缩至 20min 内。</p>
-              </div>
-            </div>
-            <div class="flex items-start gap-4 p-4 rounded-2xl bg-gray-50">
-              <div class="w-10 h-10 rounded-xl bg-violet text-white flex items-center justify-center font-bold text-sm">CD</div>
-              <div>
-                <p class="font-semibold">Codex</p>
-                <p class="text-sm text-gray-500">辅助浏览器插件开发、SQL 与自动化脚本编写。</p>
-              </div>
-            </div>
-            <div class="flex items-start gap-4 p-4 rounded-2xl bg-gray-50">
-              <div class="w-10 h-10 rounded-xl bg-mintDark text-white flex items-center justify-center font-bold text-sm">DS</div>
-              <div>
-                <p class="font-semibold">DeepSeek</p>
-                <p class="text-sm text-gray-500">复杂业务问题拆解、报告框架与人群画像结论生成。</p>
-              </div>
-            </div>
-            <div class="flex items-start gap-4 p-4 rounded-2xl bg-gray-50">
-              <div class="w-10 h-10 rounded-xl bg-orange-500 text-white flex items-center justify-center font-bold text-sm">SY</div>
-              <div>
-                <p class="font-semibold">生意管家</p>
-                <p class="text-sm text-gray-500">日报/周报自动生成、GMV/CPC/花费/ROAS 等核心指标播报，缩短信息汇总时间。</p>
-              </div>
-            </div>
-          </div>
-        </div>
 
-        <!-- Daily AI Exploration -->
-        <div class="reveal" style="transition-delay: 0.1s;">
-          <h3 class="text-2xl font-bold mb-6">日常中的 AI 探索</h3>
-          <div class="pin-board grid grid-cols-3 gap-x-6 gap-y-6 mt-1">
-            <div class="pin-note" style="transform: rotate(-3deg);">
-              <img src="assets/ai_daily_kb.png" class="rounded-xl w-full h-52 object-cover" alt="AI 知识库工作台" />
-            </div>
-            <div class="pin-note" style="transform: rotate(2deg);">
-              <img src="assets/ai_daily_report_crowd.png" class="rounded-xl w-full h-52 object-cover" alt="AI 人群对比报告" />
-            </div>
-            <div class="pin-note" style="transform: rotate(-2deg);">
-              <img src="assets/ai_daily_report_taoke.png" class="rounded-xl w-full h-52 object-cover" alt="AI 淘客报告" />
-            </div>
-            <div class="pin-note" style="transform: rotate(3deg);">
-              <img src="assets/ai_daily_weekly.jpeg" class="rounded-xl w-full h-52 object-cover" alt="AI 生成周报" />
-            </div>
-            <div class="pin-note" style="transform: rotate(-2deg);">
-              <img src="assets/ai_plugin.png" class="rounded-xl w-full h-52 object-cover" alt="AI 自研插件" />
-            </div>
-            <div class="pin-note" style="transform: rotate(3deg);">
-              <img src="assets/ai_databank.jpeg" class="rounded-xl w-full h-52 object-cover" alt="AI 数据银行" />
-            </div>
-          </div>
-          <p class="text-sm text-gray-500 mt-4">把 AI 当成日常工作流的一部分：用 AI 整理知识库、跑数据报告、生成周报，把重复工作交给工具，把精力留给判断和决策。</p>
-        </div>
-      </div>
 
-    </div>
-  </section>
+
+
+
 
   <!-- Undergraduate Portfolio -->
   <section id="undergraduate-portfolio" class="py-20 bg-paper px-6">
@@ -1051,6 +1070,62 @@
     </div>
   </div>
 
+  <!-- Suixin app demo modal -->
+  <div id="suixinModal" class="fixed inset-0 z-[60] hidden" onclick="closeSuixinModal(event)">
+    <div class="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
+    <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[94%] max-w-3xl max-h-[90vh] bg-white rounded-3xl shadow-2xl overflow-y-auto p-6 md:p-8" onclick="event.stopPropagation()">
+      <div class="flex items-center justify-between mb-5">
+        <div class="flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-violet"></span>
+          <span class="text-base font-semibold text-gray-700">「随心所记」· 我自研的 AI 生产力小工具</span>
+        </div>
+        <button onclick="closeSuixinModalById('suixinModal')" class="p-2 hover:bg-gray-100 rounded-full transition">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <!-- 演示视频 -->
+      <div class="rounded-2xl overflow-hidden bg-black mb-6">
+        <video id="suixinVideo" class="w-full max-h-[52vh]" controls preload="metadata" src="assets/suixin_demo.mp4"></video>
+      </div>
+
+      <!-- 这是什么 -->
+      <div class="bg-gray-50 rounded-2xl p-5 mb-5">
+        <p class="text-sm font-semibold text-violet mb-2">这是什么</p>
+        <p class="text-sm text-gray-600 leading-relaxed">一个<span class="font-semibold text-ink">单文件 PWA</span>个人生产力工具——手机 / 电脑浏览器打开即用、离线可用，托管在 GitHub Pages。纯前端、无后端，数据存在浏览器本地（localStorage / IndexedDB），主打<strong>绝不丢数据</strong>。从「随手记」到「AI 复盘」再到「周报」，把每天的工作流沉淀成一个闭环。</p>
+      </div>
+
+      <!-- 核心功能 -->
+      <p class="text-sm font-semibold text-violet mb-3">核心功能</p>
+      <div class="grid sm:grid-cols-2 gap-3">
+        <div class="flex gap-3 items-start bg-white border border-gray-100 rounded-xl p-3">
+          <span class="shrink-0 w-7 h-7 rounded-lg bg-violet/10 text-violet flex items-center justify-center text-sm font-bold">记</span>
+          <div><p class="text-sm font-semibold text-ink">随手记</p><p class="text-xs text-gray-500">随时记录每日运营动作与思考碎片</p></div>
+        </div>
+        <div class="flex gap-3 items-start bg-white border border-gray-100 rounded-xl p-3">
+          <span class="shrink-0 w-7 h-7 rounded-lg bg-violet/10 text-violet flex items-center justify-center text-sm font-bold">同步</span>
+          <div><p class="text-sm font-semibold text-ink">记录 ↔ 总结自动同步</p><p class="text-xs text-gray-500">写完内容自动汇成当日总结</p></div>
+        </div>
+        <div class="flex gap-3 items-start bg-white border border-gray-100 rounded-xl p-3">
+          <span class="shrink-0 w-7 h-7 rounded-lg bg-violet/10 text-violet flex items-center justify-center text-sm font-bold">AI</span>
+          <div><p class="text-sm font-semibold text-ink">AI 生成总结与周报</p><p class="text-xs text-gray-500">按需调用，不自动塞，尊重使用边界</p></div>
+        </div>
+        <div class="flex gap-3 items-start bg-white border border-gray-100 rounded-xl p-3">
+          <span class="shrink-0 w-7 h-7 rounded-lg bg-violet/10 text-violet flex items-center justify-center text-sm font-bold">待办</span>
+          <div><p class="text-sm font-semibold text-ink">待办管理</p><p class="text-xs text-gray-500">完成自动记入今日记录，减负不污染</p></div>
+        </div>
+        <div class="flex gap-3 items-start bg-white border border-gray-100 rounded-xl p-3">
+          <span class="shrink-0 w-7 h-7 rounded-lg bg-violet/10 text-violet flex items-center justify-center text-sm font-bold">周</span>
+          <div><p class="text-sm font-semibold text-ink">周报</p><p class="text-xs text-gray-500">一键生成、历史周报可回看发现</p></div>
+        </div>
+        <div class="flex gap-3 items-start bg-white border border-gray-100 rounded-xl p-3">
+          <span class="shrink-0 w-7 h-7 rounded-lg bg-violet/10 text-violet flex items-center justify-center text-sm font-bold">图</span>
+          <div><p class="text-sm font-semibold text-ink">图片不撑爆存储</p><p class="text-xs text-gray-500">图片存 IndexedDB，本地容量不再爆仓</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Undergraduate Portfolio Modal -->
   <div id="portfolioModal" class="fixed inset-0 z-[70] hidden" onclick="closePortfolioModal(event)">
     <div class="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
@@ -1180,6 +1255,21 @@
         e.currentTarget.classList.add('hidden');
         document.body.style.overflow = '';
       }
+    }
+    function openSuixinModal() {
+      document.getElementById('suixinModal').classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeSuixinModal(e) {
+      if (e.target === e.currentTarget || e.target.classList.contains('bg-black/60')) {
+        closeSuixinModalById('suixinModal');
+      }
+    }
+    function closeSuixinModalById(id) {
+      document.getElementById(id).classList.add('hidden');
+      document.body.style.overflow = '';
+      const v = document.getElementById('suixinVideo');
+      if (v) { v.pause(); }
     }
 
     // Undergraduate portfolio grid & modal
@@ -1416,7 +1506,7 @@
     }
 
     // Active nav link
-    const sections = ['about','education','experience','projects','skills','explore','undergraduate-portfolio'];
+    const sections = ['about','education','experience','projects','explore','skills','undergraduate-portfolio'];
     window.addEventListener('scroll', () => {
       let current = '';
       sections.forEach(id => {
