@@ -770,8 +770,14 @@
         <div class="reveal" style="transition-delay: 0.1s;">
           <h3 class="text-2xl font-bold mb-6">日常中的 AI 探索</h3>
           <div class="pin-board grid grid-cols-3 gap-x-6 gap-y-6 mt-1">
-            <div class="pin-note" style="transform: rotate(-3deg);">
-              <img src="assets/ai_daily_kb.png" class="rounded-xl w-full h-52 object-cover" alt="AI 知识库工作台" />
+            <div class="pin-note cursor-pointer group" style="transform: rotate(-3deg);" onclick="openDashboardsModal()">
+              <div class="rounded-xl w-full h-52 bg-gradient-to-br from-violet to-indigo-600 flex flex-col items-center justify-center text-white relative overflow-hidden">
+                <div class="w-12 h-12 rounded-full bg-white/25 flex items-center justify-center mb-3">
+                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3v18h18M7 15l4-4 3 3 5-6"/></svg>
+                </div>
+                <p class="font-bold text-lg leading-tight">日常数据看板</p>
+                <p class="text-xs text-white/85 mt-1 px-3 text-center">AI 数据报告 · 点开看完整看板</p>
+              </div>
             </div>
             <div class="pin-note" style="transform: rotate(2deg);">
               <img src="assets/ai_daily_report_crowd.png" class="rounded-xl w-full h-52 object-cover" alt="AI 人群对比报告" />
@@ -1127,6 +1133,44 @@
     </div>
   </div>
 
+  <!-- Dashboards Modal -->
+  <div id="modal-dashboards" class="fixed inset-0 z-[60] hidden" onclick="closeModal(event)">
+    <div class="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
+    <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-5xl max-h-[90vh] overflow-auto bg-white rounded-3xl shadow-2xl p-7" onclick="event.stopPropagation()">
+      <div class="flex items-center justify-between mb-1">
+        <h3 class="text-2xl font-bold">日常数据看板与报告</h3>
+        <button onclick="closeModalById('modal-dashboards')" class="p-2 hover:bg-gray-100 rounded-full transition">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <p class="text-sm text-gray-500 mb-5">平时用 AI 做的数据看板 / 数据报告，点开即可查看人群数据洞察。</p>
+      <div class="grid grid-cols-1 gap-5">
+        <div class="border border-gray-100 rounded-2xl overflow-hidden flex flex-col">
+          <div class="flex items-center justify-between px-4 py-3 bg-gray-50 border-b border-gray-100">
+            <span class="text-sm font-semibold text-ink">人群数据看板 · WorkBuddy</span>
+            <a href="https://www.workbuddy.cn/space/d/BTHWp69tHZakdh7QKWeRGE?ext2=copy_link" target="_blank" rel="noopener" class="text-xs text-violet font-medium hover:underline">新标签打开 ↗</a>
+          </div>
+          <iframe src="https://www.workbuddy.cn/space/d/BTHWp69tHZakdh7QKWeRGE?ext2=copy_link" class="w-full flex-1 min-h-[420px] border-0 bg-gray-50" loading="lazy" title="人群数据看板 WorkBuddy"></iframe>
+        </div>
+        <div class="border border-gray-100 rounded-2xl overflow-hidden flex flex-col">
+          <div class="flex items-center justify-between px-4 py-3 bg-gray-50 border-b border-gray-100">
+            <span class="text-sm font-semibold text-ink">人群数据看板 · CodeBuddy</span>
+            <a href="https://codebuddy.work/agents/share/sZqPL5UfaliEHua9dhOrE6k79tLyE0LVWLblffSv4Acx6Isi5_0xYAFLC6aQ133k?platform=workbuddy" target="_blank" rel="noopener" class="text-xs text-violet font-medium hover:underline">新标签打开 ↗</a>
+          </div>
+          <iframe src="https://codebuddy.work/agents/share/sZqPL5UfaliEHua9dhOrE6k79tLyE0LVWLblffSv4Acx6Isi5_0xYAFLC6aQ133k?platform=workbuddy" class="w-full flex-1 min-h-[420px] border-0 bg-gray-50" loading="lazy" title="人群数据看板 CodeBuddy"></iframe>
+        </div>
+        <div class="border border-gray-100 rounded-2xl overflow-hidden flex flex-col">
+          <div class="flex items-center justify-between px-4 py-3 bg-gray-50 border-b border-gray-100">
+            <span class="text-sm font-semibold text-ink">人群数据看板 · CodeBuddy（二）</span>
+            <a href="https://codebuddy.work/agents/share/iruBcnX43aGX-dpPKAt1SQm6hz6Y5aLt0_aVvDkLAcSfsX-rTK_3U7behShYzTcW?platform=workbuddy" target="_blank" rel="noopener" class="text-xs text-violet font-medium hover:underline">新标签打开 ↗</a>
+          </div>
+          <iframe src="https://codebuddy.work/agents/share/iruBcnX43aGX-dpPKAt1SQm6hz6Y5aLt0_aVvDkLAcSfsX-rTK_3U7behShYzTcW?platform=workbuddy" class="w-full flex-1 min-h-[420px] border-0 bg-gray-50" loading="lazy" title="人群数据看板 CodeBuddy 二"></iframe>
+        </div>
+      </div>
+      <p class="text-xs text-gray-400 mt-4">若内嵌预览被网站拦截，点击上方「新标签打开 ↗」即可查看完整看板。</p>
+    </div>
+  </div>
+
   <!-- Undergraduate Portfolio Modal -->
   <div id="portfolioModal" class="fixed inset-0 z-[70] hidden" onclick="closePortfolioModal(event)">
     <div class="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
@@ -1259,6 +1303,10 @@
     }
     function openSuixinModal() {
       document.getElementById('suixinModal').classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+    function openDashboardsModal() {
+      document.getElementById('modal-dashboards').classList.remove('hidden');
       document.body.style.overflow = 'hidden';
     }
     function closeSuixinModal(e) {
