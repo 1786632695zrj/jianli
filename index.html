@@ -1386,8 +1386,28 @@
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
         </button>
       </div>
+      <!-- 系统截图 -->
+      <p class="text-sm font-semibold text-violet mb-3">系统截图</p>
+      <div id="sucaikuGallery" onclick="advanceSucaikuGallery()" class="relative w-full h-[360px] rounded-2xl overflow-hidden bg-gray-50 border border-gray-100 select-none" style="cursor:pointer;">
+        <img src="assets/sucaiku_shots/01_zichuan.png" data-i="0" alt="自传素材库" class="absolute inset-0 w-full h-full object-contain transition-all duration-500 ease-out pointer-events-none" />
+        <img src="assets/sucaiku_shots/02_import.png" data-i="1" alt="数据导入" class="absolute inset-0 w-full h-full object-contain transition-all duration-500 ease-out pointer-events-none" />
+        <img src="assets/sucaiku_shots/03_datasource.png" data-i="2" alt="数据源库" class="absolute inset-0 w-full h-full object-contain transition-all duration-500 ease-out pointer-events-none" />
+        <img src="assets/sucaiku_shots/04_settings.png" data-i="3" alt="设置" class="absolute inset-0 w-full h-full object-contain transition-all duration-500 ease-out pointer-events-none" />
+        <img src="assets/sucaiku_shots/05_detail.png" data-i="4" alt="素材详情" class="absolute inset-0 w-full h-full object-contain transition-all duration-500 ease-out pointer-events-none" />
+        <img src="assets/sucaiku_shots/06_ranking.png" data-i="5" alt="素材排行榜" class="absolute inset-0 w-full h-full object-contain transition-all duration-500 ease-out pointer-events-none" />
+        <img src="assets/sucaiku_shots/07_workbench.png" data-i="6" alt="工作台" class="absolute inset-0 w-full h-full object-contain transition-all duration-500 ease-out pointer-events-none" />
+        <div class="absolute top-3 right-3 z-30 bg-black/60 text-white text-xs px-2.5 py-1 rounded-full backdrop-blur-sm pointer-events-none">
+          <span id="sucaikuGalleryIdx">1</span> / 7
+        </div>
+        <div class="absolute top-3 left-3 z-30 bg-black/50 text-white/90 text-[10px] px-2 py-1 rounded-full backdrop-blur-sm pointer-events-none">
+          点击切换下一张
+        </div>
+        <div class="absolute bottom-3 left-1/2 -translate-x-1/2 z-30 bg-black/55 text-white text-xs px-3 py-1 rounded-full backdrop-blur-sm pointer-events-none max-w-[80%] truncate">
+          <span id="sucaikuGalleryLabel">自传素材库</span>
+        </div>
+      </div>
       <!-- 视频 -->
-      <p class="text-sm font-semibold text-violet mb-3">产品介绍</p>
+      <p class="text-sm font-semibold text-violet mb-3 mt-6">产品介绍</p>
       <div class="rounded-2xl overflow-hidden bg-black flex items-center justify-center">
         <video id="sucaikuVideo" src="assets/sucaiku_intro.mp4" controls playsinline class="w-full max-h-[420px] object-contain bg-black"></video>
       </div>
@@ -1677,6 +1697,47 @@
       if (v) v.pause();
       document.getElementById(id).classList.add('hidden');
       document.body.style.overflow = '';
+    }
+    // 素材资产库 系统截图 叠放轮播
+    let sucaikuGalleryIdx = 0;
+    const sucaikuGalleryLabels = ['自传素材库','数据导入','数据源库','设置','素材详情','素材排行榜','工作台'];
+    function renderSucaikuGallery() {
+      const g = document.getElementById('sucaikuGallery');
+      if (!g) return;
+      const imgs = g.querySelectorAll('img[data-i]');
+      const n = imgs.length;
+      if (!n) return;
+      const c = sucaikuGalleryIdx;
+      imgs.forEach((img, i) => {
+        const dist = (i - c + n) % n;
+        const s = img.style;
+        if (dist === 0) {
+          s.opacity = '1'; s.transform = 'translate(0px,0px) scale(1)'; s.zIndex = '20';
+        } else if (dist === 1) {
+          s.opacity = '0.55'; s.transform = 'translate(12px,10px) scale(0.94)'; s.zIndex = '10';
+        } else if (dist === 2) {
+          s.opacity = '0.25'; s.transform = 'translate(24px,20px) scale(0.88)'; s.zIndex = '5';
+        } else {
+          s.opacity = '0'; s.transform = 'translate(24px,20px) scale(0.88)'; s.zIndex = '0';
+        }
+      });
+      const idxEl = document.getElementById('sucaikuGalleryIdx');
+      if (idxEl) idxEl.textContent = String(c + 1);
+      const labEl = document.getElementById('sucaikuGalleryLabel');
+      if (labEl && sucaikuGalleryLabels[c]) labEl.textContent = sucaikuGalleryLabels[c];
+    }
+    function advanceSucaikuGallery() {
+      const g = document.getElementById('sucaikuGallery');
+      if (!g) return;
+      const n = g.querySelectorAll('img[data-i]').length;
+      if (!n) return;
+      sucaikuGalleryIdx = (sucaikuGalleryIdx + 1) % n;
+      renderSucaikuGallery();
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', renderSucaikuGallery);
+    } else {
+      renderSucaikuGallery();
     }
 
     // Undergraduate portfolio grid & modal
