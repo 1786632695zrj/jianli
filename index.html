@@ -729,100 +729,75 @@
       <div class="mb-8 reveal">
         <p class="text-sm font-semibold text-violet mb-2 tracking-wider">PROJECTS</p>
         <h2 class="text-3xl md:text-4xl font-bold">项目作品</h2>
-        <p class="text-gray-500 mt-3">以研究生阶段的电商/数据/AI 项目为主，本科规划作品集作为补充。</p>
+        <p class="text-gray-500 mt-3">以下为部分代表性项目展示。</p>
       </div>
 
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-        <!-- Project 1 -->
+      <div class="grid md:grid-cols-2 gap-6">
+        <!-- Project 1: 看板体系（合并全店驾驶舱 + 国补订单分析） -->
         <div class="bg-white rounded-3xl overflow-hidden border border-gray-100 card-hover reveal">
-          <div class="h-36 overflow-hidden bg-gray-100">
-            <img src="assets/db_store.png" alt="全店驾驶舱看板" class="w-full h-full object-cover hover:scale-105 transition duration-500" />
+          <div class="h-44 overflow-hidden bg-gray-100 cursor-pointer" onclick="openModal('modal-dashboard')">
+            <img src="assets/db_store.png" alt="数据驾驶舱与看板体系" class="w-full h-full object-cover hover:scale-105 transition duration-500" />
           </div>
           <div class="p-6">
             <div class="flex items-center gap-2 mb-2">
               <span class="px-2 py-0.5 bg-mint/40 text-xs rounded">BI 看板</span>
+              <span class="px-2 py-0.5 bg-gray-100 text-xs rounded">数据分析</span>
               <span class="text-xs text-gray-400">联想 · 2026</span>
             </div>
-            <h3 class="text-lg font-bold mb-2">天猫/京东全店数据驾驶舱</h3>
-            <p class="text-sm text-gray-600 line-clamp-2 mb-3">从 0 到 1 搭建 6+ 套自动化看板，覆盖全店、大曝光、淘客、直播、万相台等核心模块，统一数据口径，支撑大促盯盘与周报复盘。</p>
+            <h3 class="text-lg font-bold mb-2">数据驾驶舱与看板体系</h3>
+            <p class="text-sm text-gray-600 line-clamp-3 mb-3">从 0 到 1 搭建 6+ 套自动化看板，覆盖全店、大曝光、国补订单、流量渠道、淘客、直播、万相台等核心模块，统一数据口径，支撑大促盯盘与周报复盘。</p>
             <button onclick="openModal('modal-dashboard')" class="text-sm font-semibold text-violet hover:underline">查看详情 →</button>
           </div>
         </div>
 
-        <!-- Project 2 -->
-        <div class="bg-white rounded-3xl overflow-hidden border border-gray-100 card-hover reveal" style="transition-delay: 0.1s;">
-          <div class="h-36 overflow-hidden bg-gray-100">
-            <img src="assets/db_dabao.png" alt="618 大曝光看板" class="w-full h-full object-cover hover:scale-105 transition duration-500" />
+        <!-- Project 2: 618 大曝光素材 A/B 赛马 -->
+        <div class="bg-white rounded-3xl overflow-hidden border border-gray-100 card-hover reveal">
+          <div class="h-44 overflow-hidden bg-gray-100 cursor-pointer" onclick="openModal('modal-618')">
+            <img src="assets/abtest_docs/ab_overview.png" alt="618 大曝光素材 A/B 赛马 · 整体测试复盘" class="w-full h-full object-cover hover:scale-105 transition duration-500" />
           </div>
           <div class="p-6">
             <div class="flex items-center gap-2 mb-2">
               <span class="px-2 py-0.5 bg-violet/10 text-violet text-xs rounded">618 大促</span>
+              <span class="px-2 py-0.5 bg-mint/40 text-xs rounded">A/B 测试</span>
               <span class="text-xs text-gray-400">联想 · 2026.05-06</span>
             </div>
             <h3 class="text-lg font-bold mb-2">618 大曝光素材 A/B 赛马</h3>
-            <p class="text-sm text-gray-600 line-clamp-2 mb-3">围绕 180w 预算开展两轮素材赛马，覆盖背景色、文案、场景、赠品等 5 个维度，整体 CTR 提升至 5.76%，同比提升 50%+。</p>
+            <p class="text-sm text-gray-600 line-clamp-3 mb-3">围绕 180w 预算开展两轮素材赛马，覆盖背景色、文案、场景、赠品等 5 个维度，整体 CTR 提升至 5.76%，同比提升 50%+。</p>
             <button onclick="openModal('modal-618')" class="text-sm font-semibold text-violet hover:underline">查看详情 →</button>
           </div>
         </div>
 
-        <!-- Project 3 -->
-        <div class="bg-white rounded-3xl overflow-hidden border border-gray-100 card-hover reveal" style="transition-delay: 0.2s;">
-          <div class="h-36 overflow-hidden bg-gray-100">
-            <img src="assets/ai_plugin.png" alt="AI 人群画像插件" class="w-full h-full object-cover hover:scale-105 transition duration-500" />
+        <!-- Project 3: 人群分层与圈人运营（合并人群画像插件 + YOGA 人群调研） -->
+        <div class="bg-white rounded-3xl overflow-hidden border border-gray-100 card-hover reveal">
+          <div class="h-44 overflow-hidden bg-gray-100 cursor-pointer" onclick="openModal('modal-ai')">
+            <img src="assets/ai_plugin.png" alt="人群分层与圈人运营" class="w-full h-full object-cover hover:scale-105 transition duration-500" />
           </div>
           <div class="p-6">
             <div class="flex items-center gap-2 mb-2">
               <span class="px-2 py-0.5 bg-mint/40 text-xs rounded">AI 工具</span>
+              <span class="px-2 py-0.5 bg-violet/10 text-violet text-xs rounded">人群运营</span>
               <span class="text-xs text-gray-400">联想 · 2026</span>
             </div>
-            <h3 class="text-lg font-bold mb-2">人群画像数据提取助手</h3>
-            <p class="text-sm text-gray-600 line-clamp-2 mb-3">自研浏览器插件，一键抓取品牌数据银行人群画像、自动命名并生成 HTML 分析报告，人群分析耗时从 1h 压缩至 2min。</p>
+            <h3 class="text-lg font-bold mb-2">人群分层与圈人运营</h3>
+            <p class="text-sm text-gray-600 line-clamp-3 mb-3">自研浏览器插件一键抓取品牌数据银行人群画像、自动生成分析报告（人群分析耗时 1h→2min）；结合 30 位已购用户深访输出学生党、职场悦己党、专业派三大画像，指导分层定向触达与再营销。</p>
             <button onclick="openModal('modal-ai')" class="text-sm font-semibold text-violet hover:underline">查看详情 →</button>
           </div>
         </div>
 
-        <!-- Project 4 -->
+        <!-- Project 4: 素材资产库（从 AI 探索正式立项） -->
         <div class="bg-white rounded-3xl overflow-hidden border border-gray-100 card-hover reveal">
-          <div class="h-36 overflow-hidden bg-gray-100">
-            <img src="assets/db_guobu.png" alt="国补订单分析" class="w-full h-full object-cover hover:scale-105 transition duration-500" />
+          <div class="h-44 overflow-hidden bg-gray-100 cursor-pointer" onclick="openSucaikuModal()">
+            <img src="assets/sucaiku_shots/01_zichuan.png" alt="素材资产库平台" class="w-full h-full object-cover hover:scale-105 transition duration-500" />
           </div>
           <div class="p-6">
             <div class="flex items-center gap-2 mb-2">
-              <span class="px-2 py-0.5 bg-gray-100 text-xs rounded">数据分析</span>
+              <span class="px-2 py-0.5 bg-mint/40 text-xs rounded">AI 工具</span>
+              <span class="px-2 py-0.5 bg-gray-100 text-xs rounded">数据资产</span>
               <span class="text-xs text-gray-400">联想 · 2026</span>
             </div>
-            <h3 class="text-lg font-bold mb-2">国补订单与流量渠道分析</h3>
-            <p class="text-sm text-gray-600 line-clamp-2 mb-3">梳理国补政策下的订单分布、流量来源与转化路径，用地图与交叉表帮助业务快速定位高潜省份与低效渠道。</p>
-          </div>
-        </div>
-
-        <!-- Project 5 -->
-        <div class="bg-white rounded-3xl overflow-hidden border border-gray-100 card-hover reveal" style="transition-delay: 0.1s;">
-          <div class="h-36 overflow-hidden bg-gray-100">
-            <img src="assets/ai_report_yoga.png" alt="YOGA 人群调研" class="w-full h-full object-cover hover:scale-105 transition duration-500" />
-          </div>
-          <div class="p-6">
-            <div class="flex items-center gap-2 mb-2">
-              <span class="px-2 py-0.5 bg-violet/10 text-violet text-xs rounded">人群运营</span>
-              <span class="text-xs text-gray-400">联想 · 2026</span>
-            </div>
-            <h3 class="text-lg font-bold mb-2">YOGA Air14 Ultra 人群调研</h3>
-            <p class="text-sm text-gray-600 line-clamp-2 mb-3">基于 30 位已购用户深访，输出学生党、职场悦己党、专业派三大人群画像，识别「接口不足」为共识痛点，支撑产品沟通策略。</p>
-          </div>
-        </div>
-
-        <!-- Project 6 -->
-        <div class="bg-white rounded-3xl overflow-hidden border border-gray-100 card-hover reveal" style="transition-delay: 0.2s;">
-          <div class="h-36 overflow-hidden bg-gray-100">
-            <img src="assets/ai_knowledge_base.png" alt="AI 智投知识库" class="w-full h-full object-cover hover:scale-105 transition duration-500" />
-          </div>
-          <div class="p-6">
-            <div class="flex items-center gap-2 mb-2">
-              <span class="px-2 py-0.5 bg-mint/40 text-xs rounded">知识库</span>
-              <span class="text-xs text-gray-400">联想 · 2026</span>
-            </div>
-            <h3 class="text-lg font-bold mb-2">AI 智投看板知识库</h3>
-            <p class="text-sm text-gray-600 line-clamp-2 mb-3">梳理电商核心公式、指标口径与优化要点，搭建可检索的知识库，降低新人理解成本，提升团队协同效率。</p>
+            <h3 class="text-lg font-bold mb-2">素材资产库平台</h3>
+            <p class="text-sm text-gray-600 line-clamp-3 mb-3">从 0 到 1 产品化的电商素材资产库，Excel 一键导入、多模态 AI 自动识别与检索，打通导入-管理-分析全链路，已完成原生改造并投入日常使用。</p>
+            <button onclick="openSucaikuModal()" class="text-sm font-semibold text-violet hover:underline">查看详情 →</button>
           </div>
         </div>
       </div>
@@ -1014,16 +989,55 @@
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
         </button>
         <h3 class="text-2xl font-bold mb-2">多套自动化 BI 看板从 0 到 1 落地</h3>
-        <p class="text-gray-500 mb-6">联想天猫官旗 · 2026.05–至今</p>
+        <p class="text-gray-500 mb-4">联想天猫官旗 · 2026.05–至今</p>
+        <div class="flex flex-wrap gap-2 mb-6">
+          <span class="px-3 py-1 bg-violet/10 text-violet text-sm font-semibold rounded-full">从 0 到 1 搭建</span>
+          <span class="px-3 py-1 bg-violet/10 text-violet text-sm font-semibold rounded-full">7 套业务看板</span>
+          <span class="px-3 py-1 bg-violet/10 text-violet text-sm font-semibold rounded-full">看板搭建全流程</span>
+          <span class="px-3 py-1 bg-violet/10 text-violet text-sm font-semibold rounded-full">提效 90%+</span>
+        </div>
         <div class="space-y-4 text-gray-700 leading-relaxed mb-6">
           <p><strong>业务痛点：</strong>直播、万相台、淘客、达播等渠道数据分散，业务方每天花大量时间拼表、对口径，决策缺乏统一视图。</p>
-          <p><strong>我的动作：</strong>基于 Quick BI + SQL 从 0 到 1 搭建全店驾驶舱、大曝光、淘客 CPS、直播、万相台等 6+ 套看板，统一 6 大业务板块口径，累计处理近 150w 条数据。</p>
-          <p><strong>量化结果：</strong>数据分析时长从 1h 左右压缩至 5min；看板成为大促盯盘、周报复盘的统一事实基础，并复用至京东官旗与其他业务线。</p>
+          <p><strong>我的动作：</strong>协助共搭建 7 套看板，其中基于 Quick BI + SQL 从 0 到 1 搭建全店看板、大曝光、京东等 4 套看板，统一六大业务板块口径，累计处理近 150w 条数据。</p>
+        </div>
+        <div class="bg-violet/5 border border-violet/15 rounded-2xl p-4 mb-6">
+          <p class="text-sm text-gray-700 leading-relaxed"><strong class="text-violet">量化结果：</strong>数据分析时长从 1h 左右压缩至 <strong>5min</strong>（提效 <strong>90%+</strong>）；看板成为大促盯盘、周报复盘的统一事实基础，并<strong>复用至京东官旗与其他业务线</strong>。</p>
         </div>
         <div class="grid gap-4">
           <img src="assets/db_store.png" class="rounded-2xl border border-gray-100" />
           <img src="assets/db_taoke.png" class="rounded-2xl border border-gray-100" />
-          <img src="assets/db_live.png" class="rounded-2xl border border-gray-100" />
+        </div>
+
+        <!-- 看板录屏演示 -->
+        <div class="mt-8 pt-6 border-t border-gray-100">
+          <h4 class="text-lg font-bold mb-1">部分看板录屏演示</h4>
+          <p class="text-sm text-gray-500 mb-4">以下为各业务线看板的实际操作录屏，可直观看到从数据接入到盯盘复盘的全流程。</p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="rounded-2xl overflow-hidden border border-gray-100 bg-black">
+              <video controls preload="metadata" playsinline class="w-full aspect-video object-contain bg-black">
+                <source src="assets/dashboard_videos/dabaoguang.mp4" type="video/mp4" />
+              </video>
+              <p class="text-xs text-gray-600 px-3 py-2 bg-white">大曝光素材看板</p>
+            </div>
+            <div class="rounded-2xl overflow-hidden border border-gray-100 bg-black">
+              <video controls preload="metadata" playsinline class="w-full aspect-video object-contain bg-black">
+                <source src="assets/dashboard_videos/jd_toufang.mp4" type="video/mp4" />
+              </video>
+              <p class="text-xs text-gray-600 px-3 py-2 bg-white">京东投放看板</p>
+            </div>
+            <div class="rounded-2xl overflow-hidden border border-gray-100 bg-black">
+              <video controls preload="metadata" playsinline class="w-full aspect-video object-contain bg-black">
+                <source src="assets/dashboard_videos/jd_quandian.mp4" type="video/mp4" />
+              </video>
+              <p class="text-xs text-gray-600 px-3 py-2 bg-white">京东全店看板</p>
+            </div>
+            <div class="rounded-2xl overflow-hidden border border-gray-100 bg-black">
+              <video controls preload="metadata" playsinline class="w-full aspect-video object-contain bg-black">
+                <source src="assets/dashboard_videos/tmall_quandian.mp4" type="video/mp4" />
+              </video>
+              <p class="text-xs text-gray-600 px-3 py-2 bg-white">天猫全店看板</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -1037,18 +1051,105 @@
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
         </button>
         <h3 class="text-2xl font-bold mb-2">618 大曝光素材 A/B 赛马</h3>
-        <p class="text-gray-500 mb-6">联想天猫官旗 · 2026.05–06</p>
-        <div class="space-y-4 text-gray-700 leading-relaxed mb-6">
-          <p><strong>业务背景：</strong>618 大曝光项目 180w 预算，多渠道多品类并行，素材效果难判断、点击率低损耗预算。</p>
-          <p><strong>测试设计：</strong>围绕背景色、文案内容、创意场景、赠品展示、引导按钮、产品角度等维度，开展两轮 A/B 赛马，覆盖 200+ 素材。</p>
-          <p><strong>核心结果：</strong>整体 CTR 提升至 5.76%，同比提升 50%+；沉淀高点击素材特征与 SOP，复用至暑期大促，部分资源位点击率高于行业大盘约 1pct。</p>
+        <p class="text-gray-500 mb-4">联想天猫官旗 · 2026.05–06</p>
+        <div class="flex flex-wrap gap-2 mb-6">
+          <span class="px-3 py-1 bg-violet/10 text-violet text-sm font-semibold rounded-full">180w 预算</span>
+          <span class="px-3 py-1 bg-violet/10 text-violet text-sm font-semibold rounded-full">两轮 A/B 赛马</span>
+          <span class="px-3 py-1 bg-violet/10 text-violet text-sm font-semibold rounded-full">6 维度对比</span>
+          <span class="px-3 py-1 bg-violet/10 text-violet text-sm font-semibold rounded-full">CTR 5.76%</span>
+          <span class="px-3 py-1 bg-violet/10 text-violet text-sm font-semibold rounded-full">同比 +50%+</span>
         </div>
-        <div class="grid gap-4">
-          <img src="assets/ab_fuxi.png" class="rounded-2xl border border-gray-100" />
-          <img src="assets/ab_matrix.png" class="rounded-2xl border border-gray-100" />
-          <img src="assets/ab_steps.png" class="rounded-2xl border border-gray-100" />
+        <p class="text-gray-700 leading-relaxed mb-6"><strong>业务背景：</strong>618 大曝光项目 180w 预算，多渠道多品类并行，素材效果难判断、点击率低损耗预算。</p>
+        <div class="bg-violet/5 border border-violet/15 rounded-2xl p-4 mb-6">
+          <p class="text-sm text-gray-700 leading-relaxed"><strong class="text-violet">测试设计（核心结构）：</strong>围绕<strong>背景色、文案内容、创意场景、赠品展示、引导按钮、产品角度</strong>等 <strong>6 个维度</strong>，开展<strong>两轮 A/B 赛马</strong>，覆盖 <strong>200+ 素材</strong>，每组变量保持其他维度一致以排除干扰。</p>
         </div>
-      </div>
+        <div class="bg-violet/5 border border-violet/15 rounded-2xl p-4 mb-6">
+          <p class="text-sm text-gray-700 leading-relaxed"><strong class="text-violet">核心结果：</strong>整体 <strong>CTR 提升至 5.76%</strong>，<strong>同比提升 50%+</strong>；沉淀高点击素材特征与 SOP，复用至暑期大促，<strong>部分资源位点击率高于行业大盘约 1pct</strong>。</p>
+        </div>
+
+        <!-- 四步闭环：用看板辅助 AB 测试 -->
+        <div class="mt-2 mb-6">
+          <h4 class="text-lg font-bold mb-3">四步闭环 · 看板辅助 AB 测试</h4>
+          <p class="text-sm text-gray-500 mb-4">自研看板不只盯盘，还为本次 AB 测试提供了实时反馈和决策依据，形成从素材准备 → 赛马测试 → 看板监控 → 数据反哺 的完整闭环。</p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div class="bg-white border border-gray-100 rounded-2xl p-4 flex items-start gap-3">
+              <span class="shrink-0 w-8 h-8 rounded-full bg-red-500 text-white text-sm font-bold flex items-center justify-center mt-0.5">1</span>
+              <div>
+                <p class="text-base font-bold text-gray-900 mb-1">素材准备</p>
+                <p class="text-xs text-gray-600 leading-relaxed">梳理 A/B 测试变量与维度，飞书工单对接设计团队输出测试素材。</p>
+              </div>
+            </div>
+            <div class="bg-white border border-gray-100 rounded-2xl p-4 flex items-start gap-3">
+              <span class="shrink-0 w-8 h-8 rounded-full bg-red-500 text-white text-sm font-bold flex items-center justify-center mt-0.5">2</span>
+              <div>
+                <p class="text-base font-bold text-gray-900 mb-1">赛马测试</p>
+                <p class="text-xs text-gray-600 leading-relaxed">摒弃主观判断，依托曝光/点击数据完成素材优胜劣汰。</p>
+              </div>
+            </div>
+            <div class="bg-white border border-gray-100 rounded-2xl p-4 flex items-start gap-3">
+              <span class="shrink-0 w-8 h-8 rounded-full bg-red-500 text-white text-sm font-bold flex items-center justify-center mt-0.5">3</span>
+              <div>
+                <p class="text-base font-bold text-gray-900 mb-1">看板监控</p>
+                <p class="text-xs text-gray-600 leading-relaxed">从零搭建大曝光多维度看板，汇总花费/曝光/CTR/到达率。</p>
+              </div>
+            </div>
+            <div class="bg-white border border-gray-100 rounded-2xl p-4 flex items-start gap-3">
+              <span class="shrink-0 w-8 h-8 rounded-full bg-red-500 text-white text-sm font-bold flex items-center justify-center mt-0.5">4</span>
+              <div>
+                <p class="text-base font-bold text-gray-900 mb-1">数据反哺</p>
+                <p class="text-xs text-gray-600 leading-relaxed">反向指导素材迭代、预算倾斜、低效渠道关停。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 大曝光看板录屏演示 -->
+        <div class="mt-6 pt-6 border-t border-gray-100">
+          <h4 class="text-lg font-bold mb-1">大曝光看板录屏演示</h4>
+          <p class="text-sm text-gray-500 mb-4">这个是本次大曝光素材搭建看板，可直观看到从素材准备 → 赛马测试 → 看板监控 → 数据反哺 的实时闭环，与 AB 测试相辅相成。</p>
+          <div class="grid grid-cols-1 gap-4">
+            <div class="rounded-2xl overflow-hidden border border-gray-100 bg-black">
+              <video controls preload="metadata" playsinline class="w-full aspect-video object-contain bg-black">
+                <source src="assets/dashboard_videos/dabaoguang.mp4" type="video/mp4" />
+              </video>
+              <p class="text-xs text-gray-600 px-3 py-2 bg-white">大曝光素材看板</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 复盘文档截图（轮播） -->
+        <div class="mt-6 pt-6 border-t border-gray-100">
+          <h4 class="text-lg font-bold mb-1">测试复盘SOP</h4>
+          <p class="text-sm text-gray-500 mb-3">事后进行复盘，沉淀出可复用的结论，用于下一次的投放，助力下一次的投放。</p>
+          <div class="relative rounded-2xl overflow-hidden border border-gray-100 bg-gray-50">
+            <div id="abReportTrack" class="flex transition-transform duration-300 ease-out" style="transform: translateX(0%);">
+              <div class="w-full shrink-0 flex flex-col items-center">
+                <img src="assets/abtest_docs/ab_overview.png" alt="FY26 AB-Test 测试概览" class="w-full max-h-[55vh] object-contain block" />
+                <p class="text-xs text-gray-600 px-3 py-2 bg-gray-50 border-t border-gray-100 w-full text-center">测试概览 · RTB + 特秀双渠道，6 个测试维度梳理</p>
+              </div>
+              <div class="w-full shrink-0 flex flex-col items-center">
+                <img src="assets/ab_matrix.png" alt="测试维度矩阵" class="w-full max-h-[55vh] object-contain block" />
+                <p class="text-xs text-gray-600 px-3 py-2 bg-gray-50 border-t border-gray-100 w-full text-center">测试维度矩阵 · 各维度素材变量与对照关系</p>
+              </div>
+              <div class="w-full shrink-0 flex flex-col items-center">
+                <img src="assets/abtest_docs/ab_conclusion.png" alt="投放优化落地总结" class="w-full max-h-[55vh] object-contain block" />
+                <p class="text-xs text-gray-600 px-3 py-2 bg-gray-50 border-t border-gray-100 w-full text-center">投放优化落地总结 · 5 个维度的资源位/画面/文案/场景/赠品结论</p>
+              </div>
+            </div>
+            <button onclick="abReportPrev(event)" class="absolute left-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/50 text-white text-xl flex items-center justify-center hover:bg-black/70">&lsaquo;</button>
+            <button onclick="abReportNext(event)" class="absolute right-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/50 text-white text-xl flex items-center justify-center hover:bg-black/70">&rsaquo;</button>
+          </div>
+          <div class="flex justify-center gap-2 mt-3">
+            <button onclick="abReportGo(event,0)" class="w-2.5 h-2.5 rounded-full bg-violet" data-dot="0"></button>
+            <button onclick="abReportGo(event,1)" class="w-2.5 h-2.5 rounded-full bg-gray-300" data-dot="1"></button>
+            <button onclick="abReportGo(event,2)" class="w-2.5 h-2.5 rounded-full bg-gray-300" data-dot="2"></button>
+          </div>
+          <div class="mt-4 rounded-xl bg-violet/10 border border-violet/30 px-4 py-3">
+            <p class="text-sm text-gray-700 leading-relaxed"><span class="font-semibold text-violet">复盘成果：</span>复盘高点击素材特征，输出测试结论与 SOP，素材资产库复用至暑期大促；部分资源位的产品投放初期点击率高于行业大盘约 1 个百分点。</p>
+          </div>
+        </div>
+
+        </div>
     </div>
   </div>
 
@@ -1386,35 +1487,40 @@
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
         </button>
       </div>
-      <!-- 系统截图 -->
-      <p class="text-sm font-semibold text-violet mb-3">系统截图</p>
-      <div id="sucaikuGallery" onclick="advanceSucaikuGallery()" class="relative w-full h-[360px] rounded-2xl overflow-hidden bg-gray-50 border border-gray-100 select-none" style="cursor:pointer;">
-        <img src="assets/sucaiku_shots/01_zichuan.png" data-i="0" alt="自传素材库" class="absolute inset-0 w-full h-full object-contain transition-all duration-500 ease-out pointer-events-none" />
-        <img src="assets/sucaiku_shots/02_import.png" data-i="1" alt="数据导入" class="absolute inset-0 w-full h-full object-contain transition-all duration-500 ease-out pointer-events-none" />
-        <img src="assets/sucaiku_shots/03_datasource.png" data-i="2" alt="数据源库" class="absolute inset-0 w-full h-full object-contain transition-all duration-500 ease-out pointer-events-none" />
-        <img src="assets/sucaiku_shots/04_settings.png" data-i="3" alt="设置" class="absolute inset-0 w-full h-full object-contain transition-all duration-500 ease-out pointer-events-none" />
-        <img src="assets/sucaiku_shots/05_detail.png" data-i="4" alt="素材详情" class="absolute inset-0 w-full h-full object-contain transition-all duration-500 ease-out pointer-events-none" />
-        <img src="assets/sucaiku_shots/06_ranking.png" data-i="5" alt="素材排行榜" class="absolute inset-0 w-full h-full object-contain transition-all duration-500 ease-out pointer-events-none" />
-        <img src="assets/sucaiku_shots/07_workbench.png" data-i="6" alt="工作台" class="absolute inset-0 w-full h-full object-contain transition-all duration-500 ease-out pointer-events-none" />
-        <div class="absolute top-3 right-3 z-30 bg-black/60 text-white text-xs px-2.5 py-1 rounded-full backdrop-blur-sm pointer-events-none">
-          <span id="sucaikuGalleryIdx">1</span> / 7
-        </div>
-        <div class="absolute top-3 left-3 z-30 bg-black/50 text-white/90 text-[10px] px-2 py-1 rounded-full backdrop-blur-sm pointer-events-none">
-          点击切换下一张
-        </div>
-        <div class="absolute bottom-3 left-1/2 -translate-x-1/2 z-30 bg-black/55 text-white text-xs px-3 py-1 rounded-full backdrop-blur-sm pointer-events-none max-w-[80%] truncate">
-          <span id="sucaikuGalleryLabel">自传素材库</span>
-        </div>
-      </div>
-      <!-- 视频 -->
-      <p class="text-sm font-semibold text-violet mb-3 mt-6">产品介绍</p>
+      <!-- 产品介绍 -->
+      <p class="text-sm font-semibold text-violet mb-3">产品介绍</p>
       <div class="rounded-2xl overflow-hidden bg-black flex items-center justify-center">
         <video id="sucaikuVideo" src="assets/sucaiku_intro.mp4" controls playsinline class="w-full max-h-[420px] object-contain bg-black"></video>
       </div>
-      <!-- 这是什么 -->
-      <p class="text-sm font-semibold text-violet mb-3 mt-6">这是什么</p>
-      <div class="bg-violet/5 border border-violet/15 rounded-2xl p-5">
-        <p class="text-sm text-gray-600 leading-relaxed">这是一个面向电商营销团队的<strong>素材资产库平台</strong>，把投放素材和投放数据统一管理起来。过去团队的素材和报表零散在每个人本地，用一次就沉底、经验无法复用；这个平台让 Excel 一键导入、自动下载素材原图、结构化落库，再按产品名、类目、标签、尺寸组织检索。接入多模态 AI 后，系统能自动识别素材的产品名、类目和尺寸，还支持用自然语言搜图，把人工标注的活儿交给模型。</p>
+      <!-- 系统截图 + 这是什么 左右排布 -->
+      <div class="flex flex-col md:flex-row gap-4 mt-6 items-stretch">
+        <div class="md:w-1/2">
+          <p class="text-sm font-semibold text-violet mb-3">系统截图</p>
+          <div id="sucaikuGallery" onclick="advanceSucaikuGallery()" class="relative w-full h-[300px] rounded-2xl overflow-hidden bg-gray-50 border border-gray-100 select-none" style="cursor:pointer;">
+            <img src="assets/sucaiku_shots/07_workbench.png" data-i="0" alt="工作台" class="absolute inset-0 w-full h-full object-contain transition-all duration-500 ease-out pointer-events-none" style="z-index:20;opacity:1;" />
+            <img src="assets/sucaiku_shots/06_ranking.png" data-i="1" alt="素材排行榜" class="absolute inset-0 w-full h-full object-contain transition-all duration-500 ease-out pointer-events-none" style="z-index:10;opacity:.55;" />
+            <img src="assets/sucaiku_shots/05_detail.png" data-i="2" alt="素材详情" class="absolute inset-0 w-full h-full object-contain transition-all duration-500 ease-out pointer-events-none" style="z-index:5;opacity:.25;" />
+            <img src="assets/sucaiku_shots/04_settings.png" data-i="3" alt="设置" class="absolute inset-0 w-full h-full object-contain transition-all duration-500 ease-out pointer-events-none" style="z-index:0;opacity:0;" />
+            <img src="assets/sucaiku_shots/03_datasource.png" data-i="4" alt="数据源库" class="absolute inset-0 w-full h-full object-contain transition-all duration-500 ease-out pointer-events-none" style="z-index:0;opacity:0;" />
+            <img src="assets/sucaiku_shots/02_import.png" data-i="5" alt="数据导入" class="absolute inset-0 w-full h-full object-contain transition-all duration-500 ease-out pointer-events-none" style="z-index:0;opacity:0;" />
+            <img src="assets/sucaiku_shots/01_zichuan.png" data-i="6" alt="自传素材库" class="absolute inset-0 w-full h-full object-contain transition-all duration-500 ease-out pointer-events-none" style="z-index:0;opacity:0;" />
+            <div class="absolute top-3 right-3 z-30 bg-black/60 text-white text-xs px-2.5 py-1 rounded-full backdrop-blur-sm pointer-events-none">
+              <span id="sucaikuGalleryIdx">1</span> / 7
+            </div>
+            <div class="absolute top-3 left-3 z-30 bg-black/50 text-white/90 text-[10px] px-2 py-1 rounded-full backdrop-blur-sm pointer-events-none">
+              点击切换下一张
+            </div>
+            <div class="absolute bottom-3 left-1/2 -translate-x-1/2 z-30 bg-black/55 text-white text-xs px-3 py-1 rounded-full backdrop-blur-sm pointer-events-none max-w-[80%] truncate">
+              <span id="sucaikuGalleryLabel">工作台</span>
+            </div>
+          </div>
+        </div>
+        <div class="md:w-1/2">
+          <p class="text-sm font-semibold text-violet mb-3 md:mt-0">这是什么</p>
+          <div class="bg-violet/5 border border-violet/15 rounded-2xl p-5 h-full">
+            <p class="text-sm text-gray-600 leading-relaxed">这是一个面向电商营销团队的<strong>素材资产库平台</strong>，把投放素材和投放数据统一管理起来。过去团队的素材和报表零散在每个人本地，用一次就沉底、经验无法复用；这个平台让 Excel 一键导入、自动下载素材原图、结构化落库，再按产品名、类目、标签、尺寸组织检索。接入多模态 AI 后，系统能自动识别素材的产品名、类目和尺寸，还支持用自然语言搜图，把人工标注的活儿交给模型。</p>
+          </div>
+        </div>
       </div>
       <!-- 核心功能 -->
       <p class="text-sm font-semibold text-violet mb-3 mt-6">核心功能</p>
@@ -1706,6 +1812,7 @@
     function openSucaikuModal() {
       document.getElementById('modal-sucaiku').classList.remove('hidden');
       document.body.style.overflow = 'hidden';
+      if (typeof renderSucaikuGallery === 'function') renderSucaikuGallery();
     }
     function closeSucaikuModal(e) {
       if (e.target === e.currentTarget || e.target.classList.contains('bg-black/60')) {
@@ -1720,7 +1827,7 @@
     }
     // 素材资产库 系统截图 叠放轮播
     let sucaikuGalleryIdx = 0;
-    const sucaikuGalleryLabels = ['自传素材库','数据导入','数据源库','设置','素材详情','素材排行榜','工作台'];
+    const sucaikuGalleryLabels = ['工作台','素材排行榜','素材详情','设置','数据源库','数据导入','自传素材库'];
     function renderSucaikuGallery() {
       const g = document.getElementById('sucaikuGallery');
       if (!g) return;
@@ -1758,6 +1865,32 @@
       document.addEventListener('DOMContentLoaded', renderSucaikuGallery);
     } else {
       renderSucaikuGallery();
+    }
+
+    // 618 弹窗：复盘文档 3 张图左右滑动轮播
+    let abReportIdx = 0;
+    function abReportRender() {
+      const track = document.getElementById('abReportTrack');
+      if (!track) return;
+      track.style.transform = `translateX(-${abReportIdx * 100}%)`;
+      track.parentElement.querySelectorAll('[data-dot]').forEach((d) => {
+        d.classList.toggle('bg-violet', Number(d.dataset.dot) === abReportIdx);
+        d.classList.toggle('bg-gray-300', Number(d.dataset.dot) !== abReportIdx);
+      });
+    }
+    function abReportGo(e, i) {
+      if (e) e.stopPropagation();
+      const n = 3;
+      abReportIdx = (i + n) % n;
+      abReportRender();
+    }
+    function abReportPrev(e) {
+      if (e) e.stopPropagation();
+      abReportGo(null, abReportIdx - 1);
+    }
+    function abReportNext(e) {
+      if (e) e.stopPropagation();
+      abReportGo(null, abReportIdx + 1);
     }
 
     // Undergraduate portfolio grid & modal
