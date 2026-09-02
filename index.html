@@ -892,8 +892,17 @@
                 </div>
               </div>
             </div>
-            <div class="pin-note" style="transform: rotate(2deg);">
-              <img src="assets/ai_daily_report_crowd.png" class="rounded-xl w-full h-52 object-cover" alt="AI 人群对比报告" />
+            <div class="pin-note cursor-pointer group" style="transform: rotate(2deg);" onclick="openSucaikuModal()">
+              <div class="relative rounded-xl overflow-hidden w-full h-52">
+                <video src="assets/sucaiku_intro.mp4" class="w-full h-52 object-cover" muted preload="metadata" playsinline></video>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/15 to-transparent flex flex-col items-center justify-center text-white">
+                  <div class="w-12 h-12 rounded-full bg-white/25 flex items-center justify-center mb-2 backdrop-blur-sm">
+                    <svg class="w-6 h-6 ml-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                  </div>
+                  <p class="font-bold text-lg leading-tight drop-shadow">素材资产库</p>
+                  <p class="text-xs text-white/90 mt-1 px-3 text-center">投放素材与数据资产 · 点开看介绍</p>
+                </div>
+              </div>
             </div>
             <div class="pin-note cursor-pointer group" style="transform: rotate(-2deg);" onclick="openTaokeModal()">
               <div class="relative rounded-xl overflow-hidden w-full h-52">
@@ -1364,6 +1373,37 @@
     </div>
   </div>
 
+  <!-- 素材资产库 Modal -->
+  <div id="modal-sucaiku" class="fixed inset-0 z-[60] hidden" onclick="closeSucaikuModal(event)">
+    <div class="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
+    <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[94%] max-w-3xl max-h-[90vh] bg-white rounded-3xl shadow-2xl overflow-y-auto p-6 md:p-8" onclick="event.stopPropagation()">
+      <div class="flex items-center justify-between mb-5">
+        <div class="flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-violet"></span>
+          <span class="text-base font-semibold text-gray-700">素材资产库</span>
+        </div>
+        <button onclick="closeSucaikuModalById('modal-sucaiku')" class="p-2 hover:bg-gray-100 rounded-full transition">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <!-- 视频 -->
+      <p class="text-sm font-semibold text-violet mb-3">产品介绍</p>
+      <div class="rounded-2xl overflow-hidden bg-black flex items-center justify-center">
+        <video id="sucaikuVideo" src="assets/sucaiku_intro.mp4" controls playsinline class="w-full max-h-[420px] object-contain bg-black"></video>
+      </div>
+      <!-- 这是什么 -->
+      <p class="text-sm font-semibold text-violet mb-3 mt-6">这是什么</p>
+      <div class="bg-violet/5 border border-violet/15 rounded-2xl p-5">
+        <p class="text-sm text-gray-600 leading-relaxed">这是一个面向电商营销团队的<strong>素材资产库平台</strong>，把投放素材和投放数据统一管理起来。过去团队的素材和报表零散在每个人本地，用一次就沉底、经验无法复用；这个平台让 Excel 一键导入、自动下载素材原图、结构化落库，再按产品名、类目、标签、尺寸组织检索。接入多模态 AI 后，系统能自动识别素材的产品名、类目和尺寸，还支持用自然语言搜图，把人工标注的活儿交给模型。</p>
+      </div>
+      <!-- 成果说明 -->
+      <p class="text-sm font-semibold text-violet mb-3 mt-6">成果说明</p>
+      <div class="bg-violet/5 border border-violet/15 rounded-2xl p-5">
+        <p class="text-sm text-gray-600 leading-relaxed">平台打通了从导入、管理到分析的全链路：看板、排行榜、趋势图支持按日期区间聚合，CTR 等指标口径统一正确。已完成云原生改造，代码推到私有仓库，数据库与对象存储就绪，团队可共享同一份素材与数据资产。实测导入稳定，坏图重抽全部修复、零失败，AI 调用成本也通过 URL 去重等手段压到可控范围。</p>
+      </div>
+    </div>
+  </div>
+
   <!-- Dashboards Modal -->
   <div id="modal-dashboards" class="fixed inset-0 z-[60] hidden" onclick="closeModal(event)">
     <div class="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
@@ -1599,6 +1639,21 @@
     }
     function closePluginModalById(id) {
       const v = document.querySelector('#pluginModal video');
+      if (v) v.pause();
+      document.getElementById(id).classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+    function openSucaikuModal() {
+      document.getElementById('modal-sucaiku').classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeSucaikuModal(e) {
+      if (e.target === e.currentTarget || e.target.classList.contains('bg-black/60')) {
+        closeSucaikuModalById('modal-sucaiku');
+      }
+    }
+    function closeSucaikuModalById(id) {
+      const v = document.getElementById('sucaikuVideo');
       if (v) v.pause();
       document.getElementById(id).classList.add('hidden');
       document.body.style.overflow = '';
