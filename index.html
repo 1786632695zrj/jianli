@@ -115,6 +115,19 @@
     section#explore > div > :nth-child(2) {
       justify-content: flex-start;
     }
+    /* 教育背景与技能：内容较多，关闭整屏等比缩放，保持卡片原始大小（不被 fitSections 缩小）。
+       高度改为自适应（至少一屏），避免内容超高时被 overflow:hidden 裁切；内容自然流式排在标题下方。 */
+    section#education {
+      height: auto;
+      min-height: 100vh;
+    }
+    section#education > div > :nth-child(2) {
+      align-items: stretch;
+      justify-content: flex-start;
+      padding-top: 10rem;
+      padding-bottom: 3rem;
+      min-height: auto;
+    }
     /* 点击人物弹出的手绘气泡：歪歪扭扭的有机轮廓 + 尖锐小尾巴 + 周围小动作线 */
     .hero-bubble {
       position: absolute;
@@ -1961,6 +1974,7 @@
     // 内容超高时整体 transform: scale() 缩小（字号/间距/图片比例完全不变，仅整体变小）。
     function fitSections() {
       document.querySelectorAll('section:not(#about)').forEach(sec => {
+        if (sec.id === 'education') return;   // 教育屏保持原始卡片大小，不参与等比缩放
         const inner = sec.querySelector(':scope > div');
         if (!inner) return;
         const content = inner.querySelector(':scope > :nth-child(2)');
