@@ -42,8 +42,9 @@
         <video src="assets/sucaiku_intro.mp4" controls playsinline class="w-full max-h-[420px] object-contain bg-black"></video>
       </div>
 
-      <!-- 系统截图 + 这是什么 -->
-      <div class="flex flex-col md:flex-row gap-4 mt-6 items-stretch">
+      <!-- 业务痛点 -->
+      <p class="text-sm font-semibold text-violet mb-3 mt-6">业务痛点</p>
+      <div class="flex flex-col md:flex-row gap-4 items-stretch">
         <div class="md:w-1/2">
           <p class="text-sm font-semibold text-violet mb-3">系统截图</p>
           <div id="sucaikuGallery" onclick="advanceSucaikuGallery()" class="relative w-full h-[300px] rounded-2xl overflow-hidden bg-gray-50 border border-gray-100 select-none" style="cursor:pointer;">
@@ -66,11 +67,17 @@
           </div>
         </div>
         <div class="md:w-1/2">
-          <p class="text-sm font-semibold text-violet mb-3 md:mt-0">这是什么</p>
+          <p class="text-sm font-semibold text-violet mb-3 md:mt-0">业务痛点</p>
           <div class="bg-violet/5 border border-violet/15 rounded-2xl p-5 h-full">
             <p class="text-sm text-gray-600 leading-relaxed">这是一个面向电商营销团队的<strong>素材资产库平台</strong>，把投放素材和投放数据统一管理起来。过去团队的素材和报表零散在每个人本地，用一次就沉底、经验无法复用；这个平台让 Excel 一键导入、自动下载素材原图、结构化落库，再按产品名、类目、标签、尺寸组织检索。接入多模态 AI 后，系统能自动识别素材的产品名、类目和尺寸，还支持用自然语言搜图，把人工标注的活儿交给模型。</p>
           </div>
         </div>
+      </div>
+
+      <!-- 我的动作 -->
+      <p class="text-sm font-semibold text-violet mb-3 mt-6">我的动作</p>
+      <div class="bg-violet/5 border border-violet/15 rounded-2xl p-5">
+        <p class="text-sm text-gray-600 leading-relaxed">使用 Codex 和 CodeBuddy 辅助，把素材从零散本地文件到统一资产库的链路一步步做成自动化闭环，覆盖从导入、AI 识别、检索到分析看板的全环节。</p>
       </div>
 
       <!-- 核心功能 -->
@@ -117,7 +124,7 @@
       <!-- 成果说明 -->
       <p class="text-sm font-semibold text-violet mb-3 mt-6">成果说明</p>
       <div class="bg-violet/5 border border-violet/15 rounded-2xl p-5">
-        <p class="text-sm text-gray-600 leading-relaxed">平台打通了从导入、管理到分析的全链路：看板、排行榜、趋势图支持按日期区间聚合，CTR 等指标口径统一正确。已完成云原生改造，代码推到私有仓库，数据库与对象存储就绪，团队可共享同一份素材与数据资产。实测导入稳定，坏图重抽全部修复、零失败，AI 调用成本也通过 URL 去重等手段压到可控范围。</p>
+        <p class="text-sm text-gray-600 leading-relaxed">平台打通了从导入、管理到分析的全链路：看板、排行榜、趋势图支持按日期区间聚合，CTR 等指标口径统一正确。已完成云原生改造，代码推到私有仓库，数据库与对象存储就绪，团队可共享同一份素材与数据资产。AI 调用成本也通过 URL 去重等手段压到可控范围。</p>
       </div>
     </div>
     <p class="text-center text-xs text-gray-400 mt-6">本页为独立作品展示，与整站简历分离 · <a href="https://1786632695zrj.github.io/jianli/" target="_blank" rel="noopener" class="text-violet hover:underline">回到完整简历 ↗</a></p>

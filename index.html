@@ -1177,15 +1177,14 @@
         </video>
         <div class="flex flex-wrap gap-2 mb-6">
           <span class="px-3 py-1 bg-violet/10 text-violet text-sm font-semibold rounded-full">全链路一键闭环</span>
-          <span class="px-3 py-1 bg-violet/10 text-violet text-sm font-semibold rounded-full">9 类圈选条件</span>
           <span class="px-3 py-1 bg-violet/10 text-violet text-sm font-semibold rounded-full">4 大画像模块</span>
           <span class="px-3 py-1 bg-violet/10 text-violet text-sm font-semibold rounded-full">提效 90%+</span>
-          <span class="px-3 py-1 bg-violet/10 text-violet text-sm font-semibold rounded-full">无人值守批量</span>
+          <span class="px-3 py-1 bg-violet/10 text-violet text-sm font-semibold rounded-full">无人值守</span>
           <span class="px-3 py-1 bg-violet/10 text-violet text-sm font-semibold rounded-full">飞书资产沉淀</span>
         </div>
         <div class="space-y-4 text-gray-700 leading-relaxed mb-6">
-          <p><strong>业务痛点：</strong>天猫数据银行是品牌方做人群运营的核心平台。每分析一个商品人群，运营都要在网页上走完「圈选人群 → 等计算 → 画像透视 → 手抄十余个图表 → 写报告 → 沉淀资产」十余步，强重复、必须人工值守，单人群耗时约 1 小时，人群一多根本做不过来，更谈不上批量。</p>
-          <p><strong>我的动作：</strong>我主要用 Codex 和 CodeBuddy 辅助，把这条链路从纯手工一点点做成能自己跑的闭环，中间踩了不少坑，是分三个阶段迭代出来的：</p>
+          <p><strong>业务痛点：</strong>天猫数据银行是品牌做人群运营的核心平台。每分析一个商品人群，运营都要在网页上走完「圈选人群 → 等计算 → 画像透视 → 手抄十余个图表 → 写报告 → 沉淀资产」十余步，过程强重复、需全程人工值守，单人群耗时约 1 小时，一旦人群规模上来便难以覆盖，更无法支撑快速分析。</p>
+          <p><strong>我的动作：</strong>使用 Codex 和 CodeBuddy 辅助，将链路从纯手工一点点形成自动化闭环，主要分三个阶段迭代出来：</p>
           <div class="space-y-3">
             <div class="flex gap-3 items-start bg-violet/5 border border-violet/15 rounded-xl p-3">
               <span class="shrink-0 px-2.5 py-1 bg-violet text-white text-xs font-bold rounded-lg">V1</span>
@@ -1217,6 +1216,14 @@
             <li>登录：登录态合规即可用，验证码滑块不触发。</li>
           </ul>
         </div>
+        <div class="bg-gradient-to-br from-violet/10 to-violet/5 border border-violet/25 rounded-2xl p-5 mt-6 mb-6">
+          <div class="flex items-baseline gap-3 mb-3 flex-wrap">
+            <span class="text-4xl font-extrabold text-violet leading-none">90%+</span>
+            <span class="text-sm font-semibold text-gray-700">单人群分析提效</span>
+            <span class="text-xs text-gray-500">原约 1 小时 → 现 2 分钟</span>
+          </div>
+        <p class="text-sm text-gray-700 leading-relaxed">9 类圈选条件、4 大画像模块全部自动化；支持批量多人群、计算等待上限 12 小时且失败自动止损；自动同步飞书「人群资产库」；密钥与登录态由 .gitignore 排除，代码安全托管零泄露。</p>
+      </div>
         <!-- 项目界面 -->
         <p class="text-sm font-semibold text-violet mb-3 mt-6">项目界面</p>
         <div class="grid grid-cols-2 gap-3 mb-6">
@@ -1229,14 +1236,6 @@
             <p class="text-xs text-gray-500 mt-2 text-center">系统设置</p>
           </div>
         </div>
-        <div class="bg-gradient-to-br from-violet/10 to-violet/5 border border-violet/25 rounded-2xl p-5 mt-6 mb-6">
-          <div class="flex items-baseline gap-3 mb-3 flex-wrap">
-            <span class="text-4xl font-extrabold text-violet leading-none">90%+</span>
-            <span class="text-sm font-semibold text-gray-700">单人群分析提效</span>
-            <span class="text-xs text-gray-500">原约 1 小时 → 现 2 分钟</span>
-          </div>
-        <p class="text-sm text-gray-700 leading-relaxed">9 类圈选条件、4 大画像模块全部自动化；支持批量多人群、计算等待上限 12 小时且失败自动止损；自动同步飞书「人群资产库」；密钥与登录态由 .gitignore 排除，代码安全托管零泄露。</p>
-      </div>
     </div>
     </div>
   </div>
@@ -1555,8 +1554,10 @@
       <div class="rounded-2xl overflow-hidden bg-black flex items-center justify-center">
         <video id="sucaikuVideo" src="assets/sucaiku_intro.mp4" controls playsinline class="w-full max-h-[420px] object-contain bg-black"></video>
       </div>
-      <!-- 系统截图 + 这是什么 左右排布 -->
-      <div class="flex flex-col md:flex-row gap-4 mt-6 items-stretch">
+
+      <!-- 业务痛点 -->
+      <p class="text-sm font-semibold text-violet mb-3 mt-6">业务痛点</p>
+      <div class="flex flex-col md:flex-row gap-4 items-stretch">
         <div class="md:w-1/2">
           <p class="text-sm font-semibold text-violet mb-3">系统截图</p>
           <div id="sucaikuGallery" onclick="advanceSucaikuGallery()" class="relative w-full h-[300px] rounded-2xl overflow-hidden bg-gray-50 border border-gray-100 select-none" style="cursor:pointer;">
@@ -1579,12 +1580,19 @@
           </div>
         </div>
         <div class="md:w-1/2">
-          <p class="text-sm font-semibold text-violet mb-3 md:mt-0">这是什么</p>
+          <p class="text-sm font-semibold text-violet mb-3 md:mt-0">业务痛点</p>
           <div class="bg-violet/5 border border-violet/15 rounded-2xl p-5 h-full">
             <p class="text-sm text-gray-600 leading-relaxed">这是一个面向电商营销团队的<strong>素材资产库平台</strong>，把投放素材和投放数据统一管理起来。过去团队的素材和报表零散在每个人本地，用一次就沉底、经验无法复用；这个平台让 Excel 一键导入、自动下载素材原图、结构化落库，再按产品名、类目、标签、尺寸组织检索。接入多模态 AI 后，系统能自动识别素材的产品名、类目和尺寸，还支持用自然语言搜图，把人工标注的活儿交给模型。</p>
           </div>
         </div>
       </div>
+
+      <!-- 我的动作 -->
+      <p class="text-sm font-semibold text-violet mb-3 mt-6">我的动作</p>
+      <div class="bg-violet/5 border border-violet/15 rounded-2xl p-5">
+        <p class="text-sm text-gray-600 leading-relaxed">使用 Codex 和 CodeBuddy 辅助，把素材从零散本地文件到统一资产库的链路一步步做成自动化闭环，覆盖从导入、AI 识别、检索到分析看板的全环节。</p>
+      </div>
+
       <!-- 核心功能 -->
       <p class="text-sm font-semibold text-violet mb-3 mt-6">核心功能</p>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -1628,7 +1636,7 @@
       <!-- 成果说明 -->
       <p class="text-sm font-semibold text-violet mb-3 mt-6">成果说明</p>
       <div class="bg-violet/5 border border-violet/15 rounded-2xl p-5">
-        <p class="text-sm text-gray-600 leading-relaxed">平台打通了从导入、管理到分析的全链路：看板、排行榜、趋势图支持按日期区间聚合，CTR 等指标口径统一正确。已完成云原生改造，代码推到私有仓库，数据库与对象存储就绪，团队可共享同一份素材与数据资产。实测导入稳定，坏图重抽全部修复、零失败，AI 调用成本也通过 URL 去重等手段压到可控范围。</p>
+        <p class="text-sm text-gray-600 leading-relaxed">平台打通了从导入、管理到分析的全链路：看板、排行榜、趋势图支持按日期区间聚合，CTR 等指标口径统一正确。已完成云原生改造，代码推到私有仓库，数据库与对象存储就绪，团队可共享同一份素材与数据资产。AI 调用成本也通过 URL 去重等手段压到可控范围。</p>
       </div>
     </div>
   </div>
