@@ -257,6 +257,10 @@
     ::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 4px; }
     ::-webkit-scrollbar-thumb:hover { background: #9ca3af; }
   </style>
+  <style>
+    /* 防护层：禁止拖拽图片 */
+    img { -webkit-user-drag: none; -khtml-user-drag: none; -moz-user-drag: none; user-drag: none; -webkit-user-select: none; user-select: none; }
+  </style>
 </head>
 <body class="bg-white text-ink antialiased">
 
@@ -2486,6 +2490,13 @@
       if (!m) return;
       if (m === 'sucaiku' && typeof openSucaikuModal === 'function') openSucaikuModal();
       else if (m === 'ai' && typeof openModal === 'function') openModal('modal-ai');
+    });
+  </script>
+  <script>
+    /* 防护层：禁止右键菜单 + 禁止拖拽图片 */
+    document.addEventListener('contextmenu', function (e) { e.preventDefault(); });
+    document.addEventListener('dragstart', function (e) {
+      if (e.target && e.target.tagName === 'IMG') e.preventDefault();
     });
   </script>
 </body>
