@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>素材资产库平台 · 张瑞娟作品</title>
+  <meta name="description" content="张瑞娟作品：面向电商营销团队的素材资产库平台，打通导入、管理、AI 识别到分析看板全链路。" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: { extend: {
+        colors: { violet: '#7c3aed', ink: '#0f0f0f', paper: '#fafafa', mint: '#a7f3d0', mintDark: '#34d399' },
+        fontFamily: { sans: ['Inter', 'PingFang SC', 'Microsoft YaHei', 'sans-serif'] }
+      }}
+    }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    body { background: #f5f3ff; font-family: 'Inter', 'PingFang SC', 'Microsoft YaHei', sans-serif; }
+  </style>
+</head>
+<body class="text-ink">
+  <header class="max-w-4xl mx-auto px-6 pt-8 pb-1 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <span class="w-2.5 h-2.5 rounded-full bg-violet"></span>
+      <span class="font-semibold text-gray-700">张瑞娟 · 作品集</span>
+    </div>
+    <a href="https://1786632695zrj.github.io/jianli/" target="_blank" rel="noopener" class="text-sm text-violet font-medium hover:underline">返回简历 ↗</a>
+  </header>
+
+  <main class="max-w-4xl mx-auto px-6 py-4 mb-16">
+    <div class="bg-white rounded-3xl shadow-xl p-6 md:p-8">
+      <div class="flex items-center gap-2 mb-1">
+        <span class="w-2 h-2 rounded-full bg-violet"></span>
+        <span class="text-lg font-semibold text-gray-700">素材资产库</span>
+      </div>
+      <p class="text-gray-500 mb-4">面向电商营销团队 · 素材与投放数据统一管理平台 · 2026</p>
+
+      <!-- 产品介绍 -->
+      <p class="text-sm font-semibold text-violet mb-3">产品介绍</p>
+      <div class="rounded-2xl overflow-hidden bg-black flex items-center justify-center">
+        <video src="assets/sucaiku_intro.mp4" controls playsinline class="w-full max-h-[420px] object-contain bg-black"></video>
+      </div>
+
+      <!-- 系统截图 + 这是什么 -->
+      <div class="flex flex-col md:flex-row gap-4 mt-6 items-stretch">
+        <div class="md:w-1/2">
+          <p class="text-sm font-semibold text-violet mb-3">系统截图</p>
+          <div id="sucaikuGallery" onclick="advanceSucaikuGallery()" class="relative w-full h-[300px] rounded-2xl overflow-hidden bg-gray-50 border border-gray-100 select-none" style="cursor:pointer;">
+            <img src="assets/sucaiku_shots/07_workbench.png" data-i="0" alt="工作台" class="absolute inset-0 w-full h-full object-contain transition-all duration-500 ease-out pointer-events-none" style="z-index:20;opacity:1;" />
+            <img src="assets/sucaiku_shots/06_ranking.png" data-i="1" alt="素材排行榜" class="absolute inset-0 w-full h-full object-contain transition-all duration-500 ease-out pointer-events-none" style="z-index:10;opacity:.55;" />
+            <img src="assets/sucaiku_shots/05_detail.png" data-i="2" alt="素材详情" class="absolute inset-0 w-full h-full object-contain transition-all duration-500 ease-out pointer-events-none" style="z-index:5;opacity:.25;" />
+            <img src="assets/sucaiku_shots/04_settings.png" data-i="3" alt="设置" class="absolute inset-0 w-full h-full object-contain transition-all duration-500 ease-out pointer-events-none" style="z-index:0;opacity:0;" />
+            <img src="assets/sucaiku_shots/03_datasource.png" data-i="4" alt="数据源库" class="absolute inset-0 w-full h-full object-contain transition-all duration-500 ease-out pointer-events-none" style="z-index:0;opacity:0;" />
+            <img src="assets/sucaiku_shots/02_import.png" data-i="5" alt="数据导入" class="absolute inset-0 w-full h-full object-contain transition-all duration-500 ease-out pointer-events-none" style="z-index:0;opacity:0;" />
+            <img src="assets/sucaiku_shots/01_zichuan.png" data-i="6" alt="自传素材库" class="absolute inset-0 w-full h-full object-contain transition-all duration-500 ease-out pointer-events-none" style="z-index:0;opacity:0;" />
+            <div class="absolute top-3 right-3 z-30 bg-black/60 text-white text-xs px-2.5 py-1 rounded-full backdrop-blur-sm pointer-events-none">
+              <span id="sucaikuGalleryIdx">1</span> / 7
+            </div>
+            <div class="absolute top-3 left-3 z-30 bg-black/50 text-white/90 text-[10px] px-2 py-1 rounded-full backdrop-blur-sm pointer-events-none">
+              点击切换下一张
+            </div>
+            <div class="absolute bottom-3 left-1/2 -translate-x-1/2 z-30 bg-black/55 text-white text-xs px-3 py-1 rounded-full backdrop-blur-sm pointer-events-none max-w-[80%] truncate">
+              <span id="sucaikuGalleryLabel">工作台</span>
+            </div>
+          </div>
+        </div>
+        <div class="md:w-1/2">
+          <p class="text-sm font-semibold text-violet mb-3 md:mt-0">这是什么</p>
+          <div class="bg-violet/5 border border-violet/15 rounded-2xl p-5 h-full">
+            <p class="text-sm text-gray-600 leading-relaxed">这是一个面向电商营销团队的<strong>素材资产库平台</strong>，把投放素材和投放数据统一管理起来。过去团队的素材和报表零散在每个人本地，用一次就沉底、经验无法复用；这个平台让 Excel 一键导入、自动下载素材原图、结构化落库，再按产品名、类目、标签、尺寸组织检索。接入多模态 AI 后，系统能自动识别素材的产品名、类目和尺寸，还支持用自然语言搜图，把人工标注的活儿交给模型。</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 核心功能 -->
+      <p class="text-sm font-semibold text-violet mb-3 mt-6">核心功能</p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div class="flex items-start gap-3 bg-white border border-gray-100 rounded-2xl p-4 shadow-sm">
+          <div class="shrink-0 w-10 h-10 rounded-xl bg-violet/10 text-violet flex items-center justify-center">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 16.5V9.75m0 6.75 3-3m-3 3-3-3M6.75 19.5a4.5 4.5 0 0 1-1.41-8.775 5.25 5.25 0 0 1 10.233-2.33 3 3 0 0 1 3.758 3.848A3.752 3.752 0 0 1 18 19.5H6.75Z" /></svg>
+          </div>
+          <div>
+            <p class="text-sm font-semibold text-gray-800 mb-1">一键导入</p>
+            <p class="text-xs text-gray-600 leading-relaxed">Excel、JSON 一键导入，自动解析、下载素材原图并结构化落库。</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-3 bg-white border border-gray-100 rounded-2xl p-4 shadow-sm">
+          <div class="shrink-0 w-10 h-10 rounded-xl bg-violet/10 text-violet flex items-center justify-center">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M2.25 12.75V12A2.25 2.25 0 0 1 4.5 9.75h15A2.25 2.25 0 0 1 21.75 12v.75m-8.69-6.44-2.12-2.12a1.5 1.5 0 0 0-1.061-.44H4.5A2.25 2.25 0 0 0 2.25 6v12a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9a2.25 2.25 0 0 0-2.25-2.25h-5.379a1.5 1.5 0 0 1-1.06-.44Z" /></svg>
+          </div>
+          <div>
+            <p class="text-sm font-semibold text-gray-800 mb-1">资产管理</p>
+            <p class="text-xs text-gray-600 leading-relaxed">按产品名、类目、标签、尺寸组织，区分在投、历史、自传三种生命周期。</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-3 bg-white border border-gray-100 rounded-2xl p-4 shadow-sm">
+          <div class="shrink-0 w-10 h-10 rounded-xl bg-violet/10 text-violet flex items-center justify-center">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456Z" /></svg>
+          </div>
+          <div>
+            <p class="text-sm font-semibold text-gray-800 mb-1">AI 识别</p>
+            <p class="text-xs text-gray-600 leading-relaxed">多模态视觉自动补全产品名、类目、尺寸，支持用自然语言搜图。</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-3 bg-white border border-gray-100 rounded-2xl p-4 shadow-sm">
+          <div class="shrink-0 w-10 h-10 rounded-xl bg-violet/10 text-violet flex items-center justify-center">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z" /></svg>
+          </div>
+          <div>
+            <p class="text-sm font-semibold text-gray-800 mb-1">分析看板</p>
+            <p class="text-xs text-gray-600 leading-relaxed">看板、排行榜、趋势图按日期区间聚合，CTR 等指标口径统一正确。</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 成果说明 -->
+      <p class="text-sm font-semibold text-violet mb-3 mt-6">成果说明</p>
+      <div class="bg-violet/5 border border-violet/15 rounded-2xl p-5">
+        <p class="text-sm text-gray-600 leading-relaxed">平台打通了从导入、管理到分析的全链路：看板、排行榜、趋势图支持按日期区间聚合，CTR 等指标口径统一正确。已完成云原生改造，代码推到私有仓库，数据库与对象存储就绪，团队可共享同一份素材与数据资产。实测导入稳定，坏图重抽全部修复、零失败，AI 调用成本也通过 URL 去重等手段压到可控范围。</p>
+      </div>
+    </div>
+    <p class="text-center text-xs text-gray-400 mt-6">本页为独立作品展示，与整站简历分离 · <a href="https://1786632695zrj.github.io/jianli/" target="_blank" rel="noopener" class="text-violet hover:underline">回到完整简历 ↗</a></p>
+  </main>
+
+  <script>
+    let sucaikuGalleryIdx = 0;
+    const sucaikuGalleryLabels = ['工作台','素材排行榜','素材详情','设置','数据源库','数据导入','自传素材库'];
+    function renderSucaikuGallery() {
+      const g = document.getElementById('sucaikuGallery');
+      if (!g) return;
+      const imgs = g.querySelectorAll('img[data-i]');
+      const n = imgs.length;
+      if (!n) return;
+      const c = sucaikuGalleryIdx;
+      imgs.forEach((img, i) => {
+        const dist = (i - c + n) % n;
+        const s = img.style;
+        if (dist === 0) {
+          s.opacity = '1'; s.transform = 'translate(0px,0px) scale(1)'; s.zIndex = '20';
+        } else if (dist === 1) {
+          s.opacity = '0.55'; s.transform = 'translate(12px,10px) scale(0.94)'; s.zIndex = '10';
+        } else if (dist === 2) {
+          s.opacity = '0.25'; s.transform = 'translate(24px,20px) scale(0.88)'; s.zIndex = '5';
+        } else {
+          s.opacity = '0'; s.transform = 'translate(24px,20px) scale(0.88)'; s.zIndex = '0';
+        }
+      });
+      const idxEl = document.getElementById('sucaikuGalleryIdx');
+      if (idxEl) idxEl.textContent = String(c + 1);
+      const labEl = document.getElementById('sucaikuGalleryLabel');
+      if (labEl && sucaikuGalleryLabels[c]) labEl.textContent = sucaikuGalleryLabels[c];
+    }
+    function advanceSucaikuGallery() {
+      const g = document.getElementById('sucaikuGallery');
+      if (!g) return;
+      const n = g.querySelectorAll('img[data-i]').length;
+      if (!n) return;
+      sucaikuGalleryIdx = (sucaikuGalleryIdx + 1) % n;
+      renderSucaikuGallery();
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', renderSucaikuGallery);
+    } else {
+      renderSucaikuGallery();
+    }
+  </script>
+</body>
+</html>
