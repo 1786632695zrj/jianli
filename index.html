@@ -2431,5 +2431,14 @@
       img.classList.add('cursor-zoom-in');
     });
   </script>
+  <script>
+    // 分享链接自动打开指定弹窗：?modal=sucaiku 或 ?modal=ai
+    window.addEventListener('load', function () {
+      var m = new URLSearchParams(location.search).get('modal');
+      if (!m) return;
+      if (m === 'sucaiku' && typeof openSucaikuModal === 'function') openSucaikuModal();
+      else if (m === 'ai' && typeof openModal === 'function') openModal('modal-ai');
+    });
+  </script>
 </body>
 </html>
