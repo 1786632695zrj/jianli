@@ -36,51 +36,65 @@
       </div>
       <p class="text-gray-500 mb-4">面向电商营销团队 · 素材与投放数据统一管理平台 · 2026</p>
 
-      <!-- 产品介绍 -->
-      <p class="text-sm font-semibold text-violet mb-3">产品介绍</p>
-      <div class="rounded-2xl overflow-hidden bg-black flex items-center justify-center">
+      <!-- 产品介绍视频（置顶，与圈人运营视频置顶一致） -->
+      <div class="rounded-2xl overflow-hidden bg-black flex items-center justify-center mb-6">
         <video src="assets/sucaiku_intro.mp4" controls playsinline class="w-full max-h-[420px] object-contain bg-black"></video>
       </div>
 
-      <!-- 业务痛点 -->
-      <p class="text-sm font-semibold text-violet mb-3 mt-6">业务痛点</p>
-      <div class="flex flex-col md:flex-row gap-4 items-stretch">
-        <div class="md:w-1/2">
-          <p class="text-sm font-semibold text-violet mb-3">系统截图</p>
-          <div id="sucaikuGallery" onclick="advanceSucaikuGallery()" class="relative w-full h-[300px] rounded-2xl overflow-hidden bg-gray-50 border border-gray-100 select-none" style="cursor:pointer;">
-            <img src="assets/sucaiku_shots/07_workbench.png" data-i="0" alt="工作台" class="absolute inset-0 w-full h-full object-contain transition-all duration-500 ease-out pointer-events-none" style="z-index:20;opacity:1;" />
-            <img src="assets/sucaiku_shots/06_ranking.png" data-i="1" alt="素材排行榜" class="absolute inset-0 w-full h-full object-contain transition-all duration-500 ease-out pointer-events-none" style="z-index:10;opacity:.55;" />
-            <img src="assets/sucaiku_shots/05_detail.png" data-i="2" alt="素材详情" class="absolute inset-0 w-full h-full object-contain transition-all duration-500 ease-out pointer-events-none" style="z-index:5;opacity:.25;" />
-            <img src="assets/sucaiku_shots/04_settings.png" data-i="3" alt="设置" class="absolute inset-0 w-full h-full object-contain transition-all duration-500 ease-out pointer-events-none" style="z-index:0;opacity:0;" />
-            <img src="assets/sucaiku_shots/03_datasource.png" data-i="4" alt="数据源库" class="absolute inset-0 w-full h-full object-contain transition-all duration-500 ease-out pointer-events-none" style="z-index:0;opacity:0;" />
-            <img src="assets/sucaiku_shots/02_import.png" data-i="5" alt="数据导入" class="absolute inset-0 w-full h-full object-contain transition-all duration-500 ease-out pointer-events-none" style="z-index:0;opacity:0;" />
-            <img src="assets/sucaiku_shots/01_zichuan.png" data-i="6" alt="自传素材库" class="absolute inset-0 w-full h-full object-contain transition-all duration-500 ease-out pointer-events-none" style="z-index:0;opacity:0;" />
-            <div class="absolute top-3 right-3 z-30 bg-black/60 text-white text-xs px-2.5 py-1 rounded-full backdrop-blur-sm pointer-events-none">
-              <span id="sucaikuGalleryIdx">1</span> / 7
-            </div>
-            <div class="absolute top-3 left-3 z-30 bg-black/50 text-white/90 text-[10px] px-2 py-1 rounded-full backdrop-blur-sm pointer-events-none">
-              点击切换下一张
-            </div>
-            <div class="absolute bottom-3 left-1/2 -translate-x-1/2 z-30 bg-black/55 text-white text-xs px-3 py-1 rounded-full backdrop-blur-sm pointer-events-none max-w-[80%] truncate">
-              <span id="sucaikuGalleryLabel">工作台</span>
-            </div>
-          </div>
-        </div>
-        <div class="md:w-1/2">
-          <p class="text-sm font-semibold text-violet mb-3 md:mt-0">业务痛点</p>
-          <div class="bg-violet/5 border border-violet/15 rounded-2xl p-5 h-full">
-            <p class="text-sm text-gray-600 leading-relaxed">这是一个面向电商营销团队的<strong>素材资产库平台</strong>，把投放素材和投放数据统一管理起来。过去团队的素材和报表零散在每个人本地，用一次就沉底、经验无法复用；这个平台让 Excel 一键导入、自动下载素材原图、结构化落库，再按产品名、类目、标签、尺寸组织检索。接入多模态 AI 后，系统能自动识别素材的产品名、类目和尺寸，还支持用自然语言搜图，把人工标注的活儿交给模型。</p>
-          </div>
+      <div class="flex flex-wrap gap-2 mb-6">
+        <span class="px-3 py-1 bg-violet/10 text-violet text-sm font-semibold rounded-full">素材投放打通</span>
+        <span class="px-3 py-1 bg-violet/10 text-violet text-sm font-semibold rounded-full">AI 自动打标</span>
+        <span class="px-3 py-1 bg-violet/10 text-violet text-sm font-semibold rounded-full">效果量化连接</span>
+        <span class="px-3 py-1 bg-violet/10 text-violet text-sm font-semibold rounded-full">自然语言搜图</span>
+        <span class="px-3 py-1 bg-violet/10 text-violet text-sm font-semibold rounded-full">统一资产沉淀</span>
+      </div>
+
+      <!-- 业务痛点 / 我的动作 -->
+      <div class="space-y-4 text-gray-700 leading-relaxed mb-6">
+        <p><strong>业务痛点：</strong>电商团队的素材与投放数据长期呈「三散」状态。</p>
+        <div class="grid grid-cols-[64px_1fr] gap-x-3 gap-y-2 items-start text-sm mt-1">
+          <p class="font-semibold text-violet shrink-0">数据散</p>
+          <p class="text-gray-600 leading-relaxed">投放数据散落在阿里妈妈后台多个结案表，导出成不同 Excel 表，难以统一汇总对齐；</p>
+          <p class="font-semibold text-violet shrink-0">素材散</p>
+          <p class="text-gray-600 leading-relaxed">阿里妈妈后台虽有库，但素材无法按产品名称 / 类目 / 尺寸 / 商品ID检索，且后台库缺乏统一规范，上传命名与分类杂乱，难以精准调取；</p>
+          <p class="font-semibold text-violet shrink-0">效果散</p>
+          <p class="text-gray-600 leading-relaxed">素材效果评估依赖人工翻表计算，优质经验难以沉淀为可复用资产。</p>
+          <p class="col-span-2 text-gray-600 leading-relaxed font-medium mt-1">直接导致素材复用率低、经验资产流失。</p>
         </div>
       </div>
 
-      <!-- 我的动作 -->
       <p class="text-sm font-semibold text-violet mb-3 mt-6">我的动作</p>
-      <div class="bg-violet/5 border border-violet/15 rounded-2xl p-5">
-        <p class="text-sm text-gray-600 leading-relaxed">使用 Codex 和 CodeBuddy 辅助，把素材从零散本地文件到统一资产库的链路一步步做成自动化闭环，覆盖从导入、AI 识别、检索到分析看板的全环节。</p>
+      <div class="space-y-3">
+        <div class="flex gap-3 items-start bg-violet/5 border border-violet/15 rounded-xl p-3">
+          <span class="shrink-0 px-2.5 py-1 bg-violet text-white text-xs font-bold rounded-lg">资产库</span>
+          <div>
+            <p class="font-semibold text-gray-800">统一资产管理</p>
+            <p class="text-sm text-gray-600 leading-relaxed mt-0.5">Excel 一键导入，自动解析、下载素材原图并结构化落库，按产品名、类目、商品ID、尺寸组织，解决素材散落、缺少统一库的问题。</p>
+          </div>
+        </div>
+        <div class="flex gap-3 items-start bg-violet/5 border border-violet/15 rounded-xl p-3">
+          <span class="shrink-0 px-2.5 py-1 bg-violet text-white text-xs font-bold rounded-lg">图片提取</span>
+          <div>
+            <p class="font-semibold text-gray-800">动态渲染取图</p>
+            <p class="text-sm text-gray-600 leading-relaxed mt-0.5">素材地址分直链图、data= 模板、HTML 渲染页三类，其中 HTML 页真实图由 JS 动态注入、静态抓不到，用无头Chrome渲染取图；配套失败可见机制，杜绝占位图、截图伪装成素材入库。</p>
+          </div>
+        </div>
+        <div class="flex gap-3 items-start bg-violet/5 border border-violet/15 rounded-xl p-3">
+          <span class="shrink-0 px-2.5 py-1 bg-violet text-white text-xs font-bold rounded-lg">AI 打标</span>
+          <div>
+            <p class="font-semibold text-gray-800">多模态识别与检索</p>
+            <p class="text-sm text-gray-600 leading-relaxed mt-0.5">多模态视觉模型自动补全产品名、类目、标签、尺寸，并用支持AI对话快速搜图；按素材地址 URL 去重控制调用成本，尺寸识别改本地读像素更准。</p>
+          </div>
+        </div>
+        <div class="flex gap-3 items-start bg-violet/5 border border-violet/15 rounded-xl p-3">
+          <span class="shrink-0 px-2.5 py-1 bg-violet text-white text-xs font-bold rounded-lg">效果量化</span>
+          <div>
+            <p class="font-semibold text-gray-800">素材数据连接</p>
+            <p class="text-sm text-gray-600 leading-relaxed mt-0.5">把历史投放数据与对应素材一一连接，解决素材与投放数据割裂的问题；按统一且正确的指标口径，快速识别优质素材，可量化对比、指导复用。</p>
+          </div>
+        </div>
       </div>
-
-      <!-- 核心功能 -->
+<!-- 核心功能 -->
       <p class="text-sm font-semibold text-violet mb-3 mt-6">核心功能</p>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div class="flex items-start gap-3 bg-white border border-gray-100 rounded-2xl p-4 shadow-sm">
@@ -115,8 +129,8 @@
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z" /></svg>
           </div>
           <div>
-            <p class="text-sm font-semibold text-gray-800 mb-1">分析看板</p>
-            <p class="text-xs text-gray-600 leading-relaxed">看板、排行榜、趋势图按日期区间聚合，CTR 等指标口径统一正确。</p>
+            <p class="text-sm font-semibold text-gray-800 mb-1">效果排行</p>
+            <p class="text-xs text-gray-600 leading-relaxed">看板、排行榜、趋势图按日期区间聚合，CTR 等指标口径统一正确，支持素材多维筛选与效果排行。</p>
           </div>
         </div>
       </div>
@@ -124,7 +138,29 @@
       <!-- 成果说明 -->
       <p class="text-sm font-semibold text-violet mb-3 mt-6">成果说明</p>
       <div class="bg-violet/5 border border-violet/15 rounded-2xl p-5">
+        <p class="text-sm text-gray-700 leading-relaxed mb-3"><strong class="text-violet">核心成果：</strong>团队投放素材从找图翻表约 20min 缩为效果检索 2min 复用，提效约 90%。</p>
         <p class="text-sm text-gray-600 leading-relaxed">平台打通了从导入、管理到分析的全链路：看板、排行榜、趋势图支持按日期区间聚合，CTR 等指标口径统一正确。已完成云原生改造，代码推到私有仓库，数据库与对象存储就绪，团队可共享同一份素材与数据资产。AI 调用成本也通过 URL 去重等手段压到可控范围。</p>
+      </div>
+
+      <!-- 系统截图（可点击切换） -->
+      <p class="text-sm font-semibold text-violet mb-3 mt-6">系统截图</p>
+      <div id="sucaikuGallery" onclick="advanceSucaikuGallery()" class="relative w-full h-[300px] rounded-2xl overflow-hidden bg-gray-50 border border-gray-100 select-none" style="cursor:pointer;">
+        <img src="assets/sucaiku_shots/07_workbench.png" data-i="0" alt="工作台" class="absolute inset-0 w-full h-full object-contain transition-all duration-500 ease-out pointer-events-none" style="z-index:20;opacity:1;" />
+        <img src="assets/sucaiku_shots/06_ranking.png" data-i="1" alt="素材排行榜" class="absolute inset-0 w-full h-full object-contain transition-all duration-500 ease-out pointer-events-none" style="z-index:10;opacity:.55;" />
+        <img src="assets/sucaiku_shots/05_detail.png" data-i="2" alt="素材详情" class="absolute inset-0 w-full h-full object-contain transition-all duration-500 ease-out pointer-events-none" style="z-index:5;opacity:.25;" />
+        <img src="assets/sucaiku_shots/04_settings.png" data-i="3" alt="设置" class="absolute inset-0 w-full h-full object-contain transition-all duration-500 ease-out pointer-events-none" style="z-index:0;opacity:0;" />
+        <img src="assets/sucaiku_shots/03_datasource.png" data-i="4" alt="数据源库" class="absolute inset-0 w-full h-full object-contain transition-all duration-500 ease-out pointer-events-none" style="z-index:0;opacity:0;" />
+        <img src="assets/sucaiku_shots/02_import.png" data-i="5" alt="数据导入" class="absolute inset-0 w-full h-full object-contain transition-all duration-500 ease-out pointer-events-none" style="z-index:0;opacity:0;" />
+        <img src="assets/sucaiku_shots/01_zichuan.png" data-i="6" alt="自传素材库" class="absolute inset-0 w-full h-full object-contain transition-all duration-500 ease-out pointer-events-none" style="z-index:0;opacity:0;" />
+        <div class="absolute top-3 right-3 z-30 bg-black/60 text-white text-xs px-2.5 py-1 rounded-full backdrop-blur-sm pointer-events-none">
+            <span id="sucaikuGalleryIdx">1</span> / 7
+        </div>
+        <div class="absolute top-3 left-3 z-30 bg-black/50 text-white/90 text-[10px] px-2 py-1 rounded-full backdrop-blur-sm pointer-events-none">
+          点击切换下一张
+        </div>
+        <div class="absolute bottom-3 left-1/2 -translate-x-1/2 z-30 bg-black/55 text-white text-xs px-3 py-1 rounded-full backdrop-blur-sm pointer-events-none max-w-[80%] truncate">
+            <span id="sucaikuGalleryLabel">工作台</span>
+        </div>
       </div>
     </div>
     <p class="text-center text-xs text-gray-400 mt-6">本页为独立作品展示，与整站简历分离 · <a href="https://1786632695zrj.github.io/jianli/" target="_blank" rel="noopener" class="text-violet hover:underline">回到完整简历 ↗</a></p>
