@@ -531,7 +531,7 @@
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
         <!-- Lenovo -->
-        <div class="group bg-white rounded-3xl border border-gray-100 overflow-hidden card-hover reveal flex flex-col">
+        <div class="group bg-white rounded-3xl border border-gray-100 overflow-hidden card-hover reveal flex flex-col" style="min-height: 380px">
           <div class="p-6 cursor-pointer flex flex-col flex-1" onclick="openExperience('lenovo-detail')">
             <div class="flex flex-col gap-3">
               <div>
@@ -576,7 +576,7 @@
             <div class="grid md:grid-cols-2 gap-4 text-sm text-gray-700">
               <div class="flex gap-3">
                 <span class="w-6 h-6 rounded-full bg-mint flex items-center justify-center text-xs font-bold shrink-0">1</span>
-                <p><strong>数据产品运营：</strong>梳理直播、万相台、淘客等业务需求，基于 Quick BI 和 SQL 从 0 到 1 搭建数据看板，覆盖 GMV、CPC 等指标，累计协助上线 7 个 BI 看板，覆盖六大业务板块，解决渠道数据割裂、数据口径不一问题，为业务提供决策依据。</p>
+                <p><strong>数据产品运营：</strong>梳理直播、万相台、淘客等业务需求，基于 Quick BI 和 SQL 从 0 到 1 搭建数据看板，覆盖 GMV、CPC 等指标，累计协助上线 7 个 BI 看板，覆盖六大业务板块，解决渠道数据割裂、数据口径不一问题，为业务提供决策依据。 <button onclick="openModal('modal-dashboard')" class="inline-flex items-center gap-0.5 text-violet font-semibold hover:underline text-sm align-baseline">查看数据驾驶舱看板 ↗</button></p>
               </div>
               <div class="flex gap-3">
                 <span class="w-6 h-6 rounded-full bg-mint flex items-center justify-center text-xs font-bold shrink-0">2</span>
@@ -588,18 +588,18 @@
               </div>
               <div class="flex gap-3">
                 <span class="w-6 h-6 rounded-full bg-mint flex items-center justify-center text-xs font-bold shrink-0">4</span>
-                <p><strong>AIGC 工具自研：</strong>针对画像数据取数繁琐、报告产出慢的业务痛点，自研自动化控制台，通过不断迭代，实现页面数据一键抓取清洗、智能命名和报告自动生成，人群分析耗时由 1h 压缩至 2min，效率提升 90%+，推广至团队 50 余人使用。</p>
+                <p><strong>AIGC 工具自研：</strong>针对画像数据取数繁琐、报告产出慢的业务痛点，自研自动化控制台，通过不断迭代，实现页面数据一键抓取清洗、智能命名和报告自动生成，人群分析耗时由 1h 压缩至 2min，效率提升 90%+，推广至团队 50 余人使用。<button onclick="openModal('modal-ai')" class="inline-flex items-center gap-0.5 text-violet font-semibold hover:underline text-sm align-baseline">查看人群分层与圈人运营 ↗</button></p>
               </div>
               <div class="flex gap-3">
                 <span class="w-6 h-6 rounded-full bg-mint flex items-center justify-center text-xs font-bold shrink-0">5</span>
-                <p><strong>智能化建设：</strong>针对阿里妈妈百灵平台素材与投放数据割裂、缺少打标能力的痛点，搭建素材资产库，支持多维度筛选、效果排行及标记，实现优质素材快速复用；通过 Agent 接入数据库生成 AI 日报并定时推送，替代手工整理。</p>
+                <p><strong>智能化建设：</strong>针对阿里妈妈百灵平台素材与投放数据割裂、缺少打标能力的痛点，搭建素材资产库，支持多维度筛选、效果排行及标记，实现优质素材快速复用；通过 Agent 接入数据库生成 AI 日报并定时推送，替代手工整理。<button onclick="openSucaikuModal()" class="inline-flex items-center gap-0.5 text-violet font-semibold hover:underline text-sm align-baseline">查看素材资产库平台 ↗</button></p>
               </div>
             </div>
           </div>
         </div>
 
         <!-- eClick -->
-        <div class="group bg-white rounded-3xl border border-gray-100 overflow-hidden card-hover reveal flex flex-col" style="transition-delay: 0.1s;">
+        <div class="group bg-white rounded-3xl border border-gray-100 overflow-hidden card-hover reveal flex flex-col" style="transition-delay: 0.1s; min-height: 380px">
           <div class="p-6 cursor-pointer flex flex-col flex-1" onclick="openExperience('eclick-detail')">
             <div class="flex flex-col gap-3">
               <div>
@@ -662,7 +662,7 @@
         </div>
 
         <!-- Daxiang -->
-        <div class="group bg-white rounded-3xl border border-gray-100 overflow-hidden card-hover reveal flex flex-col" style="transition-delay: 0.2s;">
+        <div class="group bg-white rounded-3xl border border-gray-100 overflow-hidden card-hover reveal flex flex-col" style="transition-delay: 0.2s; min-height: 380px">
           <div class="p-6 cursor-pointer flex flex-col flex-1" onclick="openExperience('daxiang-detail')">
             <div class="flex flex-col gap-3">
               <div>
@@ -1138,10 +1138,6 @@
                 <p class="text-xs text-gray-600 px-3 py-2 bg-gray-50 border-t border-gray-100 w-full text-center">测试概览 · RTB + 特秀双渠道，6 个测试维度梳理</p>
               </div>
               <div class="w-full shrink-0 flex flex-col items-center">
-                <img src="assets/ab_matrix.png" alt="测试维度矩阵" class="w-full max-h-[55vh] object-contain block" />
-                <p class="text-xs text-gray-600 px-3 py-2 bg-gray-50 border-t border-gray-100 w-full text-center">测试维度矩阵 · 各维度素材变量与对照关系</p>
-              </div>
-              <div class="w-full shrink-0 flex flex-col items-center">
                 <img src="assets/abtest_docs/ab_conclusion.png" alt="投放优化落地总结" class="w-full max-h-[55vh] object-contain block" />
                 <p class="text-xs text-gray-600 px-3 py-2 bg-gray-50 border-t border-gray-100 w-full text-center">投放优化落地总结 · 5 个维度的资源位/画面/文案/场景/赠品结论</p>
               </div>
@@ -1152,7 +1148,6 @@
           <div class="flex justify-center gap-2 mt-3">
             <button onclick="abReportGo(event,0)" class="w-2.5 h-2.5 rounded-full bg-violet" data-dot="0"></button>
             <button onclick="abReportGo(event,1)" class="w-2.5 h-2.5 rounded-full bg-gray-300" data-dot="1"></button>
-            <button onclick="abReportGo(event,2)" class="w-2.5 h-2.5 rounded-full bg-gray-300" data-dot="2"></button>
           </div>
           <div class="mt-4 rounded-xl bg-violet/10 border border-violet/30 px-4 py-3">
             <p class="text-sm text-gray-700 leading-relaxed"><span class="font-semibold text-violet">复盘成果：</span>复盘高点击素材特征，输出测试结论与 SOP，素材资产库复用至暑期大促；部分资源位的产品投放初期点击率高于行业大盘约 1 个百分点。</p>
@@ -1223,11 +1218,11 @@
         <p class="text-sm font-semibold text-violet mb-3 mt-6">项目界面</p>
         <div class="grid grid-cols-2 gap-3 mb-6">
           <div class="bg-white border border-gray-100 rounded-xl p-2">
-            <img src="assets/ai_plugin_run.jpg" alt="运行配置" class="w-full h-auto max-h-[200px] object-cover rounded-lg" />
+            <img src="assets/ai_plugin_run.jpg" alt="运行配置" class="w-full h-auto max-h-[480px] object-contain rounded-lg bg-gray-50" />
             <p class="text-xs text-gray-500 mt-2 text-center">运行配置</p>
           </div>
           <div class="bg-white border border-gray-100 rounded-xl p-2">
-            <img src="assets/ai_plugin_settings.jpg" alt="系统设置" class="w-full h-auto max-h-[200px] object-cover rounded-lg" />
+            <img src="assets/ai_plugin_settings.jpg" alt="系统设置" class="w-full h-auto max-h-[480px] object-contain rounded-lg bg-gray-50" />
             <p class="text-xs text-gray-500 mt-2 text-center">系统设置</p>
           </div>
         </div>
@@ -1948,7 +1943,7 @@
     }
     function abReportGo(e, i) {
       if (e) e.stopPropagation();
-      const n = 3;
+      const n = 2;
       abReportIdx = (i + n) % n;
       abReportRender();
     }
