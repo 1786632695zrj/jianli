@@ -2287,7 +2287,7 @@
     // AI Job Matcher
     // 计分逻辑（透明可解释）：
     // 1. 将 JD 转为小写并去掉符号，便于中文/英文关键词匹配。
-    // 2. 四维评分：学历、工作经验、技能特长、软技能，按 JD 关键词命中数换算。
+    // 2. 四维评分：工作经验、技能特长、软技能按 JD 关键词命中数换算；学历按层级匹配（用户211硕士，JD要求≤硕士即100%）。
     // 3. 综合分 = 学历×15% + 工作经验×30% + 技能特长×30% + 软技能×25%。
     // 4. 硬上限 99 分：不给满分，关键词匹配无法替代真人判断。
     function matchJob() {
@@ -2301,6 +2301,7 @@
       }
 
       const eduKeys = ['硕士','研究生','本科','211','985','双一流','保研','城乡规划','建筑','设计'];
+      const eduHighKeys = ['博士','phd','dr']; // 高于硕士的学历要求
       const expKeys = ['电商运营','数据运营','数据分析','广告投放','广告优化','素材优化','ab测试','a/b测试','人群运营','人群分析','运营','增长','投放','推广','营销'];
       const skillKeys = ['bi','看板','sql','阿里妈妈','京准通','京东','天猫','淘宝','直通车','万相台','钻展','引力魔方','素材','ctr','cvr','roi','gmv','python','excel','quick bi','tableau','powerbi','spss'];
       const softKeys = ['ai','aigc','插件','自动化','sop','周报','日报','报告','可视化','大模型','agent','沟通','跨部门','闭环','自驱'];
@@ -2308,6 +2309,7 @@
       const count = (list) => list.filter(k => input.includes(k)).length;
       const hits = {
         edu: count(eduKeys),
+        eduHigh: count(eduHighKeys),
         exp: count(expKeys),
         skill: count(skillKeys),
         soft: count(softKeys)
@@ -2316,10 +2318,17 @@
       // 短 JD 信息不足，各维度扣一点
       const shortPenalty = rawInput.length < 30 ? 5 : 0;
 
-      const eduScore = Math.min(99, Math.max(70, 78 + hits.edu * 4 - shortPenalty));
-      const expScore = Math.min(99, Math.max(35, 38 + hits.exp * 6 - shortPenalty));
-      const skillScore = Math.min(99, Math.max(30, 32 + hits.skill * 5 - shortPenalty));
-      const softScore = Math.min(99, Math.max(35, 38 + hits.soft * 5 - shortPenalty));
+      // 学历匹配：用户为 211 硕士。JD 要求本科/211/985/双一流/硕士/研究生等 ≤ 硕士层级，或未提学历 → 完全匹配 100%；
+      // 仅当 JD 明确要求博士（高于硕士）时，按 211 硕士 vs 博士降一档。
+      let eduScore;
+      if (hits.eduHigh > 0) {
+        eduScore = Math.min(99, Math.max(70, 82 + hits.edu * 2 - shortPenalty));
+      } else {
+        eduScore = 100;
+      }
+      const expScore = Math.min(99, Math.max(50, 38 + hits.exp * 6 - shortPenalty));
+      const skillScore = Math.min(99, Math.max(50, 32 + hits.skill * 5 - shortPenalty));
+      const softScore = Math.min(99, Math.max(50, 38 + hits.soft * 5 - shortPenalty));
 
       let total = Math.round(eduScore * 0.15 + expScore * 0.30 + skillScore * 0.30 + softScore * 0.25);
       total = Math.min(99, Math.max(30, total));
