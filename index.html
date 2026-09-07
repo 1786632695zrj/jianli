@@ -2379,26 +2379,36 @@
       let total = Math.round(eduScore * 0.15 + expScore * 0.30 + skillScore * 0.30 + softScore * 0.25);
       total = Math.min(99, Math.max(30, total));
 
-      // 生成匹配亮点
-      const matched = [];
-      [...expConcepts, ...skillConcepts, ...softConcepts].forEach(c => {
-        if (conceptHit(c.terms)) matched.push(c.name);
-      });
-      const topMatches = matched.slice(0, 4);
-      const highlights = topMatches.length
-        ? topMatches.map(k => `<li><span class="text-mintDark">●</span> JD 提到 <strong>${k}</strong>，与我的经历直接相关。</li>`)
-        : ['<li><span class="text-mintDark">●</span> 当前 JD 关键词较泛，建议补充电商/数据/广告相关描述。</li>'];
+      // 生成匹配亮点：按维度拆分，避免经验占满、技能被挤出；过滤过泛词
+      const genericNames = new Set(['运营']);
+      const matchedExp = expConcepts.filter(c => conceptHit(c.terms) && !genericNames.has(c.name)).map(c => c.name);
+      const matchedSkill = skillConcepts.filter(c => conceptHit(c.terms) && !genericNames.has(c.name)).map(c => c.name);
+      const matchedSoft = softConcepts.filter(c => conceptHit(c.terms) && !genericNames.has(c.name)).map(c => c.name);
 
-      // 总结文案
+      const expHigh = matchedExp.slice(0, 3);
+      const skillHigh = matchedSkill.slice(0, 3);
+      const softHigh = matchedSoft.slice(0, 2);
+
+      const highlights = [];
+      if (expHigh.length) highlights.push(`<li><span class="text-mintDark">●</span> <strong>经验侧：</strong>${expHigh.join('、')}</li>`);
+      if (skillHigh.length) highlights.push(`<li><span class="text-mintDark">●</span> <strong>技能侧：</strong>${skillHigh.join('、')}</li>`);
+      if (softHigh.length) highlights.push(`<li><span class="text-mintDark">●</span> <strong>软技能侧：</strong>${softHigh.join('、')}</li>`);
+      const highlightsHtml = highlights.length
+        ? highlights.join('')
+        : '<li><span class="text-mintDark">●</span> 当前 JD 关键词较泛，建议补充电商/数据/广告相关描述。</li>';
+
+      // 总结文案：突出价值与优势，按分数区间给出投递建议
+      const topAdvantages = [...skillHigh.slice(0, 2), ...expHigh.slice(0, 2), ...softHigh.slice(0, 1)];
+      const advText = topAdvantages.slice(0, 4).join('、') || '数据运营与通用运营能力';
       let summary = '';
-      if (total >= 85) {
-        summary = `综合匹配度优秀（${total}/100）。JD 高度覆盖电商运营、数据分析、广告投放与 AI 提效等方向，建议重点投递，并在简历中突出 BI 看板、素材 A/B 测试与人群分析经历。`;
-      } else if (total >= 70) {
-        summary = `综合匹配度良好（${total}/100）。JD 与我的核心经历有较多交集，可在简历中继续强化 ${topMatches.slice(0, 2).join('、')} 等关键词。`;
-      } else if (total >= 50) {
-        summary = `综合匹配度一般（${total}/100）。当前 JD 与电商/数据/广告方向关联有限，可尝试投递更偏数据运营或广告投放的岗位。`;
+      if (total >= 80) {
+        summary = `综合匹配度优秀（${total}/100）。岗位核心需求与我的 ${advText} 等能力高度吻合，可直接复用过往经验、快速产出价值，建议重点投递。`;
+      } else if (total >= 55) {
+        summary = `综合匹配度良好（${total}/100）。我的 ${advText} 等积累能直接支撑该岗位，建议在简历/面试中继续突出这些关键词，展现可迁移价值。`;
+      } else if (total >= 35) {
+        summary = `综合匹配度一般（${total}/100）。虽有 ${advText} 等交集，但整体方向与我的核心优势（电商广告投放/数据银行/大促）存在一定偏差，投递时建议强调通用数据与运营能力。`;
       } else {
-        summary = `综合匹配度较低（${total}/100）。这段 JD 几乎没有命中我的核心技能方向，不建议作为重点投递方向。`;
+        summary = `综合匹配度较低（${total}/100）。这段 JD 与我的核心技能方向重合较少，不建议作为重点投递方向。`;
       }
 
       openModal('jobMatchModal');
@@ -2412,7 +2422,7 @@
         document.getElementById('expBar').style.width = expScore + '%';
         document.getElementById('skillBar').style.width = skillScore + '%';
         document.getElementById('softBar').style.width = softScore + '%';
-        document.getElementById('matchHighlights').innerHTML = highlights.join('');
+        document.getElementById('matchHighlights').innerHTML = highlightsHtml;
         document.getElementById('matchSummary').textContent = summary;
       }, 100);
     }
