@@ -588,15 +588,15 @@
               </div>
               <div class="flex gap-3">
                 <span class="w-6 h-6 rounded-full bg-mint flex items-center justify-center text-xs font-bold shrink-0">3</span>
-                <p><strong>用户运营：</strong>针对天猫店铺的 RTB 推广计划人群包转化低下问题，借助品牌数据银行挖掘用户画像数据定位低效人群，关停泛流量包，重新圈选高潜人群策略，优化后转化率由 3.55% 提升至 4.63%，有效降低无效预算消耗。</p>
+                <p><strong>用户运营：</strong>针对天猫店铺的 RTB 推广计划人群包转化低下问题，借助品牌数据银行挖掘用户画像数据定位低效人群，关停泛流量包，重新圈选高潜人群（用户分层运营），优化后转化率由 3.55% 提升至 4.63%，有效降低无效预算消耗。</p>
               </div>
               <div class="flex gap-3">
                 <span class="w-6 h-6 rounded-full bg-mint flex items-center justify-center text-xs font-bold shrink-0">4</span>
-                <p><strong>AIGC 工具自研：</strong>针对画像数据取数繁琐、报告产出慢的业务痛点，自研自动化控制台，通过不断迭代，实现页面数据一键抓取清洗、智能命名和报告自动生成，人群分析耗时由 1h 压缩至 3min，效率提升 90%+，推广至团队 50 余人使用。<button onclick="openModal('modal-ai')" class="inline-flex items-center gap-0.5 text-violet font-semibold hover:underline text-sm align-baseline">查看人群分层与圈人运营 ↗</button></p>
+                <p><strong>AIGC 工具自研：</strong>针对画像数据取数繁琐、报告产出慢的业务痛点，自研自动化控制台，借助 Codex/Claude Code 等 AI 编码工具搭建工作流，实现页面数据一键抓取清洗、智能命名和报告自动生成，人群分层分析耗时由 1h 压缩至 3min，效率提升 90%+，推广至团队 50 余人使用。<button onclick="openModal('modal-ai')" class="inline-flex items-center gap-0.5 text-violet font-semibold hover:underline text-sm align-baseline">查看人群分层与圈人运营 ↗</button></p>
               </div>
               <div class="flex gap-3">
                 <span class="w-6 h-6 rounded-full bg-mint flex items-center justify-center text-xs font-bold shrink-0">5</span>
-                <p><strong>智能化建设：</strong>针对阿里妈妈百灵平台素材与投放数据割裂、缺少打标能力的痛点，搭建素材资产库，支持多维度筛选、效果排行及标记，实现优质素材快速复用；通过 Agent 接入数据库生成 AI 日报并定时推送，替代手工整理。<button onclick="openSucaikuModal()" class="inline-flex items-center gap-0.5 text-violet font-semibold hover:underline text-sm align-baseline">查看素材资产库平台 ↗</button></p>
+                <p><strong>智能化建设：</strong>针对阿里妈妈百灵平台素材与投放数据割裂、缺少打标能力的痛点，搭建素材资产库，支持多维度筛选、效果排行及标记，配合 Quick BI 看板做日常数据监控，实现优质素材快速复用；通过 Agent 接入数据库生成 AI 日报并定时推送，替代手工整理。<button onclick="openSucaikuModal()" class="inline-flex items-center gap-0.5 text-violet font-semibold hover:underline text-sm align-baseline">查看素材资产库平台 ↗</button></p>
               </div>
             </div>
           </div>
@@ -2292,7 +2292,10 @@
     // 4. 硬上限 99 分：不给满分，关键词匹配无法替代真人判断。
     function matchJob() {
       const rawInput = document.getElementById('jobInput').value;
-      const input = rawInput.toLowerCase().replace(/[^\u4e00-\u9fa5a-z0-9\s]/g, ' ');
+      // 归一化：先去掉 /（A/B测试 -> ab测试），否则 / 会被切成空格变成 "a b测试"，导致 ab测试 匹配不上
+      const input = rawInput.toLowerCase().replace(/\//g, '').replace(/[^\u4e00-\u9fa5a-z0-9\s]/g, ' ');
+      // 去空格版本：用于匹配无空格关键词（如 A/B 测试 这种被切出空格的写法也能命中 ab测试）
+      const inputNoSpace = input.replace(/\s+/g, '');
       // 匹配结果通过屏幕居中的 #jobMatchModal 显示
 
       if (!input.trim()) {
@@ -2302,17 +2305,60 @@
 
       const eduKeys = ['硕士','研究生','本科','211','985','双一流','保研','城乡规划','建筑','设计'];
       const eduHighKeys = ['博士','phd','dr']; // 高于硕士的学历要求
-      const expKeys = ['电商运营','数据运营','数据分析','广告投放','广告优化','素材优化','ab测试','a/b测试','人群运营','人群分析','运营','增长','投放','推广','营销'];
-      const skillKeys = ['bi','看板','sql','阿里妈妈','京准通','京东','天猫','淘宝','直通车','万相台','钻展','引力魔方','素材','ctr','cvr','roi','gmv','python','excel','quick bi','tableau','powerbi','spss'];
-      const softKeys = ['ai','aigc','插件','自动化','sop','周报','日报','报告','可视化','大模型','agent','沟通','跨部门','闭环','自驱'];
+      const expConcepts = [
+        { name:'电商运营', terms:['电商运营','店铺运营','天猫运营','京东运营','淘宝运营'] },
+        { name:'数据运营', terms:['数据运营','数据驱动','数据化运营'] },
+        { name:'数据分析', terms:['数据分析','数据洞察','取数'] },
+        { name:'广告投放', terms:['广告投放','信息流投放','竞价投放','效果广告','投放','推广','引流'] },
+        { name:'广告/素材优化', terms:['广告优化','素材优化','创意优化','投放优化','素材迭代'] },
+        { name:'A/B测试', terms:['ab测试','a/b测试','ab实验','灰度','素材赛马'] },
+        { name:'人群运营', terms:['人群运营','人群分析','用户分层','人群圈选','用户画像','画像'] },
+        { name:'增长', terms:['增长','用户增长','拉新','获客','裂变','拉增长'] },
+        { name:'营销', terms:['营销','整合营销','营销策划'] },
+        { name:'运营', terms:['运营','操盘'] },
+        { name:'达人/KOL', terms:['达人','kol','koc','红人','博主','主播','达人建联','达人合作','内容种草','小红书','抖音','直播带货'] },
+        { name:'大促/促销', terms:['大促','618','618大促','双11','双十一','促销','爆发期','预热','大促节奏','品类日'] },
+        { name:'数据银行/达摩盘', terms:['数据银行','品牌数据银行','达摩盘'] },
+      ];
+      const skillConcepts = [
+        { name:'BI/看板', terms:['bi','看板','可视化','数据看板','dashboard','报表'] },
+        { name:'SQL', terms:['sql','取数','数据库'] },
+        { name:'阿里妈妈', terms:['阿里妈妈','万相台','直通车','钻展','引力魔方','淘宝','天猫','淘系','淘客','淘宝客'] },
+        { name:'京准通', terms:['京准通','京东','京东快车'] },
+        { name:'素材/创意', terms:['素材','创意','文案','主图'] },
+        { name:'CTR', terms:['ctr','点击率'] },
+        { name:'CVR', terms:['cvr','转化率','转化'] },
+        { name:'ROI/ROAS', terms:['roi','roas','投产比','投入产出'] },
+        { name:'GMV', terms:['gmv','成交额','销售额','业绩'] },
+        { name:'广告成本指标', terms:['cpc','cpi','cpm','点击成本','安装成本','曝光成本','单次点击','千次曝光'] },
+        { name:'Python', terms:['python','py'] },
+        { name:'Excel', terms:['excel','透视表','表格','vba','宏','power query','powerquery','pq'] },
+        { name:'Quick BI/Tableau', terms:['quick bi','quickbi','tableau','powerbi'] },
+        { name:'SPSS', terms:['spss','统计分析'] },
+        { name:'设计剪辑', terms:['photoshop','premiere','剪映','设计','排版','秀米','可画','canva','物料'] },
+        { name:'AI编码工具', terms:['codex','claude code','codebuddy','copilot','cursor','ai编码','ai辅助编码'] },
+        { name:'系统开发/Web', terms:['系统开发','web系统','web开发','前端','全栈','api','react','express','postgresql','脚本开发','本地系统'] },
+      ];
+      const softConcepts = [
+        { name:'AI/AIGC', terms:['ai','aigc','大模型','智能','gpt'] },
+        { name:'自动化/提效', terms:['自动化','提效','效率','sop','流程'] },
+        { name:'报告', terms:['周报','日报','报告','汇报','复盘'] },
+        { name:'跨部门/沟通', terms:['跨部门','协同','沟通','对接'] },
+        { name:'插件/工具', terms:['插件','工具','脚本'] },
+        { name:'自驱/闭环', terms:['自驱','闭环','owner','主动'] },
+        { name:'需求/标准化管理', terms:['需求迭代','需求跟进','需求管理','标准化','标准化管理','台账','项目管理','迭代'] },
+      ];
 
-      const count = (list) => list.filter(k => input.includes(k)).length;
+      // 学历仍按精确词匹配；经验/技能/软技能改"概念"匹配：同一含义的多种说法（达人/KOL/红人、ab测试/实验）都算命中，每个概念最多计 1 次，避免同义反复重复加分
+      const count = (list) => list.filter(k => input.includes(k) || (!/\s/.test(k) && inputNoSpace.includes(k))).length;
+      const conceptHit = (terms) => terms.some(t => input.includes(t) || (!/\s/.test(t) && inputNoSpace.includes(t)));
+      const countConcepts = (concepts) => concepts.filter(c => conceptHit(c.terms)).length;
       const hits = {
         edu: count(eduKeys),
         eduHigh: count(eduHighKeys),
-        exp: count(expKeys),
-        skill: count(skillKeys),
-        soft: count(softKeys)
+        exp: countConcepts(expConcepts),
+        skill: countConcepts(skillConcepts),
+        soft: countConcepts(softConcepts)
       };
 
       // 短 JD 信息不足，各维度扣一点
@@ -2335,8 +2381,8 @@
 
       // 生成匹配亮点
       const matched = [];
-      [...expKeys, ...skillKeys, ...softKeys].forEach(k => {
-        if (input.includes(k)) matched.push(k);
+      [...expConcepts, ...skillConcepts, ...softConcepts].forEach(c => {
+        if (conceptHit(c.terms)) matched.push(c.name);
       });
       const topMatches = matched.slice(0, 4);
       const highlights = topMatches.length
