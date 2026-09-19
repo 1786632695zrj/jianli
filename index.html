@@ -2338,9 +2338,9 @@
       const eduKeys = ['硕士','研究生','本科','211','985','双一流','保研','城乡规划','建筑','设计'];
       const eduHighKeys = ['博士','phd']; // 高于硕士的学历要求（dr 已在误触发 drive 等词，移除）
       const expConcepts = [
-        { name:'电商运营', terms:['电商运营','店铺运营','天猫运营','京东运营','淘宝运营'] },
+        { name:'电商运营', terms:['电商运营','店铺运营','天猫运营','京东运营','淘宝运营','店铺日常运营','产品优化','活动跟进','数据监控','采销对接'] },
         { name:'数据运营', terms:['数据运营','数据驱动','数据化运营'] },
-        { name:'数据分析', terms:['数据分析','数据洞察','取数'] },
+        { name:'数据分析', terms:['数据分析','数据洞察','取数','数据监控','数据整理','数据敏感'] },
         { name:'广告投放', terms:['广告投放','信息流投放','竞价投放','效果广告','投放','推广','引流'] },
         { name:'广告/素材优化', terms:['广告优化','素材优化','创意优化','投放优化','素材迭代'] },
         { name:'A/B测试', terms:['ab测试','a/b测试','ab实验','灰度','素材赛马'] },
@@ -2403,7 +2403,11 @@
       } else {
         eduScore = 100;
       }
-      const expScore = Math.min(99, Math.max(50, 38 + hits.exp * 6 - shortPenalty));
+      // 角色级识别：JD 命中电商运营核心方向（电商运营/店铺运营/天猫/京东/淘宝运营等）→ 经验维度保底加成，这是候选人的核心方向
+      const coreEcomTerms = ['电商运营','店铺运营','天猫运营','京东运营','淘宝运营','天猫','京东','淘宝'];
+      const isCoreEcom = coreEcomTerms.some(t => input.includes(t) || (!/\s/.test(t) && inputNoSpace.includes(t)));
+      let expScore = Math.min(99, Math.max(50, 38 + hits.exp * 6 - shortPenalty));
+      if (isCoreEcom) expScore = Math.max(expScore, 85);
       const skillScore = Math.min(99, Math.max(50, 32 + hits.skill * 5 - shortPenalty));
       const softScore = Math.min(99, Math.max(50, 38 + hits.soft * 5 - shortPenalty));
 
