@@ -44,7 +44,7 @@
        Hero / 首屏 / Landing 一律 100vh = 一个完整视口屏幕高度（业界标准）。
        后续无论改字体、改图片、改按钮，首页高度都改这里这一个变量。 */
     :root { --hero-h: 100vh; }
-    html { scroll-behavior: smooth; scroll-padding-top: 0; scroll-snap-type: y proximity; }
+    html { scroll-behavior: smooth; scroll-padding-top: 0; scroll-snap-type: y mandatory; }
     body { overflow-x: hidden; font-family: 'Inter', 'PingFang SC', 'Microsoft YaHei', sans-serif; }
     /* 所有内容页统一为标准一屏高度（与教育背景同尺寸） */
     section#about { height: var(--hero-h); scroll-snap-align: start; }
@@ -310,7 +310,7 @@
           <span id="typewriter" class="typewriter text-xl md:text-2xl font-medium text-violet"></span>
         </div>
         <p class="text-sm md:text-base text-gray-600 leading-relaxed mb-8 max-w-lg">
-          坚信数据能讲清楚业务。在过往实习中，使用SQL提取业务数据，搭建BI可视化看板；落地素材A/B赛马、用户人群分析；尝试用AI开发可复用插件，自动化处理重复耗时工作，解决业务痛点，提升工作效率。
+          坚信数据能讲清楚业务。在过往实习中，使用SQL提取业务数据，搭建BI可视化看板；落地素材A/B赛马、用户人群分析；对接RPA、设计及业务同事协同推进工作；尝试用AI开发可复用插件和素材资产库，解决业务痛点，提升工作效率。
         </p>
         <div class="flex flex-wrap gap-3 mb-8">
           <a href="%E9%95%BF%E5%AE%89%E5%A4%A7%E5%AD%A6%E7%A1%95%E5%A3%AB-%E5%BC%A0%E7%91%9E%E5%A8%9F-27%E5%B1%8A.pdf" target="_blank" class="inline-flex items-center gap-2 px-6 py-3 text-sm bg-black text-white rounded-full font-medium hover:bg-gray-800 transition">
@@ -527,7 +527,7 @@
   </section>
 
   <!-- Experience -->
-  <section id="experience" class="py-20 px-6">
+  <section id="experience" class="py-20 bg-paper px-6">
     <div class="max-w-6xl mx-auto">
       <div class="mb-8 reveal">
         <p class="text-sm font-semibold text-violet mb-2 tracking-wider">EXPERIENCE</p>
