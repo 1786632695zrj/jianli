@@ -102,14 +102,21 @@
       align-content: center;
       justify-content: center;
     }
-    /* 内容较密的页面（本科作品集 / 项目作品 / AI 探索）单独加宽至接近满屏，
-       其余页仍保持统一的 1152px。加宽后卡片更宽、文字换行更少、左右留白减少，不再挤在中间。
+    /* 内容较密的页面（本科作品集 / 项目作品 / AI 探索 / 教育背景 / 工作经历）统一加宽至接近满屏，
+       保证所有内容页容器宽度一致 → 大标题水平位置完全相同，切页时标题不再左右跳动。
        注意：必须写成 section#xxx 而非 #xxx——否则 specificity 只有 (1,0,1)，
        会败给上面的 section:not(#about) > div (1,0,2)，加宽静默失效 */
     section#undergraduate-portfolio > div,
     section#projects > div,
-    section#explore > div {
+    section#explore > div,
+    section#education > div,
+    section#experience > div {
       max-width: min(1600px, 94vw);
+    }
+    /* 作品展示：去掉副标题后标题占位变矮，压缩内容上内边距释放纵向空间，
+       让 4 张项目卡在 100vh 内尽量接近 1:1 渲染（不被等比缩小，文字更清晰） */
+    section#projects > div > div:nth-child(2) {
+      padding-top: 9.5rem;
     }
     /* AI 探索：整体内容靠左（AI 工具帖左）。放大通过放大内部元素实现，避免被 fitSections 的 transform 覆盖 */
     section#explore > div > :nth-child(2) {
@@ -407,8 +414,7 @@
             <span class="px-2 py-0.5 bg-mint/20 text-mintDark text-xs rounded-full">全日制硕士</span>
           </div>
           <ul class="space-y-2.5 text-base text-gray-600">
-            <li class="flex gap-2"><span class="text-mintDark">●</span> 连续两年获得研究生一等奖学金</li>
-            <li class="flex gap-2"><span class="text-mintDark">●</span> 获得优秀研究生与西部之光三等奖等荣誉</li>
+            <li class="flex gap-2"><span class="text-mintDark">●</span> 研究生一等奖学金2次、长安大学优秀研究生</li>
             <li class="flex gap-2"><span class="text-mintDark">●</span> 以第一作者发表论文 2 篇</li>
           </ul>
         </div>
@@ -425,14 +431,14 @@
           </div>
           <p class="text-base text-gray-700 font-medium mb-4">城乡规划学 · 本科</p>
           <ul class="space-y-2.5 text-base text-gray-600">
-            <li class="flex gap-2"><span class="text-violet">●</span> 绩点排名 2/59，<strong>Top5%</strong></li>
+            <li class="flex gap-2"><span class="text-violet">●</span> 绩点排名 2/49，<strong>Top5%</strong></li>
             <li class="flex gap-2"><span class="text-violet">●</span> 四川省优秀毕业生、国家励志奖学金等 10 余项荣誉</li>
           </ul>
         </div>
       </div>
-      <p class="text-lg font-bold text-violet mb-4">技能特长</p>
+      <p class="text-lg font-bold text-violet mb-4">技能</p>
       <div class="grid md:grid-cols-6 gap-3">
-        <div class="bg-white rounded-2xl px-3 py-3 border border-gray-100 card-hover reveal flex items-center gap-3">
+        <div class="bg-white rounded-2xl px-3 py-3 border border-gray-100 card-hover reveal flex items-start gap-3">
           <div class="w-9 h-9 rounded-xl bg-violet/10 flex items-center justify-center shrink-0">
             <svg class="w-4 h-4 text-violet" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
           </div>
@@ -448,7 +454,7 @@
             </div>
           </div>
         </div>
-        <div class="bg-white rounded-2xl px-3 py-3 border border-gray-100 card-hover reveal flex items-center gap-3" style="transition-delay: 0.1s;">
+        <div class="bg-white rounded-2xl px-3 py-3 border border-gray-100 card-hover reveal flex items-start gap-3" style="transition-delay: 0.1s;">
           <div class="w-9 h-9 rounded-xl bg-black flex items-center justify-center shrink-0">
             <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
           </div>
@@ -464,7 +470,7 @@
             </div>
           </div>
         </div>
-        <div class="bg-white rounded-2xl px-3 py-3 border border-gray-100 card-hover reveal flex items-center gap-3" style="transition-delay: 0.2s;">
+        <div class="bg-white rounded-2xl px-3 py-3 border border-gray-100 card-hover reveal flex items-start gap-3" style="transition-delay: 0.2s;">
           <div class="w-9 h-9 rounded-xl bg-gray-100 flex items-center justify-center shrink-0">
             <svg class="w-4 h-4 text-ink" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
           </div>
@@ -478,7 +484,7 @@
             </div>
           </div>
         </div>
-        <div class="bg-white rounded-2xl px-3 py-3 border border-gray-100 card-hover reveal flex items-center gap-3">
+        <div class="bg-white rounded-2xl px-3 py-3 border border-gray-100 card-hover reveal flex items-start gap-3">
           <div class="w-9 h-9 rounded-xl bg-gray-100 flex items-center justify-center shrink-0">
             <svg class="w-4 h-4 text-ink" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"/></svg>
           </div>
@@ -491,7 +497,7 @@
             </div>
           </div>
         </div>
-        <div class="bg-white rounded-2xl px-3 py-3 border border-gray-100 card-hover reveal flex items-center gap-3" style="transition-delay: 0.1s;">
+        <div class="bg-white rounded-2xl px-3 py-3 border border-gray-100 card-hover reveal flex items-start gap-3" style="transition-delay: 0.1s;">
           <div class="w-9 h-9 rounded-xl bg-mint/40 flex items-center justify-center shrink-0">
             <svg class="w-4 h-4 text-ink" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
           </div>
@@ -505,7 +511,7 @@
             </div>
           </div>
         </div>
-        <div class="bg-white rounded-2xl px-3 py-3 border border-gray-100 card-hover reveal flex items-center gap-3" style="transition-delay: 0.2s;">
+        <div class="bg-white rounded-2xl px-3 py-3 border border-gray-100 card-hover reveal flex items-start gap-3" style="transition-delay: 0.2s;">
           <div class="w-9 h-9 rounded-xl bg-mint/40 flex items-center justify-center shrink-0">
             <svg class="w-4 h-4 text-ink" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"/></svg>
           </div>
@@ -540,7 +546,7 @@
           <div class="p-6 cursor-pointer flex flex-col flex-1" onclick="openExperience('lenovo-detail')">
             <div class="flex flex-col gap-3">
               <div>
-                <h3 class="text-2xl font-bold mb-1">联想（北京）有限公司</h3>
+                <h3 class="text-2xl font-bold mb-1 flex items-center gap-2 flex-wrap">联想集团<span class="px-2 py-0.5 bg-red-500 text-white text-xs font-semibold rounded-full align-middle">世界500强</span></h3>
                 <p class="text-violet font-medium">电商运营实习生 · 销售营销部</p>
               </div>
               <div class="flex items-center gap-4">
@@ -581,23 +587,19 @@
             <div class="grid md:grid-cols-2 gap-4 text-sm text-gray-700">
               <div class="flex gap-3">
                 <span class="w-6 h-6 rounded-full bg-mint flex items-center justify-center text-xs font-bold shrink-0">1</span>
-                <p><strong>数据产品运营：</strong>梳理直播、万相台、淘客等业务需求，基于 Quick BI 和 SQL 从 0 到 1 搭建数据看板，覆盖 GMV、CPC 等指标，累计协助上线 7 个 BI 看板，覆盖六大业务板块，解决渠道数据割裂、数据口径不一问题，为业务提供决策依据。 <button onclick="openModal('modal-dashboard')" class="inline-flex items-center gap-0.5 text-violet font-semibold hover:underline text-sm align-baseline">查看数据驾驶舱看板 ↗</button></p>
+                <p><strong>数据运营：</strong>梳理直播、万相台、淘客等业务需求，基于 Quick BI 和 SQL 从 0 到 1 独立搭建数据看板 4 个、参与迭代看板 3 个，覆盖 GMV、CPC 等指标，包含六大业务板块，解决渠道数据割裂、数据口径不一问题，将 1 小时人工跨表分析压缩至 5 分钟高效排查，为业务提供决策依据。<button onclick="openModal('modal-dashboard')" class="inline-flex items-center gap-0.5 text-violet font-semibold hover:underline text-sm align-baseline">查看数据驾驶舱看板 ↗</button></p>
               </div>
               <div class="flex gap-3">
                 <span class="w-6 h-6 rounded-full bg-mint flex items-center justify-center text-xs font-bold shrink-0">2</span>
-                <p><strong>广告投放优化：</strong>围绕 618 大促节奏进行两轮素材 A/B 赛马测试，基于 CTR 及时下架低效素材、放大高潜素材，大促期间 CTR 同比提升 50%+，平均 CTR 为 5.76% 创历史新高，复盘沉淀高价值素材资产库并输出 SOP。</p>
+                <p><strong>广告投放优化：</strong>围绕 618 大促开展两轮素材 A/B 赛马测试，固定资源位和人群等，以素材为唯一变量，基于 CTR 及时下架低效素材、放大优质素材，大促 CTR 同比提升 50%+，均值 5.76% 创历史新高，复盘沉淀高价值素材资产库并输出 SOP。</p>
               </div>
               <div class="flex gap-3">
                 <span class="w-6 h-6 rounded-full bg-mint flex items-center justify-center text-xs font-bold shrink-0">3</span>
-                <p><strong>用户运营：</strong>针对天猫店铺的 RTB 推广计划人群包转化低下问题，借助品牌数据银行挖掘用户画像数据定位低效人群，关停泛流量包，重新圈选高潜人群（用户分层运营），优化后转化率由 3.55% 提升至 4.63%，有效降低无效预算消耗。</p>
+                <p><strong>用户运营：</strong>天猫店铺的 RTB 推广计划人群包转化偏低，借助品牌数据银行挖掘用户画像数据定位低效人群，关停泛流量包，重新圈选高潜人群，转化率由 3.55% 提升为 4.63%，有效降低无效预算消耗。<button onclick="openModal('modal-ai')" class="inline-flex items-center gap-0.5 text-violet font-semibold hover:underline text-sm align-baseline">查看人群分层与圈人运营 ↗</button></p>
               </div>
               <div class="flex gap-3">
                 <span class="w-6 h-6 rounded-full bg-mint flex items-center justify-center text-xs font-bold shrink-0">4</span>
-                <p><strong>AIGC 工具自研：</strong>针对画像数据取数繁琐、报告产出慢的业务痛点，自研自动化控制台，借助 Codex/Claude Code 等 AI 编码工具搭建工作流，实现页面数据一键抓取清洗、智能命名和报告自动生成，人群分层分析耗时由 1h 压缩至 3min，效率提升 90%+，推广至团队 50 余人使用。<button onclick="openModal('modal-ai')" class="inline-flex items-center gap-0.5 text-violet font-semibold hover:underline text-sm align-baseline">查看人群分层与圈人运营 ↗</button></p>
-              </div>
-              <div class="flex gap-3">
-                <span class="w-6 h-6 rounded-full bg-mint flex items-center justify-center text-xs font-bold shrink-0">5</span>
-                <p><strong>智能化建设：</strong>针对阿里妈妈百灵平台素材与投放数据割裂、缺少打标能力的痛点，搭建素材资产库，支持多维度筛选、效果排行及标记，配合 Quick BI 看板做日常数据监控，实现优质素材快速复用；通过 Agent 接入数据库生成 AI 日报并定时推送，替代手工整理。<button onclick="openSucaikuModal()" class="inline-flex items-center gap-0.5 text-violet font-semibold hover:underline text-sm align-baseline">查看素材资产库平台 ↗</button></p>
+                <p><strong>AI 工作流：</strong>针对投放运营中人群取数重复耗时、素材管理效率低两大业务痛点，搭建人群画像洞察系统与素材资产库系统，实现人群数据一键抓取、分析报告自动生成与素材按效果快速检索，两者效率均提升约 90%，推广团队 50 余人使用。<button onclick="openSucaikuModal()" class="inline-flex items-center gap-0.5 text-violet font-semibold hover:underline text-sm align-baseline">查看素材资产库平台 ↗</button></p>
               </div>
             </div>
           </div>
@@ -608,7 +610,7 @@
           <div class="p-6 cursor-pointer flex flex-col flex-1" onclick="openExperience('eclick-detail')">
             <div class="flex flex-col gap-3">
               <div>
-                <h3 class="text-2xl font-bold mb-1">易点天下网络科技股份有限公司</h3>
+                <h3 class="text-2xl font-bold mb-1 flex items-center gap-2 flex-wrap">易点天下网络科技股份有限公司<span class="px-2 py-0.5 bg-amber-500 text-white text-xs font-semibold rounded-full align-middle">独角兽公司</span></h3>
                 <p class="text-violet font-medium">广告 AM 运营 · 程序化广告 BU</p>
               </div>
               <div class="flex items-center gap-4">
@@ -734,10 +736,9 @@
       <div class="mb-8 reveal">
         <p class="text-sm font-semibold text-violet mb-2 tracking-wider">PROJECTS</p>
         <h2 class="text-3xl md:text-4xl font-bold">作品展示</h2>
-        <p class="text-gray-500 mt-3">以下为部分代表性项目展示。</p>
       </div>
 
-      <div class="grid md:grid-cols-2 gap-6">
+      <div class="grid md:grid-cols-2 gap-5">
         <!-- Project 1: 看板体系（合并全店驾驶舱 + 国补订单分析） -->
         <div class="bg-white rounded-3xl overflow-hidden border border-gray-100 card-hover reveal">
           <div class="h-44 overflow-hidden bg-gray-100 cursor-pointer" onclick="openModal('modal-dashboard')">
@@ -749,9 +750,9 @@
               <span class="px-2 py-0.5 bg-gray-100 text-xs rounded">数据分析</span>
               <span class="text-xs text-gray-400">联想 · 2026</span>
             </div>
-            <h3 class="text-lg font-bold mb-2">数据驾驶舱与看板体系</h3>
-            <p class="text-sm text-gray-600 line-clamp-3 mb-3">从 0 到 1 搭建 6+ 套自动化看板，覆盖全店、大曝光、国补订单、流量渠道、淘客、直播、万相台等核心模块，统一数据口径，支撑大促盯盘与周报复盘。</p>
-            <button onclick="openModal('modal-dashboard')" class="text-sm font-semibold text-violet hover:underline">查看详情 →</button>
+            <h3 class="text-xl font-bold mb-2">数据驾驶舱与看板体系</h3>
+            <p class="text-base text-gray-600 line-clamp-3 mb-3">从 0 到 1 搭建 6+ 套自动化看板，覆盖全店、大曝光、国补订单、流量渠道、淘客、直播、万相台等核心模块，统一数据口径，支撑大促盯盘与周报复盘。</p>
+            <button onclick="openModal('modal-dashboard')" class="text-base font-semibold text-violet hover:underline">查看详情 →</button>
           </div>
         </div>
 
@@ -766,9 +767,9 @@
               <span class="px-2 py-0.5 bg-mint/40 text-xs rounded">A/B 测试</span>
               <span class="text-xs text-gray-400">联想 · 2026.05-06</span>
             </div>
-            <h3 class="text-lg font-bold mb-2">618 大曝光素材 A/B 赛马</h3>
-            <p class="text-sm text-gray-600 line-clamp-3 mb-3">围绕 180w 预算开展两轮素材赛马，覆盖背景色、文案、场景、赠品等 5 个维度，整体 CTR 提升至 5.76%，同比提升 50%+。</p>
-            <button onclick="openModal('modal-618')" class="text-sm font-semibold text-violet hover:underline">查看详情 →</button>
+            <h3 class="text-xl font-bold mb-2">618 大曝光素材 A/B 赛马</h3>
+            <p class="text-base text-gray-600 line-clamp-3 mb-3">围绕 180w 预算开展两轮素材赛马，覆盖背景色、文案、场景、赠品等 5 个维度，整体 CTR 提升至 5.76%，同比提升 50%+。</p>
+            <button onclick="openModal('modal-618')" class="text-base font-semibold text-violet hover:underline">查看详情 →</button>
           </div>
         </div>
 
@@ -783,9 +784,9 @@
               <span class="px-2 py-0.5 bg-violet/10 text-violet text-xs rounded">人群运营</span>
               <span class="text-xs text-gray-400">联想 · 2026</span>
             </div>
-            <h3 class="text-lg font-bold mb-2">人群分层与圈人运营</h3>
-            <p class="text-sm text-gray-600 line-clamp-3 mb-3">自研「自动人群串联控制台」一键抓取品牌数据银行人群画像、自动生成分析报告（人群分析耗时 1h→3min）。</p>
-            <button onclick="openModal('modal-ai')" class="text-sm font-semibold text-violet hover:underline">查看详情 →</button>
+            <h3 class="text-xl font-bold mb-2">人群分层与圈人运营</h3>
+            <p class="text-base text-gray-600 line-clamp-3 mb-3">自研「自动人群串联控制台」一键抓取品牌数据银行人群画像、自动生成分析报告（人群分析耗时 1h→3min）。</p>
+            <button onclick="openModal('modal-ai')" class="text-base font-semibold text-violet hover:underline">查看详情 →</button>
           </div>
         </div>
 
@@ -800,9 +801,9 @@
               <span class="px-2 py-0.5 bg-gray-100 text-xs rounded">数据资产</span>
               <span class="text-xs text-gray-400">联想 · 2026</span>
             </div>
-            <h3 class="text-lg font-bold mb-2">素材资产库平台</h3>
-            <p class="text-sm text-gray-600 line-clamp-3 mb-3">从 0 到 1 产品化的电商素材资产库，Excel 一键导入、多模态 AI 自动识别与检索，打通导入-管理-分析全链路，已完成原生改造并投入日常使用。</p>
-            <button onclick="openSucaikuModal()" class="text-sm font-semibold text-violet hover:underline">查看详情 →</button>
+            <h3 class="text-xl font-bold mb-2">素材资产库平台</h3>
+            <p class="text-base text-gray-600 line-clamp-3 mb-3">从 0 到 1 产品化的电商素材资产库，Excel 一键导入、多模态 AI 自动识别与检索，打通导入-管理-分析全链路，已完成原生改造并投入日常使用。</p>
+            <button onclick="openSucaikuModal()" class="text-base font-semibold text-violet hover:underline">查看详情 →</button>
           </div>
         </div>
       </div>
