@@ -2408,11 +2408,14 @@
       const isCoreEcom = coreEcomTerms.some(t => input.includes(t) || (!/\s/.test(t) && inputNoSpace.includes(t)));
       let expScore = Math.min(99, Math.max(50, 38 + hits.exp * 6 - shortPenalty));
       if (isCoreEcom) expScore = Math.max(expScore, 85);
-      const skillScore = Math.min(99, Math.max(50, 32 + hits.skill * 5 - shortPenalty));
-      const softScore = Math.min(99, Math.max(50, 38 + hits.soft * 5 - shortPenalty));
+      let skillScore = Math.min(99, Math.max(50, 32 + hits.skill * 5 - shortPenalty));
+      let softScore = Math.min(99, Math.max(50, 38 + hits.soft * 5 - shortPenalty));
+      // 核心电商角色命中时，技能/软技能维度也给一点保底（候选人的核心方向，JD 未点名工具时不应触底）
+      if (isCoreEcom) { skillScore = Math.max(skillScore, 68); softScore = Math.max(softScore, 68); }
 
       let total = Math.round(eduScore * 0.15 + expScore * 0.30 + skillScore * 0.30 + softScore * 0.25);
-      total = Math.min(99, Math.max(50, total));
+      // 核心电商角色命中时抬升总分下限，避免"明明是电商岗却卡在 55-60"的违和感
+      total = Math.min(99, Math.max(isCoreEcom ? 80 : 50, total));
 
       // 生成匹配亮点：按维度拆分，避免经验占满、技能被挤出；过滤过泛词
       const matchedExp = expConcepts.filter(c => conceptHit(c.terms)).map(c => c.name);
