@@ -2336,7 +2336,7 @@
       }
 
       const eduKeys = ['硕士','研究生','本科','211','985','双一流','保研','城乡规划','建筑','设计'];
-      const eduHighKeys = ['博士','phd','dr']; // 高于硕士的学历要求
+      const eduHighKeys = ['博士','phd']; // 高于硕士的学历要求（dr 已在误触发 drive 等词，移除）
       const expConcepts = [
         { name:'电商运营', terms:['电商运营','店铺运营','天猫运营','京东运营','淘宝运营'] },
         { name:'数据运营', terms:['数据运营','数据驱动','数据化运营'] },
@@ -2347,7 +2347,6 @@
         { name:'人群运营', terms:['人群运营','人群分析','用户分层','人群圈选','用户画像','画像'] },
         { name:'增长', terms:['增长','用户增长','拉新','获客','裂变','拉增长'] },
         { name:'营销', terms:['营销','整合营销','营销策划'] },
-        { name:'运营', terms:['运营','操盘'] },
         { name:'达人/KOL', terms:['达人','kol','koc','红人','博主','主播','达人建联','达人合作','内容种草','小红书','抖音','直播带货'] },
         { name:'大促/促销', terms:['大促','618','618大促','双11','双十一','促销','爆发期','预热','大促节奏','品类日'] },
         { name:'数据银行/达摩盘', terms:['数据银行','品牌数据银行','达摩盘'] },
@@ -2400,7 +2399,7 @@
       // 仅当 JD 明确要求博士（高于硕士）时，按 211 硕士 vs 博士降一档。
       let eduScore;
       if (hits.eduHigh > 0) {
-        eduScore = Math.min(99, Math.max(70, 82 + hits.edu * 2 - shortPenalty));
+        eduScore = Math.min(72, Math.max(60, 68 + hits.edu * 1 - shortPenalty));
       } else {
         eduScore = 100;
       }
@@ -2409,13 +2408,12 @@
       const softScore = Math.min(99, Math.max(50, 38 + hits.soft * 5 - shortPenalty));
 
       let total = Math.round(eduScore * 0.15 + expScore * 0.30 + skillScore * 0.30 + softScore * 0.25);
-      total = Math.min(99, Math.max(30, total));
+      total = Math.min(99, Math.max(50, total));
 
       // 生成匹配亮点：按维度拆分，避免经验占满、技能被挤出；过滤过泛词
-      const genericNames = new Set(['运营']);
-      const matchedExp = expConcepts.filter(c => conceptHit(c.terms) && !genericNames.has(c.name)).map(c => c.name);
-      const matchedSkill = skillConcepts.filter(c => conceptHit(c.terms) && !genericNames.has(c.name)).map(c => c.name);
-      const matchedSoft = softConcepts.filter(c => conceptHit(c.terms) && !genericNames.has(c.name)).map(c => c.name);
+      const matchedExp = expConcepts.filter(c => conceptHit(c.terms)).map(c => c.name);
+      const matchedSkill = skillConcepts.filter(c => conceptHit(c.terms)).map(c => c.name);
+      const matchedSoft = softConcepts.filter(c => conceptHit(c.terms)).map(c => c.name);
 
       const expHigh = matchedExp.slice(0, 3);
       const skillHigh = matchedSkill.slice(0, 3);
