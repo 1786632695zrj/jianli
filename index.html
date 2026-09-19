@@ -115,11 +115,11 @@
     section#explore > div > :nth-child(2) {
       justify-content: flex-start;
     }
-    /* 教育背景与技能：内容按原始大小显示（不缩放），整屏高度放开，避免被等比缩小或裁切 */
+    /* 教育背景与技能：与其他内容页一致锁定一屏高度，并参与等比缩放 fit，超高时整体缩小以显示全 */
     section#education {
-      height: auto;
+      height: 100vh;
       min-height: 100vh;
-      overflow: visible;
+      overflow: hidden;
     }
     section#education > div > :nth-child(2) {
       align-items: stretch;
@@ -2443,7 +2443,6 @@
     // 内容超高时整体 transform: scale() 缩小（字号/间距/图片比例完全不变，仅整体变小）。
     function fitSections() {
       document.querySelectorAll('section:not(#about)').forEach(sec => {
-        if (sec.id === 'education') return; // 教育屏按原始大小显示，不缩放
         const inner = sec.querySelector(':scope > div');
         if (!inner) return;
         const content = inner.querySelector(':scope > :nth-child(2)');
