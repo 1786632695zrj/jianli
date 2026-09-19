@@ -115,7 +115,8 @@
     section#explore > div > :nth-child(2) {
       justify-content: flex-start;
     }
-    /* 教育背景与技能：与其他内容页一致锁定一屏高度，并参与等比缩放 fit，超高时整体缩小以显示全 */
+    /* 教育背景与技能：锁定一屏高度并参与等比缩放 fit。标题位置与其他页完全一致（top:5rem，
+       英文小标题在上），content 顶部留白 10rem 盖住标题底部（148px+余量） */
     section#education {
       height: 100vh;
       min-height: 100vh;
@@ -124,8 +125,8 @@
     section#education > div > :nth-child(2) {
       align-items: stretch;
       justify-content: flex-start;
-      padding-top: 12rem;
-      padding-bottom: 3rem;
+      padding-top: 10rem;
+      padding-bottom: 2rem;
       min-height: auto;
     }
     /* 点击人物弹出的手绘气泡：歪歪扭扭的有机轮廓 + 尖锐小尾巴 + 周围小动作线 */
@@ -309,7 +310,7 @@
           <span id="typewriter" class="typewriter text-xl md:text-2xl font-medium text-violet"></span>
         </div>
         <p class="text-sm md:text-base text-gray-600 leading-relaxed mb-8 max-w-lg">
-          相信「数据能讲清楚业务」。在联想京东官旗做数据支撑，搭 BI 看板、跑 A/B 素材赛马、做人群分析，也尝试用 AI 把重复工作变成可复用的插件。
+          坚信数据能讲清楚业务。在过往实习中，使用SQL提取业务数据，搭建BI可视化看板；落地素材A/B赛马、用户人群分析；尝试用AI开发可复用插件，自动化处理重复耗时工作，解决业务痛点，提升工作效率。
         </p>
         <div class="flex flex-wrap gap-3 mb-8">
           <a href="%E9%95%BF%E5%AE%89%E5%A4%A7%E5%AD%A6%E7%A1%95%E5%A3%AB-%E5%BC%A0%E7%91%9E%E5%A8%9F-27%E5%B1%8A.pdf" target="_blank" class="inline-flex items-center gap-2 px-6 py-3 text-sm bg-black text-white rounded-full font-medium hover:bg-gray-800 transition">
@@ -388,52 +389,52 @@
         <p class="text-sm font-semibold text-violet mb-2 tracking-wider">EDUCATION &amp; SKILLS</p>
         <h2 class="text-3xl md:text-4xl font-bold">教育背景与技能</h2>
       </div>
-      <div class="flex flex-col items-stretch gap-10">
+      <div class="flex flex-col items-stretch gap-8">
         <div class="grid md:grid-cols-2 gap-6">
-        <div class="bg-white rounded-3xl p-8 card-hover border border-gray-100 reveal">
-          <div class="flex items-start justify-between mb-6">
+        <div class="bg-white rounded-3xl p-6 card-hover border border-gray-100 reveal">
+          <div class="flex items-start justify-between mb-4">
             <div class="flex items-center gap-4">
               <img src="assets/chd_logo.jpeg" alt="长安大学" class="w-16 h-16 object-contain" />
               <div>
-                <h3 class="text-xl font-bold">长安大学</h3>
-                <p class="text-sm text-gray-500"><span class="text-black font-bold">211</span> · <span class="text-black font-semibold">保研</span></p>
+                <h3 class="text-2xl font-bold">长安大学</h3>
+                <p class="text-base text-gray-500"><span class="text-black font-bold">211</span> · <span class="text-black font-semibold">保研</span></p>
               </div>
             </div>
-            <span class="text-sm text-gray-400">2024.09–2027.06</span>
+            <span class="text-base text-gray-400">2024.09–2027.06</span>
           </div>
           <div class="flex items-center gap-3 mb-4">
-            <p class="text-gray-700 font-medium">城乡规划学 · 硕士</p>
+            <p class="text-base text-gray-700 font-medium">城乡规划学 · 硕士</p>
             <span class="px-2 py-0.5 bg-mint/20 text-mintDark text-xs rounded-full">全日制硕士</span>
           </div>
-          <ul class="space-y-2 text-sm text-gray-600">
+          <ul class="space-y-2.5 text-base text-gray-600">
             <li class="flex gap-2"><span class="text-mintDark">●</span> 连续两年获得研究生一等奖学金</li>
             <li class="flex gap-2"><span class="text-mintDark">●</span> 获得优秀研究生与西部之光三等奖等荣誉</li>
             <li class="flex gap-2"><span class="text-mintDark">●</span> 以第一作者发表论文 2 篇</li>
           </ul>
         </div>
-        <div class="bg-white rounded-3xl p-8 card-hover border border-gray-100 reveal" style="transition-delay: 0.1s;">
-          <div class="flex items-start justify-between mb-6">
+        <div class="bg-white rounded-3xl p-6 card-hover border border-gray-100 reveal" style="transition-delay: 0.1s;">
+          <div class="flex items-start justify-between mb-4">
             <div class="flex items-center gap-4">
               <img src="assets/swust_logo.png" alt="西南科技大学" class="w-16 h-16 object-contain" />
               <div>
-                <h3 class="text-xl font-bold">西南科技大学</h3>
-                <p class="text-sm text-gray-500">本科</p>
+                <h3 class="text-2xl font-bold">西南科技大学</h3>
+                <p class="text-base text-gray-500">本科</p>
               </div>
             </div>
-            <span class="text-sm text-gray-400">2019.09–2024.06</span>
+            <span class="text-base text-gray-400">2019.09–2024.06</span>
           </div>
-          <p class="text-gray-700 font-medium mb-4">城乡规划学 · 本科</p>
-          <ul class="space-y-2 text-sm text-gray-600">
+          <p class="text-base text-gray-700 font-medium mb-4">城乡规划学 · 本科</p>
+          <ul class="space-y-2.5 text-base text-gray-600">
             <li class="flex gap-2"><span class="text-violet">●</span> 绩点排名 2/59，<strong>Top5%</strong></li>
             <li class="flex gap-2"><span class="text-violet">●</span> 四川省优秀毕业生、国家励志奖学金等 10 余项荣誉</li>
           </ul>
         </div>
       </div>
-      <p class="text-sm font-semibold text-violet mb-3">技能特长</p>
-      <div class="grid md:grid-cols-3 gap-5">
-        <div class="bg-white rounded-2xl px-5 py-4 border border-gray-100 card-hover reveal flex items-center gap-4">
-          <div class="w-11 h-11 rounded-xl bg-violet/10 flex items-center justify-center shrink-0">
-            <svg class="w-5 h-5 text-violet" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+      <p class="text-lg font-bold text-violet mb-4">技能特长</p>
+      <div class="grid md:grid-cols-6 gap-3">
+        <div class="bg-white rounded-2xl px-3 py-3 border border-gray-100 card-hover reveal flex items-center gap-3">
+          <div class="w-9 h-9 rounded-xl bg-violet/10 flex items-center justify-center shrink-0">
+            <svg class="w-4 h-4 text-violet" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
           </div>
           <div class="min-w-0">
             <h3 class="text-base font-bold leading-tight">数据分析</h3>
@@ -447,15 +448,15 @@
             </div>
           </div>
         </div>
-        <div class="bg-white rounded-2xl px-5 py-4 border border-gray-100 card-hover reveal flex items-center gap-4" style="transition-delay: 0.1s;">
-          <div class="w-11 h-11 rounded-xl bg-black flex items-center justify-center shrink-0">
-            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+        <div class="bg-white rounded-2xl px-3 py-3 border border-gray-100 card-hover reveal flex items-center gap-3" style="transition-delay: 0.1s;">
+          <div class="w-9 h-9 rounded-xl bg-black flex items-center justify-center shrink-0">
+            <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
           </div>
           <div class="min-w-0">
             <h3 class="text-base font-bold leading-tight">AI 应用</h3>
             <div class="flex flex-wrap gap-1.5 mt-1.5">
               <span class="skill-tag px-2 py-0.5 bg-mint/40 rounded-full text-xs">CodeBuddy</span>
-              <span class="skill-tag px-2 py-0.5 bg-gray-100 rounded-full text-xs">Codex</span>
+              <span class="skill-tag px-2 py-0.5 bg-gray-100 rounded-full text-xs">Codex/ Claude Code</span>
               <span class="skill-tag px-2 py-0.5 bg-gray-100 rounded-full text-xs">DeepSeek</span>
               <span class="skill-tag px-2 py-0.5 bg-gray-100 rounded-full text-xs">浏览器插件</span>
               <span class="skill-tag px-2 py-0.5 bg-gray-100 rounded-full text-xs">Agent 日报</span>
@@ -463,9 +464,9 @@
             </div>
           </div>
         </div>
-        <div class="bg-white rounded-2xl px-5 py-4 border border-gray-100 card-hover reveal flex items-center gap-4" style="transition-delay: 0.2s;">
-          <div class="w-11 h-11 rounded-xl bg-gray-100 flex items-center justify-center shrink-0">
-            <svg class="w-5 h-5 text-ink" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+        <div class="bg-white rounded-2xl px-3 py-3 border border-gray-100 card-hover reveal flex items-center gap-3" style="transition-delay: 0.2s;">
+          <div class="w-9 h-9 rounded-xl bg-gray-100 flex items-center justify-center shrink-0">
+            <svg class="w-4 h-4 text-ink" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
           </div>
           <div class="min-w-0">
             <h3 class="text-base font-bold leading-tight">设计剪辑</h3>
@@ -477,9 +478,9 @@
             </div>
           </div>
         </div>
-        <div class="bg-white rounded-2xl px-5 py-4 border border-gray-100 card-hover reveal flex items-center gap-4">
-          <div class="w-11 h-11 rounded-xl bg-gray-100 flex items-center justify-center shrink-0">
-            <svg class="w-5 h-5 text-ink" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"/></svg>
+        <div class="bg-white rounded-2xl px-3 py-3 border border-gray-100 card-hover reveal flex items-center gap-3">
+          <div class="w-9 h-9 rounded-xl bg-gray-100 flex items-center justify-center shrink-0">
+            <svg class="w-4 h-4 text-ink" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"/></svg>
           </div>
           <div class="min-w-0">
             <h3 class="text-base font-bold leading-tight">语言证书</h3>
@@ -490,9 +491,9 @@
             </div>
           </div>
         </div>
-        <div class="bg-white rounded-2xl px-5 py-4 border border-gray-100 card-hover reveal flex items-center gap-4" style="transition-delay: 0.1s;">
-          <div class="w-11 h-11 rounded-xl bg-mint/40 flex items-center justify-center shrink-0">
-            <svg class="w-5 h-5 text-ink" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+        <div class="bg-white rounded-2xl px-3 py-3 border border-gray-100 card-hover reveal flex items-center gap-3" style="transition-delay: 0.1s;">
+          <div class="w-9 h-9 rounded-xl bg-mint/40 flex items-center justify-center shrink-0">
+            <svg class="w-4 h-4 text-ink" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
           </div>
           <div class="min-w-0">
             <h3 class="text-base font-bold leading-tight">软技能</h3>
@@ -504,9 +505,9 @@
             </div>
           </div>
         </div>
-        <div class="bg-white rounded-2xl px-5 py-4 border border-gray-100 card-hover reveal flex items-center gap-4" style="transition-delay: 0.2s;">
-          <div class="w-11 h-11 rounded-xl bg-mint/40 flex items-center justify-center shrink-0">
-            <svg class="w-5 h-5 text-ink" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"/></svg>
+        <div class="bg-white rounded-2xl px-3 py-3 border border-gray-100 card-hover reveal flex items-center gap-3" style="transition-delay: 0.2s;">
+          <div class="w-9 h-9 rounded-xl bg-mint/40 flex items-center justify-center shrink-0">
+            <svg class="w-4 h-4 text-ink" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"/></svg>
           </div>
           <div class="min-w-0">
             <h3 class="text-base font-bold leading-tight">广告投放</h3>
@@ -861,7 +862,7 @@
           <div class="pin-board grid grid-cols-3 gap-x-6 gap-y-6 mt-1">
             <div class="pin-note cursor-pointer group" style="transform: rotate(-3deg);" onclick="openDashboardsModal()">
               <div class="relative rounded-xl overflow-hidden w-full h-52">
-                <img src="assets/db_toufang.png" alt="日常数据看板" class="w-full h-52 object-cover transition duration-500 group-hover:scale-105" />
+                <img src="assets/dash_report1_shot.png" alt="日常分析报告" class="w-full h-52 object-cover transition duration-500 group-hover:scale-105" />
                 <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/15 to-transparent flex flex-col items-center justify-center text-white">
                   <div class="w-12 h-12 rounded-full bg-white/25 flex items-center justify-center mb-2 backdrop-blur-sm">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3v18h18M7 15l4-4 3 3 5-6"/></svg>
@@ -873,10 +874,10 @@
             </div>
             <div class="pin-note cursor-pointer group" style="transform: rotate(2deg);" onclick="openSucaikuModal()">
               <div class="relative rounded-xl overflow-hidden w-full h-52">
-                <video src="assets/sucaiku_intro.mp4" class="w-full h-52 object-cover" muted preload="metadata" playsinline></video>
+                <img src="assets/sucaiku_shots/01_zichuan.png" alt="素材资产库系统" class="w-full h-52 object-cover transition duration-500 group-hover:scale-105" />
                 <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/15 to-transparent flex flex-col items-center justify-center text-white">
                   <div class="w-12 h-12 rounded-full bg-white/25 flex items-center justify-center mb-2 backdrop-blur-sm">
-                    <svg class="w-6 h-6 ml-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
                   </div>
                   <p class="font-bold text-lg leading-tight drop-shadow">素材资产库</p>
                   <p class="text-xs text-white/90 mt-1 px-3 text-center">投放素材与数据资产 · 点开看介绍</p>
@@ -885,7 +886,7 @@
             </div>
             <div class="pin-note cursor-pointer group" style="transform: rotate(-2deg);" onclick="openTaokeModal()">
               <div class="relative rounded-xl overflow-hidden w-full h-52">
-                <img src="assets/ai_daily_report_taoke.png" class="rounded-xl w-full h-52 object-cover group-hover:scale-105 transition duration-500" alt="电商日报周报系统" />
+                <img src="assets/wrpulse_daily.png" class="w-full h-52 object-cover group-hover:scale-105 transition duration-500" alt="电商日报周报系统" />
                 <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/15 to-transparent flex flex-col items-center justify-center text-white">
                   <div class="w-12 h-12 rounded-full bg-white/25 flex items-center justify-center mb-2 backdrop-blur-sm">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V5a2 2 0 012-2h2a2 2 0 012 2v12m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V9a2 2 0 012-2h2a2 2 0 012 2v10a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
@@ -1518,21 +1519,51 @@
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
         </button>
       </div>
-      <!-- 系统截图 -->
-      <p class="text-sm font-semibold text-violet mb-3">系统截图</p>
-      <div class="flex flex-col md:flex-row gap-4 bg-gray-50 rounded-2xl p-4 items-stretch" style="min-height: 360px;">
-        <div class="md:w-[45%] flex items-center justify-center bg-white rounded-xl overflow-hidden border border-gray-100 p-2">
-          <img src="assets/taoke_basic_kb.png" alt="基础知识库页面" class="max-h-[320px] w-auto object-contain" />
-        </div>
-        <div class="md:flex-1 flex items-center">
-          <p class="text-sm text-gray-600 leading-relaxed">这是系统内置的<strong>「基础知识库」</strong>页面，把电商常用的指标公式和优化要点沉淀成随时可查的速查卡，方便日常业务随时翻看、对齐口径。</p>
+      <!-- 系统截图（置顶，参照素材资产库格式） -->
+      <div class="rounded-2xl overflow-hidden border border-gray-100 mb-6">
+        <img src="assets/wrpulse_daily.png" alt="电商日报系统界面" class="w-full object-cover" />
+      </div>
+
+      <div class="flex flex-wrap gap-2 mb-6">
+        <span class="px-3 py-1 bg-violet/10 text-violet text-sm font-semibold rounded-full">自动拉数聚合</span>
+        <span class="px-3 py-1 bg-violet/10 text-violet text-sm font-semibold rounded-full">趋势图表</span>
+        <span class="px-3 py-1 bg-violet/10 text-violet text-sm font-semibold rounded-full">AI 洞察</span>
+        <span class="px-3 py-1 bg-violet/10 text-violet text-sm font-semibold rounded-full">指标速查库</span>
+        <span class="px-3 py-1 bg-violet/10 text-violet text-sm font-semibold rounded-full">日报周报一体</span>
+      </div>
+
+      <!-- 业务痛点 -->
+      <div class="space-y-4 text-gray-700 leading-relaxed mb-6">
+        <p><strong>业务痛点：</strong>日常数据汇报全靠手工，费时且口径不稳。</p>
+        <div class="grid grid-cols-[64px_1fr] gap-x-3 gap-y-2 items-start text-sm mt-1">
+          <p class="font-semibold text-violet shrink-0">整理散</p>
+          <p class="text-gray-600 leading-relaxed">投放等数据散落在后台多个板块，每天要手工导出 Excel、分品类汇总，重复劳动且容易出错；</p>
+          <p class="font-semibold text-violet shrink-0">口径散</p>
+          <p class="text-gray-600 leading-relaxed">各品类指标算法不一，做周报汇总时反复对口径、来回核对；</p>
+          <p class="font-semibold text-violet shrink-0">查询难</p>
+          <p class="text-gray-600 leading-relaxed">常用指标公式与优化要点散落在各处文档里，想查一个口径要翻半天。</p>
         </div>
       </div>
-      <!-- 这是什么 -->
-      <p class="text-sm font-semibold text-violet mb-3 mt-6">这是什么</p>
-      <div class="bg-violet/5 border border-violet/15 rounded-2xl p-5">
-        <p class="text-sm text-gray-600 leading-relaxed">这是一个面向电商运营团队的<strong>日报 / 周报自动化系统</strong>。每天自动从投放后台拉数据，按品类聚合、做趋势图和 AI 洞察，把原本要手工整理 Excel、对口径的事全部交给系统完成。系统还内置了一个<strong>基础知识库</strong>，把电商常用的 <strong>50+ 条</strong> 指标公式和优化要点按"核心公式 / 核心指标"沉淀下来，谁要查随时翻。</p>
+
+      <p class="text-sm font-semibold text-violet mb-3 mt-6">我的动作</p>
+      <div class="space-y-3">
+        <div class="flex gap-3 items-start bg-violet/5 border border-violet/15 rounded-xl p-3">
+          <span class="shrink-0 px-2.5 py-1 bg-violet text-white text-xs font-bold rounded-lg">自动日报</span>
+          <div>
+            <p class="font-semibold text-gray-800">日报 / 周报自动化</p>
+            <p class="text-sm text-gray-600 leading-relaxed mt-0.5">系统每天自动从投放后台拉数据，按品类聚合出花费、成交金额、成交数量、曝光、点击、ROI、CPC、转化率等核心指标，趋势图和 AI 洞察一并生成，手工整理 Excel、对口径的事全部交给系统。</p>
+          </div>
+        </div>
+        <div class="flex gap-3 items-start bg-violet/5 border border-violet/15 rounded-xl p-3">
+          <span class="shrink-0 px-2.5 py-1 bg-violet text-white text-xs font-bold rounded-lg">速查库</span>
+          <div>
+            <p class="font-semibold text-gray-800">内置基础知识库</p>
+            <p class="text-sm text-gray-600 leading-relaxed mt-0.5">把电商常用的 <strong>50+ 条</strong> 指标公式和优化要点按"核心公式 / 核心指标"沉淀成随时可查的速查卡，谁要查随时翻，方便对齐口径。</p>
+            <img src="assets/taoke_basic_kb.png" alt="基础知识库页面" class="mt-2 rounded-lg border border-gray-100 max-h-44 w-auto" />
+          </div>
+        </div>
       </div>
+
       <!-- 成果说明 -->
       <p class="text-sm font-semibold text-violet mb-3 mt-6">成果说明</p>
       <div class="bg-violet/5 border border-violet/15 rounded-2xl p-5">
