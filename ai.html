@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>作品 · 张瑞娟</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { theme: { extend: { colors: { violet: '#7c3aed', mint: '#a7f3d0' } } } };
+  </script>
+  <style>
+    body { font-family: 'Inter', 'PingFang SC', 'Microsoft YaHei', sans-serif; }
+    .card-link { text-decoration: none; color: inherit; display: block; }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-[#f5f3ff] via-[#fafafa] to-[#f0fdf4] min-h-screen flex items-center justify-center p-6">
+  <a href="index.html" class="fixed top-5 right-5 z-50 inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-violet text-white text-sm font-medium shadow-lg hover:bg-violet/90 transition hover:-translate-y-0.5">
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+    返回简历
+  </a>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-5xl">
+
+    <!-- 人群分层与圈人运营 -->
+    <a class="card-link" href="index.html?modal=ai" target="_blank" rel="noopener">
+      <div class="bg-white rounded-3xl overflow-hidden border border-gray-100 hover:shadow-2xl transition duration-300 h-full">
+        <div class="h-44 overflow-hidden bg-gray-100 cursor-pointer">
+          <img src="assets/ai_plugin_live.jpg" alt="人群分层与圈人运营" class="w-full h-full object-cover hover:scale-105 transition duration-500" />
+        </div>
+        <div class="p-6">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="px-2 py-0.5 bg-mint/40 text-xs rounded">AI 工具</span>
+            <span class="px-2 py-0.5 bg-violet/10 text-violet text-xs rounded">人群运营</span>
+            <span class="text-xs text-gray-400">联想 · 2026</span>
+          </div>
+          <h3 class="text-xl font-bold mb-2">人群分层与圈人运营</h3>
+          <p class="text-base text-gray-600 line-clamp-3 mb-3">自研「自动人群串联控制台」一键抓取品牌数据银行人群画像、自动生成分析报告（人群分析耗时 1h→3min）。</p>
+          <span class="text-base font-semibold text-violet hover:underline">查看详情 →</span>
+        </div>
+      </div>
+    </a>
+
+    <!-- 素材资产库平台 -->
+    <a class="card-link" href="index.html?modal=sucaiku" target="_blank" rel="noopener">
+      <div class="bg-white rounded-3xl overflow-hidden border border-gray-100 hover:shadow-2xl transition duration-300 h-full">
+        <div class="h-44 overflow-hidden bg-gray-100 cursor-pointer">
+          <img src="assets/sucaiku_shots/01_zichuan.png" alt="素材资产库平台" class="w-full h-full object-cover hover:scale-105 transition duration-500" />
+        </div>
+        <div class="p-6">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="px-2 py-0.5 bg-mint/40 text-xs rounded">AI 工具</span>
+            <span class="px-2 py-0.5 bg-gray-100 text-xs rounded">数据资产</span>
+            <span class="text-xs text-gray-400">联想 · 2026</span>
+          </div>
+          <h3 class="text-xl font-bold mb-2">素材资产库平台</h3>
+          <p class="text-base text-gray-600 line-clamp-3 mb-3">从 0 到 1 产品化的电商素材资产库，Excel 一键导入、多模态 AI 自动识别与检索，打通导入-管理-分析全链路，已完成原生改造并投入日常使用。</p>
+          <span class="text-base font-semibold text-violet hover:underline">查看详情 →</span>
+        </div>
+      </div>
+    </a>
+
+  </div>
+</body>
+</html>
