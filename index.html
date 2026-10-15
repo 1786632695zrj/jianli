@@ -181,6 +181,44 @@
     @media (min-width: 1280px) {
       .hero-scaler > div { transform: none; }
     }
+    /* ===== 移动端适配（≤767px）：关闭全屏锁死/等比缩放/滚动吸附，内容自然流式排布；桌面版(≥768px)完全不受影响 ===== */
+    @media (max-width: 767px) {
+      html { scroll-snap-type: none; }
+      section#about { height: auto !important; }
+      section:not(#about) {
+        height: auto !important;
+        min-height: auto !important;
+        overflow: visible !important;
+      }
+      /* 大标题：从 absolute 钉死改为正常流，置于内容上方 */
+      section:not(#about) > div > :nth-child(1) {
+        position: static !important;
+        top: auto !important; left: auto !important; right: auto !important;
+        margin: 0 0 1rem !important;
+        padding-top: 1.5rem;
+      }
+      /* 内容：取消缩放/居中/超大上内边距，改为顶部自然流；.grid 类保持网格 */
+      section:not(#about) > div > :nth-child(2) {
+        height: auto !important;
+        min-height: 0 !important;
+        transform: none !important;
+        display: block !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+        justify-content: flex-start !important;
+        padding-top: 0.5rem !important;
+        padding-bottom: 2rem !important;
+        opacity: 1 !important;
+      }
+      section:not(#about) > div > :nth-child(2).grid { display: grid !important; }
+      /* 抵消桌面端为标题留位而设的大上内边距 */
+      section#projects > div > div:nth-child(2),
+      section#education > div > :nth-child(2),
+      section#explore > div > :nth-child(2) { padding-top: 0.5rem !important; }
+      /* 首屏：取消 1280px 固定宽 + 整体缩放，改为满宽单列（图片在上、文字在下） */
+      .hero-scaler > div { transform: none !important; width: 100% !important; height: auto !important; }
+      .hero-scaler { min-height: 0; }
+    }
     /* 白板贴纸风：微微倾斜的便签 + 顶部圆形图钉，错落排布 */
     .pin-board { position: relative; }
     .pin-note {
@@ -2479,6 +2517,8 @@
     // 整屏等比缩放：所有内容页锁定为与教育背景相同的一屏高度，
     // 内容超高时整体 transform: scale() 缩小（字号/间距/图片比例完全不变，仅整体变小）。
     function fitSections() {
+      // 移动端（<768px）不做全屏等比缩放：内容按自然尺寸流式排布，避免被缩到 0.3 倍看不见
+      if (window.innerWidth < 768) return;
       document.querySelectorAll('section:not(#about)').forEach(sec => {
         const inner = sec.querySelector(':scope > div');
         if (!inner) return;
